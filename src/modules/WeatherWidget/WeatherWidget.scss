@@ -5,35 +5,34 @@
 
 .weather {
   background-color: #fff;
-  border-radius: 0.5em;
-  margin: 1em;
-  width: 20em;
+  border-radius: 10px;
+  width: 420px;
+  height: 190px;
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
   font-family: 'Open Sans';
   color: rgb(90, 120, 145);
 
   &__icon {
-    padding: 0.75em 0;
-    font-size: 4em;
-    font-weight: 100;
+    font-size: 5em;
   }
 
   .temperature {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    text-align: left;
 
     &__degrees {
       order: 1;
-      font-size: 3.5em;
+      font-size: 64px;
       font-weight: 300;
       letter-spacing: -0.1em;
     }
 
     &__desc {
       order: 1;
-      font-size: 1em;
+      font-size: 19px;
       font-weight: 600;
     }
   }
