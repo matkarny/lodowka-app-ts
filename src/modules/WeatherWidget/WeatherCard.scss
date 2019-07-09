@@ -1,0 +1,40 @@
+.weather-container {
+  padding: 1em;
+  background-color: #bbb;
+}
+
+.weather {
+  background-color: #fff;
+  border-radius: 0.5em;
+  margin: 1em;
+  width: 20em;
+  display: flex;
+  justify-content: space-evenly;
+  font-family: 'Open Sans';
+  color: rgb(90, 120, 145);
+
+  &__icon {
+    padding: 0.75em 0;
+    font-size: 4em;
+    font-weight: 100;
+  }
+
+  .temperature {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__degrees {
+      order: 1;
+      font-size: 3.5em;
+      font-weight: 300;
+      letter-spacing: -0.1em;
+    }
+
+    &__desc {
+      order: 1;
+      font-size: 1em;
+      font-weight: 600;
+    }
+  }
+}
