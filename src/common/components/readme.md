@@ -1,0 +1,1 @@
+Tu wrzucamy małe komponenty
