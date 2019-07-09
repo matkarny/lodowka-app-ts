@@ -1,4 +1,5 @@
 import * as React from "react";
+import { createStore } from 'redux'
 import './DrawingComponent.scss'
 
 interface props {
@@ -7,10 +8,12 @@ interface props {
     lineWidth: number,
     penColor: string,
     penCoords: any,
+    
 }
 //simple draw component made in react
 class DrawingComponent extends React.Component<{}, props> {
     private canvasRef: any;
+    public canvasImg: string;
 
     constructor(props: props) {
         super(props);
@@ -19,9 +22,14 @@ class DrawingComponent extends React.Component<{}, props> {
     }
 
     componentDidMount() {
-        this.settings()
+        this.settings();
     }
-    
+    componentDidUpdate(){
+       
+        this.canvasImg = this.saveFile("mycanvas").toDataURL()
+       
+
+    }
 
     settings() {
         this.setState({
@@ -99,7 +107,7 @@ class DrawingComponent extends React.Component<{}, props> {
                     onMouseUp={(e) => this.penUp(e)}>
                 </canvas>
 
-            <button onClick={ () => console.log(this.saveFile("mycanvas").toDataURL())} > Click</button>
+            <button onClick={ () => console.log(this.canvasImg)} > Click</button>
             </div>
 
         );
