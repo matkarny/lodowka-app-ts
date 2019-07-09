@@ -1,0 +1,35 @@
+.dashboard {
+    width: 1080px;
+    height: 1920px;
+    background-image: url('../../images/pexels-photo-1640777.jpg');
+    //background-color: grey;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 10% 30% 30% 30%;
+    grid-template-areas:
+      "top-widget top-widget"
+      "widget widget"
+      "widget widget"
+      "widget widget"
+
+    &__top {
+        grid-area: top-widget;
+
+      
+    }
+
+    &__item {
+        grid-area: widget;
+    }
+
+    .top-item {
+        background-color: #fff;
+        margin: 30px;
+    }
+    
+    .widget-item {
+        background-color: #fff;
+        margin: 30px;
+        height: 400px;
+    }
+}
