@@ -1,1 +1,1 @@
-Tu mają być features
+Tu mają być features które złożymy z małych komponentów
