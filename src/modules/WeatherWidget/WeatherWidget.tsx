@@ -1,12 +1,13 @@
 import React from 'react';
 import WeatherCard from './WeatherCard';
+import WeatherAPI from './WeatherAPI';
 import './WeatherWidget.scss';
-import axios from 'axios';
 
 class WeatherWidget extends React.Component {
   render() {
     return (
       <div>
+        <WeatherAPI />
         <WeatherCard
           weatherIconName={'wi wi-day-rain'}
           tempDegrees={'26°C'}
