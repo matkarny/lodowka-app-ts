@@ -2,8 +2,19 @@ import React from 'react';
 import WeatherCard from './WeatherCard';
 import WeatherAPI from './WeatherAPI';
 import './WeatherWidget.scss';
+export interface WeatherWidgetProps {
+  //stuff: string;
+}
 
-class WeatherWidget extends React.Component {
+export interface WeatherWidgetState {
+  stuff: string;
+}
+
+class WeatherWidget extends React.Component<
+  WeatherWidgetProps,
+  WeatherWidgetState
+> {
+  state = { stuff: '1' };
   render() {
     return (
       <div>
