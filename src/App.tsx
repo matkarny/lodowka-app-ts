@@ -6,7 +6,9 @@ import Note from './common/components/Note/Note';
 const App: React.FC = () => {
   return (
     <div className="App">
+      <Dashboard/>
     </div>
+    
   );
 }
  
