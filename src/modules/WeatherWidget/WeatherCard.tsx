@@ -2,35 +2,23 @@ import * as React from 'react';
 import './WeatherWidget.scss';
 
 export interface Props {
-  tempDegrees: string;
-  tempDesc: string;
-  weatherIconName: string;
+  temperature: string;
+  main: string;
+  iconDescription: string;
 }
 
-export interface State {
-  tempDegrees: string;
-  tempDesc: string;
-  weatherIconName: string;
-}
-
-class WeatherCard extends React.Component<Props, State> {
-  state = {
-    tempDegrees: this.props.tempDegrees,
-    tempDesc: this.props.tempDesc,
-    weatherIconName: this.props.weatherIconName
-  };
-
+class WeatherCard extends React.Component<Props> {
   render() {
     return (
       <div className="weather-container">
         WEATHER WIDGET COMPONENT
         <div className="weather">
-          <i className={`weather__icon ${this.state.weatherIconName}`} />
+          <i className={`weather__icon ${this.props.iconDescription}`} />
           <div className="temperature">
             <span className="temperature__degrees">
-              {this.state.tempDegrees}
+              {this.props.temperature}
             </span>
-            <span className="temperature__desc">{this.state.tempDesc}</span>
+            <span className="temperature__desc">{this.props.main}</span>
           </div>
         </div>
       </div>
