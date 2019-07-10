@@ -2,10 +2,10 @@ import * as React from 'react';
 import './WeatherWidget.scss';
 
 export interface Props {
+  icon: string;
+  description: string;
   temperature: string;
-  main: string;
-  iconDescription: string;
-  wind: string;
+  wind: number;
 }
 
 class WeatherCard extends React.Component<Props> {
@@ -14,14 +14,14 @@ class WeatherCard extends React.Component<Props> {
       <div className="weather-container">
         WEATHER WIDGET COMPONENT
         <div className="weather">
-          <i className={`weather__icon ${this.props.iconDescription}`} />
+          <i className={`weather__icon wi wi-${this.props.icon}`} />
           <div className="temperature">
             <span className="temperature__degrees">
-              {this.props.temperature}
+              {this.props.temperature}°C
             </span>
             <span className="temperature__desc">
-              {this.props.main}
-              <p className="temperature__wind">{this.props.wind}</p>
+              {this.props.description}
+              <p className="temperature__wind">Wind: {this.props.wind}m/s</p>
             </span>
           </div>
         </div>
