@@ -1,6 +1,7 @@
 import * as React from "react";
 //import { createStore } from 'redux'
 import './DrawingComponent.scss'
+import { dispatchAddImage, dispatchDeleteImage, getCurrentStore } from '../../../store/storeConfigure'
 
 interface props {
     mode: string,
@@ -28,10 +29,17 @@ class DrawingComponent extends React.Component<{}, props> {
     }
     componentDidUpdate(){
        
-        this.canvasImg = this.saveFile("mycanvas").toDataURL('image/jpeg', 0.5)
+        this.canvasImg = this.saveFile("mycanvas").toDataURL('image/jpeg', 0.5) 
 
     }
 
+    saveToStore(){
+       return dispatchAddImage(this.canvasImg)
+    }
+
+    deleteFromStore(){
+        return dispatchDeleteImage(this.canvasImg)
+    }
     settings() {
         this.setState({
             mode: 'draw',
@@ -112,6 +120,9 @@ class DrawingComponent extends React.Component<{}, props> {
                 </canvas>
 
             <button onClick={ () => console.log(this.canvasImg)} > Click</button>
+            <button onClick={ () => this.saveToStore()} > Save to store </button>
+            <button onClick={ () => this.deleteFromStore()} > Delete from store </button>
+            <button onClick={ () => console.log(getCurrentStore())} > Store </button>
             </div>
 
         );
