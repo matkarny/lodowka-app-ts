@@ -1,13 +1,14 @@
+/*
+This component when Mounted gets geolocation and based on returned coords calls OpenWeatherAPI. Repeat every 60 seconds.
+Both coords and data from API are stored in state. When state properties are not null the WeatherCard gets rendered with formatted weather data as props.
+*/
+
 import React from 'react';
 import axios from 'axios';
 import { WEATHER_API_KEY } from '../../common/constants/API_Keys';
 import WeatherCard from './WeatherCard';
 import { Coords, WeatherResponse } from '../../common/interfaces/Weather';
-/*
-This component on DidMount gets geolocation and based on returned coords calls OpenWeatherAPI. Repeat every 60 seconds.
-Both coords and data from API are stored in state. When state properties are not null the WeatherCard gets rendered with formatted weather data as props.
 
-*/
 export interface WeatherProps {}
 
 interface WeatherState {
@@ -24,12 +25,6 @@ class Weather extends React.Component<WeatherProps, WeatherState> {
   /* Maki API call and format selected weather data, then update state */
   async makeWeatherAPICall(): Promise<any> {
     let { lat, lon } = this.state.coords;
-    // lat = '25'; // Dubai
-    // lon = '37';
-
-    // lat = '-77'; // Antartica
-    // lon = '166';
-
     await axios
       .get(
         `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${WEATHER_API_KEY}&units=metric`
@@ -40,7 +35,7 @@ class Weather extends React.Component<WeatherProps, WeatherState> {
           description: response.data.weather[0].description,
           main: response.data.weather[0].main,
           temperature: response.data.main.temp.toString().substr(0, 2),
-          windSpeed: +response.data.wind.speed, // + converts string to number
+          windSpeed: +response.data.wind.speed,
           cloudiness: +response.data.clouds.all
         };
         this.setState({ data: dataFormatted });
@@ -52,7 +47,7 @@ class Weather extends React.Component<WeatherProps, WeatherState> {
       });
   }
 
-  /* Get geolocation, then make call to OpenWeatherAPI based on coords, then update state */
+  /* Get geolocation and make call to OpenWeatherAPI */
   async makeCallByGeoloc() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -124,7 +119,7 @@ class Weather extends React.Component<WeatherProps, WeatherState> {
   componentDidMount() {
     this.makeCallByGeoloc();
     try {
-      setInterval(() => this.makeCallByGeoloc(), 60000); // 60 sec interval is minimal at OpenWeatherAPI
+      setInterval(() => this.makeCallByGeoloc(), 60000);
     } catch (e) {
       console.log(e);
     }
