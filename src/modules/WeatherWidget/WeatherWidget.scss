@@ -17,9 +17,7 @@
   color: rgb(90, 120, 145);
 
   &__icon {
-    font-size: 5em;
-    font-size: 100px;
-    width: 80px;
+    font-size: 90px;
   }
 
   .temperature {
@@ -28,8 +26,7 @@
     text-align: left;
 
     &__degrees {
-      display: inline-block;
-      width: 100px;
+      width: 180px;
       order: 1;
       font-size: 64px;
       font-weight: 300;
@@ -37,10 +34,17 @@
     }
 
     &__desc {
-      width: 150px;
+      padding: 0.5em 0;
+      width: 180px;
       order: 1;
       font-size: 19px;
       font-weight: 600;
+    }
+
+    &__wind {
+      margin-top: 5px;
+      font-size: 15px;
+      color: rgba(90, 120, 145, 0.5);
     }
   }
 }

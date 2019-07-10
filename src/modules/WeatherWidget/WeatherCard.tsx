@@ -5,6 +5,7 @@ export interface Props {
   temperature: string;
   main: string;
   iconDescription: string;
+  wind: string;
 }
 
 class WeatherCard extends React.Component<Props> {
@@ -18,7 +19,10 @@ class WeatherCard extends React.Component<Props> {
             <span className="temperature__degrees">
               {this.props.temperature}
             </span>
-            <span className="temperature__desc">{this.props.main}</span>
+            <span className="temperature__desc">
+              {this.props.main}
+              <p className="temperature__wind">{this.props.wind}</p>
+            </span>
           </div>
         </div>
       </div>
