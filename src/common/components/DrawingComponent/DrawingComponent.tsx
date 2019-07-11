@@ -52,7 +52,7 @@ class DrawingComponent extends React.Component<{}, props> {
         console.log(this.canvasRef);
         const ctx = this.canvasRef.current.getContext('2d');
         ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, 800, 600);
+        ctx.fillRect(0, 0, 480, 480);
         ctx.lineWidth = 10;
     }
 
@@ -120,7 +120,7 @@ class DrawingComponent extends React.Component<{}, props> {
     render() {
         return (
             <div className="canvas-styling">
-                <canvas id="mycanvas" ref={this.canvasRef} width="800px" height="600px" className="canvas-background" 
+                <canvas id="mycanvas" ref={this.canvasRef} width="480px" height="480px" className="canvas-background" 
                     onMouseMove={(e) => this.drawing(e)}
                     onMouseDown={(e) => this.penDown(e)}
                     onMouseUp={(e) => this.penUp(e)}>
