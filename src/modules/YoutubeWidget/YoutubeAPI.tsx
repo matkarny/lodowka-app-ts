@@ -1,17 +1,16 @@
 import axios from 'axios';
-const baseURL: string = 'https://www.googleapis.com/youtube/v3/search';
-const channelId: string = "UCJFp8uSYCjXOMnkUyb3CQ3Q";
-const KEY: string = 'AIzaSyCjBzVjwrmOT5Nbx53stl9EBJihjQuyiWo';
+import { YOUTUBE_API_KEY } from '../../common/constants/API_Keys';
+import { BASE_URL, CHANNEL_ID } from '../../common/constants/YoutubeConstants';
 
 class YouTubeAPI {
     getLatestVideo() {
-        return axios.get(baseURL, {
+        return axios.get(BASE_URL, {
             params: {
                 part: 'snippet',
-                channelId,
+                channelId: CHANNEL_ID,
                 maxResults: 1,
                 order: 'date',
-                key: KEY
+                key: YOUTUBE_API_KEY
             }
         });
     }

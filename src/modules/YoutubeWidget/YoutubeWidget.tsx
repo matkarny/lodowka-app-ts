@@ -1,7 +1,7 @@
 import * as React from 'react';
 import YoutubeAPI from './YoutubeAPI';
-import './YoutubeWidget.scss'
-
+import './YoutubeWidget.scss';
+import { ReactComponent as PlayBtn } from '../../play-button.svg';
 export interface YoutubeWidgetProps { }
 
 export interface YoutubeWidgetState {
@@ -39,17 +39,10 @@ class YoutubeWidget extends React.Component<YoutubeWidgetProps, YoutubeWidgetSta
     render() {
         return (
             <div className='youtube-widget__container'>
+                <img className='youtube-widget__thumbnail' src={this.state.thumbnailSrc} alt="Miniatura filmu YouTube" />
                 <a href={`http://www.youtube.com/embed/${this.state.videoId}`}>
-                    <img className='youtube-widget__thumbnail' src={this.state.thumbnailSrc} alt="Miniatura filmu YouTube" />
+                    <PlayBtn />
                 </a>
-                {/* <iframe className="youtube-widget__player"
-                    title="youtube-tasty"
-                    src={`http://www.youtube.com/embed/${this.state.videoId}`}
-                    width='420'
-                    height='190'
-                    frameBorder="0"
-                    allowFullScreen
-                /> */}
             </div>
         )
     }
