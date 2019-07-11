@@ -1,0 +1,2 @@
+export const CLOUDINESS_CLOUDY = 50;
+export const CLOUDINESS_SCATTERED = 25;
