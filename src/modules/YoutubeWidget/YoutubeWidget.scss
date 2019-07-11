@@ -1,0 +1,22 @@
+.youtube-widget{
+    &__container{
+        position: relative;
+        align-items: center;
+        max-width: 420px;
+        height: 190px;
+        border-radius: 10px;
+        background-color: rgba($color: #000, $alpha: .32);
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    &__thumbnail,&__play-button{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    &__thumbnail{
+        width:100%;
+        z-index: -1;
+    }
+}
