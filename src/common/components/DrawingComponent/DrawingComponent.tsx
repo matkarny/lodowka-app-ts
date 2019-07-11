@@ -102,6 +102,13 @@ class DrawingComponent extends React.Component<{}, props> {
         })
     }
 
+    
+    erase(e) { //mouse is up on the canvas
+        this.setState({
+            mode: 'erase'
+        })
+    }
+
     saveFile(id){
         let fileToSave: any =  document.getElementById(id)
    return fileToSave
@@ -123,6 +130,7 @@ class DrawingComponent extends React.Component<{}, props> {
             <button onClick={ () => this.saveToStore()} > Save to store </button>
             <button onClick={ () => this.deleteFromStore()} > Delete from store </button>
             <button onClick={ () => console.log(getCurrentStore())} > Store </button>
+            <button onClick={ (e) => this.erase(e)} > Erase </button>
             </div>
 
         );
