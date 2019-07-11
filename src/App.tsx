@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
-import WeatherWidget from './modules/WeatherWidget/WeatherWidget';
+import WeatherWidgetView from './modules/WeatherWidget/WeatherWidgetView';
+import FridgeView from './modules/Fridge/FridgeView';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      hi
-      <WeatherWidget />
+      APP
+      <WeatherWidgetView />
+      <FridgeView />
     </div>
   );
 };
