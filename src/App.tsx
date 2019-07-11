@@ -8,7 +8,9 @@ import DrawingComponent from './common/components/DrawingComponent/DrawingCompon
 const App: React.FC = () => {
   return (
     <div>    
-      <DashboardModule />
+      <DashboardModule> 
+        <DrawingComponent />
+      </DashboardModule>
 
     </div>
   );

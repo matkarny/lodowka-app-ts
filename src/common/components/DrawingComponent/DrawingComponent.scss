@@ -1,11 +1,14 @@
 .canvas-styling {
-    border: 1px solid #333;
-    margin: 20px 0px;
-    border: 1px;
+    grid-area: place1;
 };
 
 .canvas-background {
+    display: flex;
+    justify-content: center;
+    align-content: center;
     padding: 10px;
     margin: auto;
-    width: 800px;
+    width: 100;
+    padding: 0;
+    border-radius: 10px;
 };
