@@ -1,57 +1,83 @@
-import React from 'react';
+import WeatherAPI from './WeatherAPI';
+import {
+  PreparedData,
+  Coord,
+  WeatherResponse
+} from '../../common/interfaces/WeatherInterfaces';
+import {
+  CLOUDINESS_CLOUDY,
+  CLOUDINESS_SCATTERED
+} from '../../common/constants/WeatherConstants';
+const promiseGetGeolocation = () =>
+  new Promise(resolve => navigator.geolocation.getCurrentPosition(resolve));
 
-import { WeatherResponse } from '../../common/interfaces/Weather';
+class WeatherServiceNEW {
+  async downloadWeatherData(): Promise<PreparedData> {
+    // Get Geolocation
+    if (navigator.geolocation) {
+      const position: any = await promiseGetGeolocation();
+      let coord: Coord = {
+        lat: position.coords.latitude.toString().substr(0, 5),
+        lon: position.coords.longitude.toString().substr(0, 5)
+      };
+      try {
+        // Make API call based on coordinates
+        const response = await WeatherAPI.getWeatherData(coord);
 
-export const CLOUDINESS_CLOUDY = 50;
-export const CLOUDINESS_SCATTERED = 25;
+        console.log('# response #', response);
+        const weatherData: WeatherResponse = response.data;
 
-class WeatherService {
-  static prepareWeather(data: WeatherResponse) {
+        // Get only relevant data from response then format it and return to View
+        const preparedData: PreparedData = this.prepareWeather(weatherData);
+
+        return preparedData;
+      } catch (e) {}
+    }
+    return null;
+  }
+
+  prepareWeather(data: WeatherResponse) {
     const dataFormatted = {
       weather: data.weather[0].main,
-      main: data.main.temp.toString().substr(0, 2),
+      temperature: data.main.temp.toString().substr(0, 2),
       wind: +data.wind.speed,
       clouds: +data.clouds.all
     };
-    let { weather, main, wind, clouds } = dataFormatted;
-    let iconDescription = '';
-    let weatherDescription = '';
+    let { weather, temperature, wind, clouds } = dataFormatted;
+    let icon = '';
+    let description = '';
 
-    console.log(weather);
     // CLOUDS
-
     let cloudsDescription =
       clouds > CLOUDINESS_SCATTERED ? 'Scattered clouds' : 'Cleary';
     if (clouds > CLOUDINESS_CLOUDY) cloudsDescription = 'Cloudy';
 
     if (weather.length > 0) {
       // VARIOUS WEATHER
-      iconDescription = 'day-sunny-overcast ';
-      weatherDescription = `${cloudsDescription}`;
-      console.log('###NORMAL', weather, iconDescription, weatherDescription);
+      icon = 'day-sunny-overcast ';
+      description = `${cloudsDescription}`;
 
-      // CLEAR / SUNNY
       if (weather === 'Clear') {
-        iconDescription = 'day-sunny';
-        weatherDescription = `${cloudsDescription} and sunny`;
-        console.log('###CLEAR', weather, iconDescription, weatherDescription);
+        icon = 'day-sunny';
+        description = `${cloudsDescription} and sunny`;
       }
 
-      // RAIN
       if (
         weather === 'Rain' ||
         weather === 'Drizzle' ||
         weather === 'Thunderstorm'
       ) {
-        iconDescription = 'rain';
-        weatherDescription = `${cloudsDescription} and rainy`;
-        console.log('###RAIN', weather, iconDescription, weatherDescription);
+        icon = 'rain';
+        description = `${cloudsDescription} and rainy`;
       }
     }
 
-    console.log(weatherDescription);
-    return { iconDescription, weatherDescription, main, wind };
+    return { icon, description, temperature, wind };
+  }
+
+  getWeatherData() {
+    return this.downloadWeatherData();
   }
 }
-
-export default WeatherService;
+const weatherServiceNEW = new WeatherServiceNEW();
+export default weatherServiceNEW;

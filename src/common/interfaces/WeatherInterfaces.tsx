@@ -11,9 +11,9 @@ export interface Coord {
 }
 
 export interface PreparedData {
-  iconDescription: string;
-  weatherDescription: string;
-  main: string;
+  icon: string;
+  temperature: string;
+  description: string;
   wind: number;
 }
 

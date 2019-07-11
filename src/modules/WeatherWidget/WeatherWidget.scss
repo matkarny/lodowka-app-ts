@@ -17,7 +17,10 @@
   color: rgb(90, 120, 145);
 
   &__icon {
-    font-size: 90px;
+    padding-top: 20px;
+    font-size: 110px;
+
+    align-self: center;
   }
 
   .temperature {
@@ -31,6 +34,7 @@
       font-size: 64px;
       font-weight: 300;
       letter-spacing: -9px;
+      padding: 0;
     }
 
     &__desc {
