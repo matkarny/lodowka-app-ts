@@ -10,6 +10,7 @@ const App: React.FC = () => {
     <div>    
       <DashboardModule> 
         <DrawingComponent />
+        <YoutubeWidget />
       </DashboardModule>
 
     </div>
