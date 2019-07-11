@@ -1,13 +1,13 @@
 .youtube-widget{
     &__container{
         position: relative;
-        align-items: center;
-        max-width: 420px;
-        height: 190px;
+        width: 480px;
+        height: 250px;
         border-radius: 10px;
         background-color: rgba($color: #000, $alpha: .32);
         margin: 0 auto;
         overflow: hidden;
+        grid-area: place4;
     }
     &__thumbnail,&__play-button{
         position: absolute;
