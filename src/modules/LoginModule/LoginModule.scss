@@ -1,0 +1,23 @@
+.login-module {
+    width: 1080px;
+    height: 1920px;
+    padding: 160px 180px;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 300px 1fr 300px;
+    grid-template-areas: 
+    "header"
+    "body"
+    "footer";
+}
+
+.login-module__header{
+    grid-area: "header";
+    place-items: center;
+}
+
+.login-module__body{
+    grid-area: "body";
+    place-items: center;
+}
+
