@@ -39,3 +39,5 @@ return store.getState()
 
 
 export default { dispatchAddImage, dispatchDeleteImage, getCurrentStore }
+
+//https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e
