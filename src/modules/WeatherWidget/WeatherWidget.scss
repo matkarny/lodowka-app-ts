@@ -1,0 +1,54 @@
+@import '../../common/styles/reset';
+
+.weather-container {
+  padding: 1em;
+  background-color: #bbb;
+}
+
+.weather {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 420px;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-family: 'Open Sans';
+  color: rgb(90, 120, 145);
+
+  &__icon {
+    padding-top: 20px;
+    font-size: 110px;
+
+    align-self: center;
+  }
+
+  .temperature {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    &__degrees {
+      width: 180px;
+      order: 1;
+      font-size: 64px;
+      font-weight: 300;
+      letter-spacing: -9px;
+      padding: 0;
+    }
+
+    &__desc {
+      padding: 0.5em 0;
+      width: 180px;
+      order: 1;
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    &__wind {
+      margin-top: 5px;
+      font-size: 15px;
+      opacity: 0.6;
+    }
+  }
+}

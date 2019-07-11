@@ -1,0 +1,21 @@
+.list-label{
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 420px;
+    height: 80px;
+    padding: 20px;
+    background-color: #5F7891;
+    border-radius: 10px;
+    &__btn-container{
+        display: flex;
+        justify-content: space-between;
+    }
+    &__title{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+        font-weight: bold;
+    }
+}
