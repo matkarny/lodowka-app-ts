@@ -1,13 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import DashboardModule from './modules/DashboardModule/DashboardModule'
 
+import DrawComponent from "./common/components/DrawingComponent/DrawingComponent"
+import DashboardModule from './modules/DashboardModule/DashboardModule'
+    
 const App: React.FC = () => {
   return (
-    <div>
-<DashboardModule />
-    </div>
+    <div >
+    <DrawComponent />
+    <DashboardModule />
+   </div>
   );
 }
 
