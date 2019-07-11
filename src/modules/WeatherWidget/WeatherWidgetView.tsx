@@ -13,7 +13,7 @@ interface WeatherState {
   data: PreparedData | null;
 }
 
-class Weather extends React.Component<WeatherProps, WeatherState> {
+class WeatherWidgetView extends React.Component<WeatherProps, WeatherState> {
   state: WeatherState = {
     data: null
   };
@@ -63,4 +63,4 @@ class Weather extends React.Component<WeatherProps, WeatherState> {
   }
 }
 
-export default Weather;
+export default WeatherWidgetView;
