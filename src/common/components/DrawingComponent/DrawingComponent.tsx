@@ -126,11 +126,11 @@ class DrawingComponent extends React.Component<{}, props> {
                     onMouseUp={(e) => this.penUp(e)}>
                 </canvas>
 
-            <button onClick={ () => console.log(this.canvasImg)} > Click</button>
+            {/* <button onClick={ () => console.log(this.canvasImg)} > Click</button>
             <button onClick={ () => this.saveToStore()} > Save to store </button>
             <button onClick={ () => this.deleteFromStore()} > Delete from store </button>
             <button onClick={ () => console.log(getCurrentStore())} > Store </button>
-            <button onClick={ (e) => this.erase(e)} > Erase </button>
+            <button onClick={ (e) => this.erase(e)} > Erase </button> */}
             </div>
 
         );
