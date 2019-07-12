@@ -1,0 +1,20 @@
+.clock-widget{
+    grid-area: clock;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Open Sans';
+    color: rgb(90, 120, 145);
+    &__date{
+font-size: 20px;
+font-weight: bold;
+    }
+
+    &__time{
+        font-size: 111px;
+        font-weight: 300;
+
+    }
+}
