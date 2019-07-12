@@ -1,3 +1,3 @@
-export const ITEM_EXPIRED = 'red';
-export const ITEM_SOON = 'yellow';
-export const ITEM_FRESH = 'green';
+export const PRODUCT_EXPIRED = '#FF4E4E';
+export const PRODUCT_SOON = '#FFCE2D';
+export const PRODUCT_FRESH = '#70D9A8';

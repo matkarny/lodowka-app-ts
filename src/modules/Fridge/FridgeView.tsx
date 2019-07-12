@@ -1,11 +1,13 @@
 import React from 'react';
 import io from 'socket.io-client';
 import './Fridge.scss';
+import * as FRIDGE from '../../common/constants/FridgeConstants';
 
 interface ProductTag {
   id: number;
   tagTopValue: string;
   tagLeftValue: string;
+  vitalityColor: string;
 }
 
 export interface FridgeViewProps {}
@@ -41,13 +43,17 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     e.preventDefault();
     let tagTopValue = `${e.clientY}`;
     let tagLeftValue = `${e.clientX}`;
-    let product = { tagTopValue, tagLeftValue, id: this.state.nextId };
-    console.log('# clicked #', e.clientX, e.clientY, '# product #', product);
+    let product = {
+      tagTopValue,
+      tagLeftValue,
+      id: this.state.nextId,
+      vitalityColor: FRIDGE.PRODUCT_FRESH
+    };
     this.setState({ nextId: this.state.nextId + 1 });
-
     let { productTagList } = this.state;
     productTagList.push(product);
-    // console.log('# list #', productTagList);
+    this.setState({ productTagList });
+    // console.log('# clicked #', e.clientX, e.clientY, '# product #', product);
   };
 
   listProductTags = () => {
@@ -61,7 +67,8 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
           style={{
             position: 'absolute',
             top: `${product.tagTopValue - 25}px`, // tag is of size 50px/50px and it wouldn't be centered on click pos
-            left: `${product.tagLeftValue - 25}px`
+            left: `${product.tagLeftValue - 25}px`,
+            backgroundColor: product.vitalityColor
           }}
         />
       );
