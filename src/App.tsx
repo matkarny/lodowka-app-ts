@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
 import DashboardModule from './modules/DashboardModule/DashboardModule';
-import WeatherWidgetView from './modules/WeatherWidget/WeatherWidgetView';
-import YoutubeWidget from './modules/YoutubeWidget/YoutubeWidget';
-import DrawingComponent from './common/components/DrawingComponent/DrawingComponent';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import * as Routes from '../src/common/constants/Routes';
+import LoginModule from './modules/LoginModule/LoginModule';
+import FridgeView from './modules/Fridge/FridgeView';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <Router>
+      <div>
+        <Route exact path={Routes.LOGIN} component={LoginModule} />
+        <Route path={Routes.DASHBOARD} component={DashboardModule} />
+        <Route path={Routes.FRIDGE} component={FridgeView} />
+
+        {/*
       <DashboardModule>
         <DrawingComponent />
         <YoutubeWidget />
       </DashboardModule>
-    </div>
+      */}
+      </div>
+    </Router>
   );
 };
 
