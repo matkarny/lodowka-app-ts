@@ -9,9 +9,7 @@ import FridgeView from './modules/Fridge/FridgeView';
 const App: React.FC = () => {
   return (
     <div>
-      <DashboardModule>
-        <FridgeView />
-      </DashboardModule>
+      <FridgeView />
     </div>
   );
 };

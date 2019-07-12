@@ -10,10 +10,6 @@ export interface FridgeViewState {
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   state = { src: '' };
-  test = () => {
-    // let socket = io();
-  };
-
   getImageBase64() {
     console.log('B64');
     const script = document.createElement('script');
@@ -24,11 +20,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
     var socket = io('http://10.254.0.40:3000');
     socket.on('image', image => {
-      const imageElm = document.querySelector('#image');
-      // console.log(imageElm);
       this.setState({ src: `data:image/jpeg;base64,${image}` });
     });
   }
+
+  onClick = e => {};
 
   componentDidMount() {
     this.getImageBase64();
@@ -36,8 +32,14 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   render() {
     return (
-      <div>
-        <img src={this.state.src} id="image" className="fridge__image" />
+      <div className="fridge">
+        <img
+          src={this.state.src}
+          id="image"
+          className="fridge__image"
+          onClick={this.onClick}
+        />
+        <div className="fridge__tag" />
       </div>
     );
   }
