@@ -26,20 +26,15 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   // Get image from Socket and send it to state
   getImageBase64() {
-    // const script = document.createElement('script');
-    // script.src =
-    //   'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js';
-    // script.async = true;
-    // document.body.appendChild(script);
-
-    var socket = io('http://10.254.0.40:3000');
+    var socket = io(FRIDGE.SOCKET_ADDRESS);
     socket.on('image', image => {
       this.setState({ src: `data:image/jpeg;base64,${image}` });
     });
   }
 
   // Set ProductTag on click and add it to List in state
-  onClick = e => {
+  setTag = e => {
+    // nazwa
     e.preventDefault();
     let tagTopValue = `${e.clientY}`;
     let tagLeftValue = `${e.clientX}`;
@@ -53,13 +48,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     let { productTags } = this.state;
     productTags.push(product);
     this.setState({ productTags });
-    // console.log('# clicked #', e.clientX, e.clientY, '# product #', product);
   };
 
   listProductTags = () => {
     const { productTags } = this.state;
     return productTags.map(product => {
-      // console.log('# product', product);
       return (
         <div
           key={product.id}
@@ -88,7 +81,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
           src={this.state.src}
           id="image"
           className="fridge__image"
-          onClick={this.onClick}
+          onClick={this.setTag}
           alt="Fridge"
         />
         {this.listProductTags()}
