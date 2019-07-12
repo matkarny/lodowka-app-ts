@@ -26,6 +26,12 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   // Get image from Socket and send it to state
   getImageBase64() {
+    // const script = document.createElement('script');
+    // script.src =
+    //   'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js';
+    // script.async = true;
+    // document.body.appendChild(script);
+
     var socket = io('http://10.254.0.40:3000');
     socket.on('image', image => {
       this.setState({ src: `data:image/jpeg;base64,${image}` });
