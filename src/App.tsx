@@ -16,6 +16,7 @@ const App: React.FC = () => {
         <DrawingComponent />
         <YoutubeWidget />
       </DashboardModule>
+
     </div>
   );
 }
