@@ -9,14 +9,13 @@ import WeatherWidgetView from './modules/WeatherWidget/WeatherWidgetView';
 
 const App: React.FC = () => {
   return (
-    <div>   
+    <div>
       <DashboardModule >
-      <TimeWidget />
-      <WeatherWidgetView />
-      <DrawingComponent />
-      <YoutubeWidget />
-      </DashboardModule> 
-
+        <TimeWidget />
+        <WeatherWidgetView />
+        <DrawingComponent />
+        <YoutubeWidget />
+      </DashboardModule>
     </div>
   );
 }

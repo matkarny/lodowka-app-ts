@@ -1,16 +1,11 @@
 @import '../../common/styles/reset';
 
-.weather-container {
-  padding: 1em;
-  background-color: #bbb;
-}
-
 .weather {
+  grid-area: place5;
   background-color: #fff;
   border-radius: 10px;
   width: 480px;
   height: 250px;
-  grid-area: place5;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
