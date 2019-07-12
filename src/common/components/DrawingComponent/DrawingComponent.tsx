@@ -1,5 +1,4 @@
 import * as React from "react";
-//import { createStore } from 'redux'
 import './DrawingComponent.scss'
 import { dispatchAddImage, dispatchDeleteImage, getCurrentStore } from '../../../store/storeConfigure'
 
