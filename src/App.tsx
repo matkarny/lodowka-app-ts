@@ -1,16 +1,22 @@
 import React from 'react';
 import './App.css';
+
+import DashboardModule from './modules/DashboardModule/DashboardModule';
+import YoutubeWidget from './modules/YoutubeWidget/YoutubeWidget';
+import DrawingComponent from './common/components/DrawingComponent/DrawingComponent';
+import TimeWidget from './modules/TimeWidget/TimeWidget';
 import WeatherWidgetView from './modules/WeatherWidget/WeatherWidgetView';
-import FridgeView from './modules/Fridge/FridgeView';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      APP
+    <div>   
+      <DashboardModule >
+        <TimeWidget />
       <WeatherWidgetView />
-      <FridgeView />
+      </DashboardModule> 
+
     </div>
   );
-};
+}
 
 export default App;
