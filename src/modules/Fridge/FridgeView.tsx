@@ -1,8 +1,12 @@
 import React from 'react';
 import io from 'socket.io-client';
 import './Fridge.scss';
-import { Coord } from '../../common/interfaces/WeatherInterfaces';
 
+interface Product {
+  id: number;
+  tagTopValue: string;
+  tagLeftValue: string;
+}
 export interface FridgeViewProps {}
 
 export interface FridgeViewState {
@@ -10,9 +14,11 @@ export interface FridgeViewState {
   nextId: number;
   product: {
     id: number;
-    topValue: string;
-    leftValue: string;
+    tagTopValue: string;
+    tagLeftValue: string;
   };
+
+  // tagList: [];
 }
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
@@ -21,8 +27,8 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     nextId: 0,
     product: {
       id: 0,
-      topValue: '',
-      leftValue: ''
+      tagTopValue: '',
+      tagLeftValue: ''
     }
   };
   getImageBase64() {
@@ -40,21 +46,22 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   onClick = e => {
     e.preventDefault();
-    const topValue = `${e.clientY - 25}px`;
-    const leftValue = `${e.clientX - 25}px`;
-    let product = { topValue, leftValue, id: this.state.nextId };
+    const tagTopValue = `${e.clientY - 25}px`;
+    const tagLeftValue = `${e.clientX - 25}px`;
+    let product = { tagTopValue, tagLeftValue, id: this.state.nextId };
+    console.log('# clicked #', e.clientX, e.clientY);
     console.log('# product #', product);
     this.setState({ product: product });
     this.setState({ nextId: this.state.nextId + 1 });
   };
 
   listProductTags = () => {
-    const { leftValue, topValue } = this.state.product;
+    const { tagLeftValue, tagTopValue } = this.state.product;
     return (
       this.state.product && (
         <div
           className="fridge__tag"
-          style={{ position: 'relative', top: topValue, left: leftValue }}
+          style={{ position: 'relative', top: tagTopValue, left: tagLeftValue }}
         />
       )
     );
@@ -65,7 +72,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   }
 
   componentDidUpdate() {
-    console.log(this.state);
+    //   console.log(this.state);
   }
 
   render() {
