@@ -2,35 +2,27 @@ import React from 'react';
 import io from 'socket.io-client';
 import './Fridge.scss';
 
-interface Product {
+interface ProductTag {
   id: number;
   tagTopValue: string;
   tagLeftValue: string;
 }
-export interface FridgeViewProps {}
 
+export interface FridgeViewProps {}
 export interface FridgeViewState {
   src: string;
   nextId: number;
-  product: {
-    id: number;
-    tagTopValue: string;
-    tagLeftValue: string;
-  };
-
-  // tagList: [];
+  productTagList: ProductTag[];
 }
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   state = {
     src: '',
     nextId: 0,
-    product: {
-      id: 0,
-      tagTopValue: '',
-      tagLeftValue: ''
-    }
+    productTagList: []
   };
+
+  // Get image from Socket and send it to state
   getImageBase64() {
     const script = document.createElement('script');
     script.src =
@@ -44,27 +36,36 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     });
   }
 
+  // Set ProductTag on click and add it to List in state
   onClick = e => {
     e.preventDefault();
-    const tagTopValue = `${e.clientY - 25}px`;
-    const tagLeftValue = `${e.clientX - 25}px`;
+    let tagTopValue = `${e.clientY}`;
+    let tagLeftValue = `${e.clientX}`;
     let product = { tagTopValue, tagLeftValue, id: this.state.nextId };
-    console.log('# clicked #', e.clientX, e.clientY);
-    console.log('# product #', product);
-    this.setState({ product: product });
+    console.log('# clicked #', e.clientX, e.clientY, '# product #', product);
     this.setState({ nextId: this.state.nextId + 1 });
+
+    let { productTagList } = this.state;
+    productTagList.push(product);
+    // console.log('# list #', productTagList);
   };
 
   listProductTags = () => {
-    const { tagLeftValue, tagTopValue } = this.state.product;
-    return (
-      this.state.product && (
+    const { productTagList } = this.state;
+    return productTagList.map(product => {
+      console.log('# product', product);
+      return (
         <div
+          key={product.id}
           className="fridge__tag"
-          style={{ position: 'relative', top: tagTopValue, left: tagLeftValue }}
+          style={{
+            position: 'absolute',
+            top: `${product.tagTopValue - 25}px`, // tag is of size 50px/50px and it wouldn't be centered on click pos
+            left: `${product.tagLeftValue - 25}px`
+          }}
         />
-      )
-    );
+      );
+    });
   };
 
   componentDidMount() {
@@ -72,7 +73,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   }
 
   componentDidUpdate() {
-    //   console.log(this.state);
+    console.log(this.state);
   }
 
   render() {
