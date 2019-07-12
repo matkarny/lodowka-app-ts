@@ -34,13 +34,6 @@ class Weather extends React.Component<WeatherProps, WeatherState> {
     } catch (e) {
       console.log(e);
     }
-    /* 
-    try {
-      let data = await WeatherServiceNEW.getWeatherData();
-      this.setState({ data: data });
-    } catch (e) {
-      console.log(e);
-    }*/
   }
 
   componentDidUpdate() {
