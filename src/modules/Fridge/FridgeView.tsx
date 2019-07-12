@@ -14,24 +14,18 @@ export interface FridgeViewProps {}
 export interface FridgeViewState {
   src: string;
   nextId: number;
-  productTagList: ProductTag[];
+  productTags: ProductTag[];
 }
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   state = {
     src: '',
     nextId: 0,
-    productTagList: []
+    productTags: []
   };
 
   // Get image from Socket and send it to state
   getImageBase64() {
-    const script = document.createElement('script');
-    script.src =
-      'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js';
-    script.async = true;
-    document.body.appendChild(script);
-
     var socket = io('http://10.254.0.40:3000');
     socket.on('image', image => {
       this.setState({ src: `data:image/jpeg;base64,${image}` });
@@ -50,16 +44,16 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       vitalityColor: FRIDGE.PRODUCT_FRESH
     };
     this.setState({ nextId: this.state.nextId + 1 });
-    let { productTagList } = this.state;
-    productTagList.push(product);
-    this.setState({ productTagList });
+    let { productTags } = this.state;
+    productTags.push(product);
+    this.setState({ productTags });
     // console.log('# clicked #', e.clientX, e.clientY, '# product #', product);
   };
 
   listProductTags = () => {
-    const { productTagList } = this.state;
-    return productTagList.map(product => {
-      console.log('# product', product);
+    const { productTags } = this.state;
+    return productTags.map(product => {
+      // console.log('# product', product);
       return (
         <div
           key={product.id}
@@ -79,9 +73,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     this.getImageBase64();
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
+  componentDidUpdate() {}
 
   render() {
     return (
@@ -91,6 +83,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
           id="image"
           className="fridge__image"
           onClick={this.onClick}
+          alt="Fridge"
         />
         {this.listProductTags()}
       </div>
