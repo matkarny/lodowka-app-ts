@@ -11,8 +11,6 @@ export interface Props {
 class WeatherCard extends React.Component<Props> {
   render() {
     return (
-      <div className="weather-container">
-        WEATHER WIDGET COMPONENT
         <div className="weather">
           <i className={`weather__icon wi wi-${this.props.icon}`} />
           <div className="temperature">
@@ -24,7 +22,6 @@ class WeatherCard extends React.Component<Props> {
               <p className="temperature__wind">Wind: {this.props.wind}m/s</p>
             </span>
           </div>
-        </div>
       </div>
     );
   }
