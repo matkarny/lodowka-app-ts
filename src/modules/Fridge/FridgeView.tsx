@@ -21,6 +21,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js';
     script.async = true;
     document.body.appendChild(script);
+
     var socket = io('http://10.254.0.40:3000');
     socket.on('image', image => {
       const imageElm = document.querySelector('#image');
