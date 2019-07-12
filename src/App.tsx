@@ -7,14 +7,14 @@ import DrawingComponent from './common/components/DrawingComponent/DrawingCompon
 
 const App: React.FC = () => {
   return (
-    <div>    
-      <DashboardModule> 
+    <div>
+      <DashboardModule>
         <DrawingComponent />
+        <WeatherWidgetView />
         <YoutubeWidget />
       </DashboardModule>
-
     </div>
   );
-}
+};
 
 export default App;
