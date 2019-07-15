@@ -1,10 +1,10 @@
 $btc_color: #00C3FF;
 
-.login-animal {
+.login-avatar {
     &__container {
         width: 1080px;
         height: 1920px;
-        background-image: url('img/bg.png');
+        // background-image: url('../../common/images/bg.png');
     }
 
     &__items-wrapper {
@@ -13,24 +13,6 @@ $btc_color: #00C3FF;
         display: flex;
         justify-content: center;
         margin: 0 auto;
-    }
-
-    &__item-container {
-        height: 147px;
-        width: 147px;
-        cursor: pointer;
-        overflow: hidden;
-        border-radius: 10px;
-        margin-right: 10px;
-    }
-
-    &__item {
-        width: 100%;
-        opacity: .5;
-
-        &--active {
-            opacity: 1;
-        }
     }
 
     &__btn-container {

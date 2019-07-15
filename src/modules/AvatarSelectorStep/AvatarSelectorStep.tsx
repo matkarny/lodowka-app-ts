@@ -1,5 +1,7 @@
 import * as React from 'react';
 import './AvatarSelectorStep.scss';
+import animalList from '../../common/constants/AnimalConstants';
+import AnimalComponent from '../../common/components/AnimalComponent/AnimalComponent';
 export interface AvatarSelectorProps {
 
 }
@@ -12,6 +14,11 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
     state = {
         selectedAvatar: null
     }
+
+    handleSelectAvatar = e => {
+        this.setState({ selectedAvatar: e.currentTarget.dataset.id })
+    }
+
     render() {
         return (
             <div className="login-avatar__container">
@@ -21,6 +28,29 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
 
                 <div className="login-avatar__items-wrapper">
 
+                    {animalList.map((animal, index) => {
+                        if (animal.id == this.state.selectedAvatar || this.state.selectedAvatar === null) {
+                            return <AnimalComponent
+                                animal={animal.name}
+                                isActive={true}
+                                key={index}
+                                id={animal.id}
+                                src={animal.src}
+                                click={this.handleSelectAvatar}
+                            />
+                        }
+                        else {
+                            return <AnimalComponent
+                                animal={animal.name}
+                                isActive={false}
+                                key={index}
+                                id={animal.id}
+                                src={animal.src}
+                                click={this.handleSelectAvatar}
+                            />
+                        }
+                    })
+                    }
 
                 </div>
                 <div className="login-avatar__btn-container">
