@@ -5,9 +5,10 @@ import './ProductPopup.scss';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
 import FridgeService from './FridgeService';
 import ProductPopup from './ProductPopup';
+import ProductTag from './ProductTag';
 // import * as FRIDGESTORE from '../../store/FridgeStore';
 
-interface ProductTag {
+interface ProductTagData {
   id: number;
   tagTopValue: string;
   tagLeftValue: string;
@@ -19,7 +20,7 @@ export interface FridgeViewProps {}
 export interface FridgeViewState {
   src: any;
   nextId: number;
-  productTags: ProductTag[];
+  productTags: ProductTagData[];
 }
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
@@ -51,7 +52,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       added: {
         year: new Date().getFullYear(),
         month: new Date().getMonth(), // '0' - styczen
-        day: new Date().getDay() // '0' - niedziela
+        day: new Date().getDate()
       }
     };
     this.setState({ nextId: this.state.nextId + 1 });
@@ -72,6 +73,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   listProductTags = () => {
     const { productTags } = this.state;
+
     return productTags.map(product => {
       return (
         <div
@@ -85,16 +87,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             left: `${product.tagLeftValue - 30}px`,
             backgroundColor: product.vitalityColor
           }}
-        >
-          {' '}
-          <div className="tooltip-wrapper">
-            <p>
-              <span className="tool" data-tip="DUPA">
-                tool
-              </span>
-            </p>
-          </div>
-        </div>
+        />
       );
     });
   };
@@ -118,6 +111,30 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             alt="Fridge"
           />
           {this.listProductTags()}
+        </div>
+
+        {/*
+       <div
+          className="tooltip-wrapper"
+          style={{
+            position: 'absolute',
+            top: `350px`,
+            left: `300px`,
+            backgroundColor: `${FRIDGE.PRODUCT_FRESH}`
+          }}
+        >
+          <span
+            className=" tool"
+            data-tip={`<div>`}
+            onClick={this.deleteThisTag}
+          >
+            tool
+          </span>
+        </div>
+*/}
+
+        <div>
+          <ProductTag />
         </div>
       </div>
     );

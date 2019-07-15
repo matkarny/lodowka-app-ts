@@ -1,0 +1,109 @@
+.wrapper {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  box-shadow: 0px 15px 36px black;
+  cursor: crosshair;
+  position: relative;
+}
+
+/*== start of code for popuptips ==*/
+.popup {
+  display: block;
+  cursor: crosshair;
+  position: relative;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  padding: 0.1em;
+}
+
+/*== common styles for both parts of popup tip ==*/
+.popup::before,
+.popup::after {
+  left: calc(50% - 10px);
+  opacity: 0;
+  position: absolute;
+  z-index: -100;
+  cursor: initial;
+}
+
+.popup:hover::before,
+.popup:focus::before,
+.popup:hover::after,
+.popup:focus::after {
+  opacity: 1;
+  z-index: 100;
+}
+
+/*== pointer tip ==*/
+.popup::before {
+  border-style: solid;
+  border-width: 1em;
+  border-color: #3e474f transparent transparent transparent;
+  content: '';
+  transform: scale(1.6) translateY(-30%);
+}
+
+/*== speech bubble ==*/
+.popup::after {
+  background: #3e474f;
+  border-radius: 10px;
+  bottom: 140%;
+  content: attr(data-tip);
+  content: '';
+  margin-left: -150px;
+  height: 180px;
+  width: 396px;
+}
+
+/*
+
+// .popup {
+//   position: fixed;
+//   width: 100%;
+//   height: 100%;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   margin: auto;
+//   //  background-color: rgba(0, 0, 0, 0.5);
+// }
+
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-inner {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 25%;
+  bottom: 25%;
+  margin: auto;
+  background: white;
+}
+
+.wrapper {
+  text-align: right;
+  float: right;
+
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  box-shadow: 0px 15px 36px black;
+  cursor: crosshair;
+}
+
+
+*/
