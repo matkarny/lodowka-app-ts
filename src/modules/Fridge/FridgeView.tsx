@@ -2,6 +2,7 @@ import React from 'react';
 import io from 'socket.io-client';
 import './Fridge.scss';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
+import FridgeService from './FridgeService';
 
 interface ProductTag {
   id: number;
@@ -12,7 +13,7 @@ interface ProductTag {
 
 export interface FridgeViewProps {}
 export interface FridgeViewState {
-  src: string;
+  src: any;
   nextId: number;
   productTags: ProductTag[];
 }
@@ -28,13 +29,13 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   getImageBase64() {
     var socket = io(FRIDGE.SOCKET_ADDRESS);
     socket.on('image', image => {
-      this.setState({ src: `data:image/jpeg;base64,${image}` });
+      const src = `data:image/jpeg;base64,${image}`;
+      this.setState({ src });
     });
   }
 
   // Set ProductTag on click and add it to List in state
   setTag = e => {
-    // nazwa
     e.preventDefault();
     let tagTopValue = `${e.clientY}`;
     let tagLeftValue = `${e.clientX}`;
@@ -59,8 +60,8 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
           className="fridge__tag"
           style={{
             position: 'absolute',
-            top: `${product.tagTopValue - 25}px`, // tag is of size 50px/50px and it wouldn't be centered on click pos
-            left: `${product.tagLeftValue - 25}px`,
+            top: `${product.tagTopValue - 5}px`,
+            left: `${product.tagLeftValue - 30}px`,
             backgroundColor: product.vitalityColor
           }}
         />

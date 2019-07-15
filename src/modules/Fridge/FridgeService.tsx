@@ -1,26 +1,38 @@
 import io from 'socket.io-client';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
-import src from '*.jpg';
-
+const pro = async () => {
+  new Promise(resolve => {
+    var socket = io(FRIDGE.SOCKET_ADDRESS);
+    socket.on('image', image => {
+      return `data:image/jpeg;base64,${image}`;
+    });
+  }).then(data => console.log('data', data));
+};
 class FridgeService {
-  async getImageBase64() {
+  // src = 'dfosuh';
+
+  async getPRo() {
     try {
-      var socket = io('http://10.254.0.40:3000');
-      socket.on('image', image => {
-        const src = `data:image/jpeg;base64,${image}`;
-      });
-    //  console.log(src);
-      return src;
+      const dupa = await pro;
+      console.log('3', dupa);
+      return dupa;
     } catch (e) {
       console.log(e);
-      return '';
     }
   }
 
-  getImage() {
-    return this.getImageBase64();
+  async getImageBase64() {
+    let src = '';
+    try {
+      var socket = io(FRIDGE.SOCKET_ADDRESS);
+      socket.on('image', image => {
+        src = `data:image/jpeg;base64,${image}`;
+      });
+      return src;
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
-
 const fridgeService = new FridgeService();
 export default fridgeService;
