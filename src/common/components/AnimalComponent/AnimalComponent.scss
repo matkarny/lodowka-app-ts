@@ -6,14 +6,15 @@
         overflow: hidden;
         border-radius: 10px;
         margin-right: 10px;
-    }
-
-    &__item {
-        width: 100%;
         opacity: .5;
 
         &--active {
             opacity: 1;
         }
+    }
+
+    &__item {
+        width: 100%;
+
     }
 }

@@ -5,19 +5,17 @@ import animalList from '../../constants/AnimalConstants';
 export interface AnimalComponentProps {
     animal: string
     isActive: boolean
+    id: number
+    src: string
+    click: any
 }
 
 const AnimalComponent: React.SFC<AnimalComponentProps> = props => {
-    const animalParams = animalList.filter(animal => {
-        if (animal.name == props.animal) { return animal.src }
 
-    })
-    const animalSRC = animalParams[0].src;
-    console.log(animalSRC)
     return (
-        <div className="login-animal__item-container">
-            <img className={`${'login-animal__item' props.isActive ? 'login-animal__item--active': ''}`} src={animalSRC} alt="" />
-        </div>);
+        <div className={`login-animal__item-container ${props.isActive ? 'login-animal__item-container--active' : ''}`} onClick={props.click} data-id={props.id}>
+            <img className='login-animal__item ' src={props.src} alt="" />
+        </div >);
 }
 
 export default AnimalComponent;
