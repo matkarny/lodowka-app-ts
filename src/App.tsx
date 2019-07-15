@@ -11,7 +11,7 @@ import ProductExpireChecker from './actions/ProductExpireChecker/ProductExpireCh
 const App: React.FC = () => {
   return (
     <div>
-<ProductExpireChecker />
+<ProductExpireChecker productDay={1} productMounth={6} productYear={2019} />
 
     </div>
   );
