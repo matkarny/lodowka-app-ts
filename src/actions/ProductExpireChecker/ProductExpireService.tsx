@@ -1,21 +1,23 @@
 import React  from 'react'
 import './ProductExpireChecker.scss'
 
-export function countDaysLeft(productDate, todayDate): any {
+export function countDaysLeft(countingFromDate, countingToDate): any {
 
-    console.log(productDate)
-    const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
+        var oneDayInMilliseconds = 1000 * 60 * 60 * 24;
 
-    const currentDateInMilliseconds: number = todayDate.getTime();
-    const productDateInMilliseconds: number = productDate.getTime();
-console.log(currentDateInMilliseconds);
-console.log(productDateInMilliseconds);
-    return console.log((productDateInMilliseconds - currentDateInMilliseconds)/oneDayInMilliseconds)
+        var date2 = countingToDate.getTime();
+        var date1 = countingFromDate.getTime();
+
+
+        return (date2 - date1) / oneDayInMilliseconds
 }
 
 
-export function expirationChecker(productExpireDate, todayDate): any {
-let days: any = countDaysLeft(productExpireDate, todayDate);
+export function expirationChecker(todayDate, productExpireDate): any {
+let days: number = countDaysLeft(todayDate, productExpireDate);
+let productExpireDay = productExpireDate.getDate();
+let productExpireMonth = productExpireDate.getMonth();
+let productExpireYear = productExpireDate.getFullYear();
 
     switch (true) {
         case days < 0:
@@ -31,7 +33,7 @@ let days: any = countDaysLeft(productExpireDate, todayDate);
                 return <div className="expiration-style" >{`${days} DAYS`}</div>
             break;
         default:
-                return <div className="expiration-style">{`${String(productExpireDate.getDay()).padStart(2, "0")}/${String(productExpireDate.getMonth()).padStart(2, "0")}/${productExpireDate.getFullYear}`}</div>
+                return <div className="expiration-style">{`${String(productExpireDay).padStart(2, "0")}/${String(productExpireMonth).padStart(2, "0")}/${productExpireYear}`}</div>
 
     }
 }
