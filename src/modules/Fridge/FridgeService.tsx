@@ -1,37 +1,16 @@
 import io from 'socket.io-client';
+import { createStore } from 'redux';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
-const pro = async () => {
-  new Promise(resolve => {
+import * as FRIDGESTORE from '../../store/FridgeStore';
+
+class FridgeService {
+  async getImageBase64() {
     var socket = io(FRIDGE.SOCKET_ADDRESS);
     socket.on('image', image => {
-      return `data:image/jpeg;base64,${image}`;
+      const src = `data:image/jpeg;base64,${image}`;
+      //      this.setState({ src });
+      //    FRIDGESTORE.dispatchFridge(src);
     });
-  }).then(data => console.log('data', data));
-};
-class FridgeService {
-  // src = 'dfosuh';
-
-  async getPRo() {
-    try {
-      const dupa = await pro;
-      console.log('3', dupa);
-      return dupa;
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  async getImageBase64() {
-    let src = '';
-    try {
-      var socket = io(FRIDGE.SOCKET_ADDRESS);
-      socket.on('image', image => {
-        src = `data:image/jpeg;base64,${image}`;
-      });
-      return src;
-    } catch (e) {
-      console.log(e);
-    }
   }
 }
 const fridgeService = new FridgeService();

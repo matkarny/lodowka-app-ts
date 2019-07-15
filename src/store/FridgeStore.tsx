@@ -1,15 +1,22 @@
 import { createStore } from 'redux';
+import * as LOCALSTORAGE from './localStorage';
+import throttle from 'lodash';
 
 const initialState = {
-  fridgeImg: ''
+  fridgeSrc: ''
 };
 
-const store = createStore(stateReducer, initialState);
+//const store = createStore(stateReducer, initialState);
+const persistedFridge = LOCALSTORAGE.loadLocalStorage();
+const store = createStore(stateReducer, persistedFridge);
+store.subscribe(() => {
+  LOCALSTORAGE.saveLocalStorage({ fridgeSrc: store.getState().fridgeSrc });
+});
 
 function stateReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADD_FRIDGE_IMG':
-      return { fridgeImg: action.text };
+      return { fridgeSrc: action.text };
     default:
       return state;
   }
@@ -25,27 +32,11 @@ export function dispatchFridge(data) {
   }, 10000);
 }
 
-export function dispatchAddImage(data) {
-  return store.dispatch({
-    type: 'ADD_IMAGE',
-    text: data
-  });
-}
-
-export function dispatchDeleteImage(data) {
-  return store.dispatch({
-    type: 'DELETE_IMAGE',
-    text: data
-  });
-}
-
 export function getCurrentStore() {
   return store.getState();
 }
 
 export default {
-  dispatchAddImage,
-  dispatchDeleteImage,
   dispatchFridge,
   getCurrentStore
 };
