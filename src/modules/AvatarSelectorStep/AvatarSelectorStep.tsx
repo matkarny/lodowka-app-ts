@@ -23,18 +23,18 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
         return (
             <div className="login-avatar__container">
 
-                <p className='login-avatar__title'>Add a family member</p>
-                <p className='login-avatar__subtitle'>What is your favorite avatar?</p>
+                <p className='login-avatar__title'>What is your favorite avatar?</p>
+                <p className='login-avatar__subtitle'>You will be able to log in by tapping your avatar.</p>
 
                 <div className="login-avatar__items-wrapper">
 
                     {animalList.map((animal, index) => {
-                        if (animal.id == this.state.selectedAvatar || this.state.selectedAvatar === null) {
+                        if (index == this.state.selectedAvatar || this.state.selectedAvatar === null) {
                             return <AnimalComponent
                                 animal={animal.name}
                                 isActive={true}
                                 key={index}
-                                id={animal.id}
+                                id={index}
                                 src={animal.src}
                                 click={this.handleSelectAvatar}
                             />
@@ -44,7 +44,7 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
                                 animal={animal.name}
                                 isActive={false}
                                 key={index}
-                                id={animal.id}
+                                id={index}
                                 src={animal.src}
                                 click={this.handleSelectAvatar}
                             />
