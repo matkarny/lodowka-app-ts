@@ -1,6 +1,7 @@
 import * as React from 'react';
-import AvatarSelectorStep from '../AvatarSelectorStep/AvatarSelectorStep'
-import ColorSelectorStep from '../ColorSelectorStep/ColorSelectorStep'
+import AvatarSelectorStep from '../AvatarSelectorStep/AvatarSelectorStep';
+import ColorSelectorStep from '../ColorSelectorStep/ColorSelectorStep';
+import NameSelectorStep from '../NameSelectorStep/NameSelectorStep';
 
 export enum ActiveStep {
     FirstStep,
@@ -11,7 +12,7 @@ export enum ActiveStep {
 
 const StepComponent = {
     [ActiveStep.FirstStep]: AvatarSelectorStep,
-    [ActiveStep.SecondStep]: AvatarSelectorStep,
+    [ActiveStep.SecondStep]: NameSelectorStep,
     [ActiveStep.ThirdStep]: AvatarSelectorStep,
     [ActiveStep.FourthStep]: ColorSelectorStep,
 };
@@ -39,10 +40,10 @@ export interface LoginViewState {
 class LoginView extends React.Component<LoginViewProps, LoginViewState> {
     state = {
         users: [],
-        loginStep: ActiveStep.ThirdStep,
+        loginStep: ActiveStep.SecondStep,
         newUser: {
             role: 'parent',
-            username: 'Janusz',
+            username: '',
             avatarIndex: null,
             colorIndex: null,
         }
