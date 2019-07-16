@@ -32,7 +32,7 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
                     {COLORS.map((color, index) => {
                         if (index == this.state.selectedColor || this.state.selectedColor === null) {
                             return <ColorComponent
-                                color={color}
+                                colorName={color.name}
                                 isActive={true}
                                 key={index}
                                 id={index}
@@ -41,7 +41,7 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
                         }
                         else {
                             return <ColorComponent
-                                color={color}
+                                colorName={color.name}
                                 isActive={false}
                                 key={index}
                                 id={index}
