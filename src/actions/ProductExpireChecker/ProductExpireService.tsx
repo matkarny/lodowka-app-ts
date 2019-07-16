@@ -13,11 +13,17 @@ export function countDaysLeft(countingFromDate, countingToDate): any {
 }
 
 
-export function expirationChecker(todayDate, productExpireDate): any {
+export function expirationChecker(productExpireDay, productExpireMonth, productExpireYear): any {
+
+let currentDate = new Date();
+let todayDay = currentDate.getDate();
+let todayMonth = currentDate.getMonth();
+let todayYear  = currentDate.getFullYear();
+
+let todayDate = new Date(todayYear, todayMonth, todayDay);
+let productExpireDate = new Date(productExpireYear, productExpireMonth, productExpireDay)
+
 let days: number = countDaysLeft(todayDate, productExpireDate);
-let productExpireDay = productExpireDate.getDate();
-let productExpireMonth = productExpireDate.getMonth();
-let productExpireYear = productExpireDate.getFullYear();
 
     switch (true) {
         case days < 0:

@@ -24,16 +24,9 @@ export default class ProductExpireChecker extends Component<PropsDateComponent, 
         productDay: this.props.productDay,
     }
 
-    todayDay = this.state.currentDate.getDate();
-    todayMonth = this.state.currentDate.getMonth();
-    todayYear = this.state.currentDate.getFullYear();
-
-    public currentDate = new Date(this.todayYear, this.todayMonth, this.todayDay);
-    public productDate = new Date(this.state.productYear, this.state.productMounth, this.state.productDay);
-
     render() {
         return <div>
-            <div>{expirationChecker(this.currentDate, this.productDate)}</div>
+            <div>{expirationChecker(this.props.productDay, this.props.productMounth, this.props.productYear)}</div>
         </div>
 
     }
