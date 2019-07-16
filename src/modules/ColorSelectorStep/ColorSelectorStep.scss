@@ -1,0 +1,44 @@
+$btc_color: #00C3FF;
+
+.login-color {
+    &__container {
+        width: 1080px;
+        height: 1920px;
+    }
+
+    &__items-wrapper {
+        width: 100%;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    &__btn-container {
+        width: 55%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__button {
+        width: 160px;
+        height: 70px;
+        background-color: $btc_color;
+        border: 1px solid $btc_color;
+        border-radius: 10px;
+        margin-right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+
+        &--cancel {
+            background-color: transparent;
+            color: $btc_color;
+        }
+
+        &--select {
+            background-color: $btc_color;
+            color: #fff;
+        }
+    }
+}
