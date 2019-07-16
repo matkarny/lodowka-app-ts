@@ -15,6 +15,12 @@ const StepComponent = {
     [ActiveStep.ThirdStep]: AvatarSelectorStep,
     [ActiveStep.FourthStep]: ColorSelectorStep,
 };
+const StepDescription = {
+    [ActiveStep.FirstStep]: 'role',
+    [ActiveStep.SecondStep]: 'username',
+    [ActiveStep.ThirdStep]: 'avatarIndex',
+    [ActiveStep.FourthStep]: 'colorIndex',
+};
 
 export interface LoginViewProps {
 
@@ -42,34 +48,30 @@ class LoginView extends React.Component<LoginViewProps, LoginViewState> {
         }
     }
 
-    handleBtnClick = direction => {
-        if (direction) {
-            this.setState(prevState => ({ loginStep: prevState.loginStep + 1 }))
-        }
-        else { this.setState(prevState => ({ loginStep: prevState.loginStep - 1 })) }
-    }
-    handleSelectBtnClick = (result) => {
+    handleSelectBtnClick = result => {
         this.setState(prevState => {
             let newUser = { ...prevState.newUser }
-            newUser[prevState.loginStep] = result
+            const activeStepDescription = StepDescription[prevState.loginStep]
+            newUser[activeStepDescription] = result
             return {
                 newUser,
                 loginStep: prevState.loginStep + 1
             }
         })
     }
-
-    // LOGIN_STEPS = {
-    //     [ActiveStep.FirstStep]: <AvatarSelectorStep onSelect={this.handleSelectBtnClick} />,
-    //     3: <ColorSelectorStep onSelect={this.handleSelectBtnClick} />,
-    // }
-
-
+    handleBackBtnClick = () => {
+        this.setState(prevState => ({
+            loginStep: prevState.loginStep - 1
+        })
+        )
+    }
 
     render() {
         const ActiveStepComponent = StepComponent[this.state.loginStep];
         return (
-            <ActiveStepComponent onSelect={this.handleSelectBtnClick} />
+            <ActiveStepComponent
+                onSelect={this.handleSelectBtnClick}
+                onBack={this.handleBackBtnClick} />
         );
     }
 }
