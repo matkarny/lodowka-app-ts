@@ -52,6 +52,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
         day: new Date().getDate()
       }
     };
+
     console.log(product);
     let { productTags } = this.state;
     productTags.push(product);
@@ -68,6 +69,10 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     this.setState({ productTags: newTagList });
   };
 
+  closePopup() {}
+
+  openPopup() {}
+
   listProductTags = () => {
     const { productTags } = this.state;
 
@@ -77,6 +82,8 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
           <ProductTag
             tagPosTop={product.tagPosTop - 30}
             tagPosLeft={product.tagPosLeft - 30}
+            closePopup={this.closePopup}
+            openPopup={this.openPopup}
           />
         </li>
       );
