@@ -1,22 +1,19 @@
 import React from 'react';
 import io from 'socket.io-client';
 import './Fridge.scss';
-import './ProductPopup.scss';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
-import FridgeService from './FridgeService';
-import ProductPopup from './ProductPopup';
 import ProductTag from './ProductTag';
-// import * as FRIDGESTORE from '../../store/FridgeStore';
 
 interface ProductTagData {
   id: number;
-  tagTopValue: string;
-  tagLeftValue: string;
+  tagPosTop: string;
+  tagPosLeft: string;
   vitalityColor: string;
   added: {};
 }
 
 export interface FridgeViewProps {}
+
 export interface FridgeViewState {
   src: any;
   nextId: number;
@@ -42,11 +39,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   // Set ProductTag on click and add it to List in state
   setTag = e => {
     e.preventDefault();
-    let tagTopValue = `${e.pageY}`;
-    let tagLeftValue = `${e.pageX}`;
+    let tagPosTop = `${e.pageY}`;
+    let tagPosLeft = `${e.pageX}`;
     let product = {
-      tagTopValue,
-      tagLeftValue,
+      tagPosTop,
+      tagPosLeft,
       id: this.state.nextId,
       vitalityColor: FRIDGE.PRODUCT_FRESH,
       added: {
@@ -55,6 +52,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
         day: new Date().getDate()
       }
     };
+
     this.setState({ nextId: this.state.nextId + 1 });
     let { productTags } = this.state;
     productTags.push(product);
@@ -76,18 +74,19 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
     return productTags.map(product => {
       return (
-        <div
-          key={product.id}
-          id={product.id}
-          className="fridge__tag"
-          onClick={this.deleteThisTag}
-          style={{
-            position: 'absolute',
-            top: `${product.tagTopValue - 30}px`,
-            left: `${product.tagLeftValue - 30}px`,
-            backgroundColor: product.vitalityColor
-          }}
-        />
+        <li key={`key-${product.tagPosLeft + product.tagPosTop}`}>
+          <div
+            id={product.id}
+            className="fridge__tag"
+            onClick={this.deleteThisTag}
+            style={{
+              position: 'absolute',
+              top: `${product.tagPosTop - 30}px`,
+              left: `${product.tagPosLeft - 30}px`,
+              backgroundColor: product.vitalityColor
+            }}
+          />
+        </li>
       );
     });
   };
@@ -110,31 +109,12 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             onClick={this.setTag}
             alt="Fridge"
           />
-          {this.listProductTags()}
+          <ul> {this.listProductTags()}</ul>
         </div>
-
-        {/*
-       <div
-          className="tooltip-wrapper"
-          style={{
-            position: 'absolute',
-            top: `350px`,
-            left: `300px`,
-            backgroundColor: `${FRIDGE.PRODUCT_FRESH}`
-          }}
-        >
-          <span
-            className=" tool"
-            data-tip={`<div>`}
-            onClick={this.deleteThisTag}
-          >
-            tool
-          </span>
-        </div>
-*/}
 
         <div>
-          <ProductTag />
+          <ProductTag top="150px" left="350px" />
+          <ProductTag top="350px" left="550px" />
         </div>
       </div>
     );

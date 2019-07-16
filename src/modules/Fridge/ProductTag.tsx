@@ -2,9 +2,11 @@ import React from 'react';
 import Popup from './Popup';
 import './Popup.scss';
 import './Fridge.scss';
-import * as FRIDGE from '../../common/constants/FridgeConstants';
 
-export interface ProductTagProps {}
+export interface ProductTagProps {
+  top: string;
+  left: string;
+}
 
 export interface ProductTagState {
   showPopup: boolean;
@@ -14,25 +16,51 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   state = { showPopup: false };
 
   togglePopup = () => {
+    console.log('toggle');
     this.setState({
       showPopup: !this.state.showPopup
     });
   };
 
+  closePopup = () => {
+    this.setState({ showPopup: false });
+
+    console.log(this.state.showPopup);
+  };
+
+  showPopup = () => {
+    this.setState({ showPopup: true });
+  };
+
+  registerProduct() {
+    return (
+      <div>
+        fghafgs
+        <form>
+          <input type="text" placeholder="input name" />
+        </form>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div
-        className="wrapper "
-        onClick={this.togglePopup}
+        className="product-tag"
         style={{
           position: 'absolute',
-          top: `350px`,
-          left: `300px`,
+          top: `${this.props.top}`,
+          left: `${this.props.left}`,
           backgroundColor: `grey`
         }}
       >
+        <div className="product-tag__button " onClick={this.togglePopup} />
         {this.state.showPopup ? (
-          <Popup text="Close Me" closePopup={this.togglePopup} />
+          <Popup
+            text="Close Me"
+            closePopup={this.closePopup}
+            useWith={this.registerProduct}
+          />
         ) : null}
       </div>
     );
@@ -40,24 +68,3 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
 }
 
 export default ProductTag;
-
-/*
-    return (
-      <div className="product-tag">
-        <div
-          className="product-tag__wrapper "
-          onClick={this.togglePopup}
-          style={{
-            position: 'absolute',
-            top: `350px`,
-            left: `300px`,
-            backgroundColor: `grey`
-          }}
-        />
-
-        {this.state.showPopup ? (
-          <Popup text="Close Me" closePopup={this.togglePopup} />
-        ) : null}
-      </div>
-    );
-*/
