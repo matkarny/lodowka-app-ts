@@ -3,8 +3,11 @@ import React from 'react';
 export interface ProductTagProps {
   tagPosTop: number;
   tagPosLeft: number;
-  closePopup();
-  openPopup();
+  closePopup(id);
+  openPopup(id);
+  togglePopup(id);
+  shown: boolean;
+  id: number;
 }
 /*
 TO DO: POPUPY:
@@ -21,6 +24,7 @@ export interface ProductTagState {
 
 class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   state = {
+    id: 0,
     showPopup: false,
     showRegister: false,
     productRegistered: false,
@@ -57,14 +61,17 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     this.setState({ showPopup: false });
   };
 
+  handleClick = () => {
+    this.props.closePopup(this.props.id);
+  };
   popup = () => {
     return (
       <div className={`popup${this.state.popupModifier}`}>
         <div className="popup__inner">
           {this.state.showRegister ? (
-            <p id="register">{this.configureProduct()}</p>
+            <div id="register">{this.configureProduct()}</div>
           ) : (
-            <p
+            <div
               className="productName"
               id="productName"
               onClick={() =>
@@ -74,10 +81,12 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
               }
             >
               {this.state.productName}
-            </p>
+            </div>
           )}
 
-          <button onClick={this.togglePopup}>close</button>
+          <button onClick={() => this.props.closePopup(this.props.id)}>
+            close
+          </button>
           <button onClick={null}>delete (todo)</button>
         </div>
       </div>
@@ -90,7 +99,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         <form>
           <input
             type="text"
-            placeholder={this.state.productName}
+            autoFocus
             onChange={this.onChangeProductName}
             onBlur={() => {
               console.log('blur inp');
@@ -99,8 +108,9 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
               });
               console.log(this.state.showRegister);
             }}
+            value={this.state.productName}
           />
-          <input type="submit" value="Save product" formAction="/fridge" />
+          <input type="submit" value="Save product" formAction="/fridge/" />
         </form>
       </div>
     );
@@ -114,12 +124,15 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
           position: 'absolute',
           top: `${this.props.tagPosTop}px`,
           left: `${this.props.tagPosLeft}px`,
-          backgroundColor: `grey`
+          backgroundColor: '#70D9A8'
         }}
       >
-        <button className="product-tag__circle " onClick={this.togglePopup} />
+        <button
+          className="product-tag__circle "
+          onClick={() => this.props.togglePopup(this.props.id)}
+        />
 
-        {this.state.showPopup ? <div>{this.popup()}</div> : null}
+        {this.props.shown ? <div>{this.popup()}</div> : null}
 
         {this.state.productRegistered ? null : null}
       </div>
