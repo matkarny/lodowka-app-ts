@@ -2,8 +2,8 @@ import * as React from 'react';
 import './NameSelectorStep.scss';
 
 export interface NameSelectorStepProps {
-    // onSelect: any,
-    // onBack: any,
+    onSelect: any,
+    onBack: any,
 }
 
 export interface NameSelectorStepState {
@@ -31,6 +31,18 @@ class NameSelectorStep extends React.Component<NameSelectorStepProps, NameSelect
                     className="login-username__input"
                     value={this.state.inputValue}
                     onChange={this.inputChangeHandler} />
+
+                <div className="login-username__btn-container">
+                    <button className="login-username__button login-username__button--cancel" onClick={this.props.onBack}>
+                        Back
+                    </button>
+                    <button
+                        className={`login-username__button ${this.state.inputValue ? 'login-username__button--select' : 'login-username__button--disabled'}`}
+                        disabled={this.state.inputValue ? false : true}
+                        onClick={() => this.props.onSelect(this.state.inputValue)}>
+                        Select
+                    </button>
+                </div>
             </div>
         );
     }
