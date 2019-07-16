@@ -3,6 +3,8 @@ import './ColorSelectorStep.scss';
 import { COLORS } from '../../common/constants/ColorConstants';
 import ColorComponent from '../../common/components/ColorComponent/ColorComponent';
 export interface ColorSelectorProps {
+    onSelect: any,
+    onBack: any,
 }
 
 export interface ColorSelectorState {
@@ -51,10 +53,10 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
 
                 </div>
                 <div className="login-color__btn-container">
-                    <button className="login-color__button login-color__button--cancel">Back</button>
+                    <button className="login-color__button login-color__button--cancel" onClick={this.props.onBack}>Back</button>
                     <button
                         className={`login-color__button ${this.state.selectedColor ? 'login-color__button--select' : 'login-color__button--disabled'}`}
-                        disabled={this.state.selectedColor ? false : true}>Select</button>
+                        disabled={this.state.selectedColor ? false : true} onClick={() => this.props.onSelect(this.state.selectedColor)}>Select</button>
                 </div>
             </div >
         )
