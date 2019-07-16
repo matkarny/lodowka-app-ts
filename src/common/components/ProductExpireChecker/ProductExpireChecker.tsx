@@ -17,7 +17,6 @@ interface PropsDateComponent {
 export default class ProductExpireChecker extends Component<PropsDateComponent, DateState> {
 
     state = {
-        currentDate: new Date(),
         productYear: this.props.productYear,
         productMounth: this.props.productMounth,
         productDay: this.props.productDay,

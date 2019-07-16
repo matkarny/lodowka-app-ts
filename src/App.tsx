@@ -10,8 +10,11 @@ import ProductListWidget from './modules/ProductListWidget/ProductListWidget';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-<ProductListWidget />
+    <div >
+      <DashboardModule >
+      <ProductListWidget />
+      </DashboardModule>
+
     
 
     </div>
