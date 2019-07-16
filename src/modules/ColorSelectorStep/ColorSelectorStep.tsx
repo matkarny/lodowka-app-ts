@@ -1,9 +1,8 @@
 import * as React from 'react';
 import './ColorSelectorStep.scss';
-import animalList from '../../common/constants/AnimalConstants';
-import AnimalComponent from '../../common/components/AnimalComponent/AnimalComponent';
+import { COLORS } from '../../common/constants/ColorConstants';
+import ColorComponent from '../../common/components/ColorComponent/ColorComponent';
 export interface ColorSelectorProps {
-
 }
 
 export interface ColorSelectorState {
@@ -21,31 +20,29 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
 
     render() {
         return (
-            <div className="login-Color__container">
+            <div className="login-color__container">
 
-                <p className='login-Color__title'>Add a family member</p>
-                <p className='login-Color__subtitle'>What is your favorite Color?</p>
+                <p className='login-color__title'>What is your favorite Color?</p>
+                <p className='login-color__subtitle'>You will be able to log in by tapping your avatar.</p>
 
-                <div className="login-Color__items-wrapper">
+                <div className="login-color__items-wrapper">
 
-                    {animalList.map((animal, index) => {
-                        if (animal.id == this.state.selectedColor || this.state.selectedColor === null) {
-                            return <AnimalComponent
-                                animal={animal.name}
+                    {COLORS.map((color, index) => {
+                        if (index == this.state.selectedColor || this.state.selectedColor === null) {
+                            return <ColorComponent
+                                color={color}
                                 isActive={true}
                                 key={index}
-                                id={animal.id}
-                                src={animal.src}
+                                id={index}
                                 click={this.handleSelectColor}
                             />
                         }
                         else {
-                            return <AnimalComponent
-                                animal={animal.name}
+                            return <ColorComponent
+                                color={color}
                                 isActive={false}
                                 key={index}
-                                id={animal.id}
-                                src={animal.src}
+                                id={index}
                                 click={this.handleSelectColor}
                             />
                         }
@@ -53,11 +50,13 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
                     }
 
                 </div>
-                <div className="login-Color__btn-container">
-                    <button className="login-Color__button login-Color__button--cancel">Back</button>
-                    <button className="login-Color__button login-Color__button--select">Select</button>
+                <div className="login-color__btn-container">
+                    <button className="login-color__button login-color__button--cancel">Back</button>
+                    <button
+                        className={`login-color__button ${this.state.selectedColor ? 'login-color__button--select' : 'login-color__button--disabled'}`}
+                        disabled={this.state.selectedColor ? false : true}>Select</button>
                 </div>
-            </div>
+            </div >
         )
     }
 }
