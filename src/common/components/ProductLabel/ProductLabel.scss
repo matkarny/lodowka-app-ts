@@ -9,6 +9,7 @@ align-items: center;
 flex-direction: row;
 padding: 0 20px;
 margin: 5px 0;
+box-sizing: border-box;
 
 &__product-name{
     font-family: 'Open Sans';
