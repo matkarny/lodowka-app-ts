@@ -7,13 +7,13 @@ import DrawingComponent from './common/components/DrawingComponent/DrawingCompon
 import TimeWidget from './modules/TimeWidget/TimeWidget';
 import WeatherWidgetView from './modules/WeatherWidget/WeatherWidgetView';
 import ProductListWidget from './modules/ProductListWidget/ProductListWidget';
+import ProductFullList from './modules/ProductFullList/ProductFullList';
 
 const App: React.FC = () => {
   return (
     <div >
-      <DashboardModule >
-      <ProductListWidget />
-      </DashboardModule>
+
+      <ProductFullList />
 
     
 

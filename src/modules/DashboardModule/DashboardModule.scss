@@ -1,3 +1,5 @@
+@import '../../common/styles/constant-style.scss';
+
 .dashboard-module {
     width: 1080px;
     height: 1920px;
@@ -16,5 +18,5 @@
     ". ."
     "place6 place7";
     grid-column-gap: 40px;
-    background-image: url(./Images/background.png)
+    background-image: $background-image;
 }

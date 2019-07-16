@@ -49,7 +49,6 @@ export default class ProductListWidget extends React.Component<ProductListWidget
                 }
             }],}
         ;
-
     render() {
         return (
             <div className="product-list-widget">
@@ -57,7 +56,7 @@ export default class ProductListWidget extends React.Component<ProductListWidget
                     <a href="#"><ListBtn>VIEW ALL</ListBtn></a>
                     <a href="#"><ListBtn>+</ListBtn></a>
                 </ListLabel>
-                {Object.values(this.exampleObject.products).slice(0,4).map(product => <ProductLabel productName={product.name}> <ProductExpireChecker productDay={product.addedOn.day} productMounth={product.addedOn.mounth} productYear={product.addedOn.year} /> </ProductLabel>)}
+                {Object.values(this.exampleObject.products).splice(0,4).map(product => <ProductLabel productName={product.name}> <ProductExpireChecker productDay={product.addedOn.day} productMounth={product.addedOn.mounth} productYear={product.addedOn.year} /> </ProductLabel>)}
             {/* <button onClick={() => console.log(Object.values(this.exampleObject.products))}> Click</button> */}
             </div>
         );
