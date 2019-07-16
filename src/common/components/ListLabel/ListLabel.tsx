@@ -2,7 +2,9 @@ import * as React from 'react';
 import './ListLabel.scss';
 
 export interface ListLabelProps {
-    labelTxt: string
+    labelTxt: string,
+    labelCount: number
+
 }
 
 export interface ListLabelState {
@@ -10,7 +12,7 @@ export interface ListLabelState {
 }
 
 class ListLabel extends React.Component<ListLabelProps, ListLabelState> {
-    state = { itemsCount: 9 }
+    state = { itemsCount: this.props.labelCount }
     render() {
         return (<div className="list-label">
             <span className='list-label__title'>
