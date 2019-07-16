@@ -2,7 +2,7 @@ import * as React from 'react';
 import "./ColorComponent.scss"
 
 export interface ColorComponentProps {
-    color: string
+    colorName: string
     isActive: boolean
     id: number
     click: any
@@ -11,7 +11,10 @@ export interface ColorComponentProps {
 const ColorComponent: React.SFC<ColorComponentProps> = props => {
 
     return (
-        <div className={`login-color__item ${props.isActive ? 'login-color__item--active' : ''}`} onClick={props.click} data-id={props.id} style={{ backgroundColor: props.color }}>
+        <div
+            className={`login-color__item ${props.isActive ? 'login-color__item--active' : ''} login-color__item--${props.colorName}`}
+            data-id={props.id}
+            onClick={props.click}>
         </div >);
 }
 
