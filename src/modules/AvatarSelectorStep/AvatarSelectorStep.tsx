@@ -55,7 +55,10 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
                 </div>
                 <div className="login-avatar__btn-container">
                     <button className="login-avatar__button login-avatar__button--cancel">Back</button>
-                    <button className="login-avatar__button login-avatar__button--select">Select</button>
+                    <button
+                        className={`login-avatar__button ${this.state.selectedAvatar ? 'login-avatar__button--select' : 'login-avatar__button--disabled'}`}
+                        disabled={this.state.selectedAvatar ? false : true}>Select</button>
+
                 </div>
             </div>
         )

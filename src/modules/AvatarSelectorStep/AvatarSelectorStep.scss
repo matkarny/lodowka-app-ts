@@ -1,10 +1,10 @@
-$btc_color: #00C3FF;
+$btn-color: #00C3FF;
+$btn-disabled-color:#E9E9E9;
 
 .login-avatar {
     &__container {
         width: 1080px;
         height: 1920px;
-        // background-image: url('../../common/images/bg.png');
     }
 
     &__items-wrapper {
@@ -25,21 +25,27 @@ $btc_color: #00C3FF;
     &__button {
         width: 160px;
         height: 70px;
-        background-color: $btc_color;
-        border: 1px solid $btc_color;
+        background-color: $btn-color;
+        border: 1px solid $btn-color;
         border-radius: 10px;
         margin-right: 10px;
         font-size: 24px;
+        color: #fff;
         cursor: pointer;
 
         &--cancel {
             background-color: transparent;
-            color: $btc_color;
+            color: $btn-color;
         }
 
         &--select {
-            background-color: $btc_color;
-            color: #fff;
+            background-color: $btn-color;
+        }
+
+        &--disabled {
+            background-color: $btn-disabled-color;
+            border-color: $btn-disabled-color;
+            cursor: default;
         }
     }
 }
