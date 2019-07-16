@@ -6,6 +6,7 @@ export interface ProductTagProps {
   closePopup(id);
   openPopup(id);
   togglePopup(id);
+  deleteTag(id);
   shown: boolean;
   id: number;
 }
@@ -30,12 +31,6 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     productRegistered: false,
     popupModifier: '',
     productName: 'Product name'
-  };
-
-  togglePopup = () => {
-    this.setState({
-      showPopup: !this.state.showPopup
-    });
   };
 
   setPopupModifier() {
@@ -64,6 +59,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   handleClick = () => {
     this.props.closePopup(this.props.id);
   };
+
   popup = () => {
     return (
       <div className={`popup${this.state.popupModifier}`}>
@@ -87,7 +83,9 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
           <button onClick={() => this.props.closePopup(this.props.id)}>
             close
           </button>
-          <button onClick={null}>delete (todo)</button>
+          <button onClick={() => this.props.deleteTag(this.props.id)}>
+            delete (todo)
+          </button>
         </div>
       </div>
     );
@@ -133,8 +131,6 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         />
 
         {this.props.shown ? <div>{this.popup()}</div> : null}
-
-        {this.state.productRegistered ? null : null}
       </div>
     );
   }

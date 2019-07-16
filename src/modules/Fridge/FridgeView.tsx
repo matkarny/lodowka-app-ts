@@ -71,19 +71,14 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     this.setState({ productTags, nextId: this.state.nextId + 1 });
   };
 
-  deleteThisTag = e => {
-    e.preventDefault();
-    const { productTags } = this.state;
-    const newTagList = productTags.filter(tag => {
-      return tag.id !== +e.target.id;
+  deleteTag = (id: number) => {
+    let productTags = this.state.productTags.filter(productTag => {
+      return productTag.id !== id;
     });
-
-    this.setState({ productTags: newTagList });
+    this.setState({ productTags });
   };
 
   closePopup = (id: number) => {
-    console.log(id);
-
     let { productTags } = this.state;
     productTags.forEach(tag => {
       if (tag.id === id) tag.shown = false;
@@ -121,6 +116,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             closePopup={this.closePopup}
             openPopup={this.openPopup}
             togglePopup={this.togglePopup}
+            deleteTag={this.deleteTag}
             shown={product.shown}
             id={product.id}
           />
