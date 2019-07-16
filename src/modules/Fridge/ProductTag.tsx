@@ -1,47 +1,80 @@
 import React from 'react';
-import Popup from './Popup';
-import './Popup.scss';
-import './Fridge.scss';
 
 export interface ProductTagProps {
-  top: string;
-  left: string;
+  tagPosTop: number;
+  tagPosLeft: number;
 }
 
 export interface ProductTagState {
   showPopup: boolean;
+  productRegistered: boolean;
+  popupModifier: string;
+  productName: string;
 }
 
 class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
-  state = { showPopup: false };
+  state = {
+    showPopup: false,
+    productRegistered: false,
+    popupModifier: '',
+    productName: ' '
+  };
 
   togglePopup = () => {
-    console.log('toggle');
     this.setState({
       showPopup: !this.state.showPopup
     });
   };
 
-  closePopup = () => {
-    this.setState({ showPopup: false });
+  setPopupModifier() {
+    const clientHeight = document.documentElement.clientHeight;
+    const diff = clientHeight - +this.props.tagPosTop;
 
-    console.log(this.state.showPopup);
+    if (diff >= 395)
+      this.setState({
+        popupModifier: '--rotated'
+      });
+  }
+
+  onChangeProductName = e => {
+    this.setState({ productName: e.target.value });
   };
 
-  showPopup = () => {
-    this.setState({ showPopup: true });
-  };
-
-  registerProduct() {
+  registerProduct = () => {
     return (
       <div>
-        fghafgs
         <form>
-          <input type="text" placeholder="input name" />
+          <input
+            type="text"
+            placeholder="Product name"
+            onChange={this.onChangeProductName}
+          />
+          <input type="submit" value="Save product" formAction="/fridge" />
         </form>
       </div>
     );
+  };
+
+  componentDidMount() {
+    this.setPopupModifier();
   }
+
+  handleBlur = () => {
+    console.log('blur');
+    this.setState({ showPopup: false });
+  };
+
+  tagPopup = (exec, modifier: string) => {
+    return (
+      <div className={`popup${modifier}`} onBlur={this.handleBlur}>
+        <div className="popup__inner">
+          {exec()}
+          <button onClick={this.togglePopup}>close</button>
+          <button onClick={null}>delete (todo)</button>
+        </div>
+      </div>
+    );
+  };
 
   render() {
     return (
@@ -49,22 +82,35 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         className="product-tag"
         style={{
           position: 'absolute',
-          top: `${this.props.top}`,
-          left: `${this.props.left}`,
+          top: `${this.props.tagPosTop}px`,
+          left: `${this.props.tagPosLeft}px`,
           backgroundColor: `grey`
         }}
       >
-        <div className="product-tag__button " onClick={this.togglePopup} />
+        <button className="product-tag__circle " onClick={this.togglePopup} />
+
         {this.state.showPopup ? (
-          <Popup
-            text="Close Me"
-            closePopup={this.closePopup}
-            useWith={this.registerProduct}
-          />
+          <div>
+            {this.tagPopup(this.registerProduct, this.state.popupModifier)}
+          </div>
         ) : null}
+
+        {this.state.productRegistered ? null : null}
       </div>
     );
   }
 }
 
 export default ProductTag;
+
+{
+  /* {this.state.showPopup ? (
+          <Popup
+            modifier={this.state.popupModifier}
+            text="Close Me"
+            togglePopup={this.togglePopup}
+            showWith={this.registerProduct}
+            handleBlur={this.handleBlur}
+          />
+        ) : null} */
+}

@@ -51,3 +51,26 @@ export default {
 };
 
 //https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e
+// export interface Product {
+//   name: string;
+//   addedOn: { year: string; month: string; day: string };
+//   addedBy: string;
+//   tagPosLeft: number;
+//   tagPosTop: number;
+//   vitalityColor: 'grey';
+// }
+
+// const initialState = {
+//   productsList: []
+// };
+
+// const store = createStore(products, initialState);
+
+// function products(state = initialState, action) {
+//   switch (action.type) {
+//     case 'ADD_PRODUCT':
+//       return [...state, action];
+//     default:
+//       return state;
+//   }
+// }

@@ -5,11 +5,11 @@ import * as FRIDGE from '../../common/constants/FridgeConstants';
 import ProductTag from './ProductTag';
 
 interface ProductTagData {
-  id: number;
-  tagPosTop: string;
-  tagPosLeft: string;
+  name: '';
+  tagPosTop: number;
+  tagPosLeft: number;
   vitalityColor: string;
-  added: {};
+  addedOn: {};
 }
 
 export interface FridgeViewProps {}
@@ -44,19 +44,18 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     let product = {
       tagPosTop,
       tagPosLeft,
-      id: this.state.nextId,
+      name: '',
       vitalityColor: FRIDGE.PRODUCT_FRESH,
-      added: {
+      addedOn: {
         year: new Date().getFullYear(),
-        month: new Date().getMonth(), // '0' - styczen
+        month: new Date().getMonth(),
         day: new Date().getDate()
       }
     };
-
-    this.setState({ nextId: this.state.nextId + 1 });
+    console.log(product);
     let { productTags } = this.state;
     productTags.push(product);
-    this.setState({ productTags });
+    this.setState({ productTags, nextId: this.state.nextId + 1 });
   };
 
   deleteThisTag = e => {
@@ -65,7 +64,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     const newTagList = productTags.filter(tag => {
       return tag.id !== +e.target.id;
     });
-    console.log(newTagList);
+
     this.setState({ productTags: newTagList });
   };
 
@@ -75,16 +74,9 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     return productTags.map(product => {
       return (
         <li key={`key-${product.tagPosLeft + product.tagPosTop}`}>
-          <div
-            id={product.id}
-            className="fridge__tag"
-            onClick={this.deleteThisTag}
-            style={{
-              position: 'absolute',
-              top: `${product.tagPosTop - 30}px`,
-              left: `${product.tagPosLeft - 30}px`,
-              backgroundColor: product.vitalityColor
-            }}
+          <ProductTag
+            tagPosTop={product.tagPosTop - 30}
+            tagPosLeft={product.tagPosLeft - 30}
           />
         </li>
       );
@@ -93,10 +85,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   componentDidMount() {
     this.getImageBase64();
-    //FridgeService.getImageBase64();
   }
-
-  componentDidUpdate() {}
 
   render() {
     return (
@@ -109,12 +98,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             onClick={this.setTag}
             alt="Fridge"
           />
-          <ul> {this.listProductTags()}</ul>
-        </div>
-
-        <div>
-          <ProductTag top="150px" left="350px" />
-          <ProductTag top="350px" left="550px" />
+          <ul className="fridge__list"> {this.listProductTags()}</ul>
         </div>
       </div>
     );
