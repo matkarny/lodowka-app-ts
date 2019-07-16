@@ -1,58 +1,76 @@
 import * as React from 'react';
-import './LoginView.scss';
-import owl from './img/eagle-owl-raptor-falconry-owl-53977.png'
-import eagle from './img/pexels-photo-145962.png'
-import raccoon from './img/pexels-photo-148359.png'
-import parrot from './img/pexels-photo-1661179.png'
-import cat from './img/pexels-photo-2355519.png'
+import AvatarSelectorStep from '../AvatarSelectorStep/AvatarSelectorStep'
+import ColorSelectorStep from '../ColorSelectorStep/ColorSelectorStep'
+
+export enum ActiveStep {
+    FirstStep,
+    SecondStep,
+    ThirdStep,
+    FourthStep
+};
+
+const StepComponent = {
+    [ActiveStep.FirstStep]: AvatarSelectorStep,
+    [ActiveStep.SecondStep]: AvatarSelectorStep,
+    [ActiveStep.ThirdStep]: AvatarSelectorStep,
+    [ActiveStep.FourthStep]: ColorSelectorStep,
+};
+
 export interface LoginViewProps {
 
 }
 
 export interface LoginViewState {
-    users: Array<object>,
+    loginStep: number,
+    newUser: {
+        role: string,
+        username: string,
+        avatarIndex: number,
+        colorIndex: number,
+    }
 }
 
 class LoginView extends React.Component<LoginViewProps, LoginViewState> {
     state = {
         users: [],
+        loginStep: ActiveStep.ThirdStep,
         newUser: {
-            isParent: true,
-            name: 'Janusz',
-            animal: 0,
-            colorIndex: 0
+            role: 'parent',
+            username: 'Janusz',
+            avatarIndex: null,
+            colorIndex: null,
         }
     }
+
+    handleBtnClick = direction => {
+        if (direction) {
+            this.setState(prevState => ({ loginStep: prevState.loginStep + 1 }))
+        }
+        else { this.setState(prevState => ({ loginStep: prevState.loginStep - 1 })) }
+    }
+    handleSelectBtnClick = (result) => {
+        this.setState(prevState => {
+            let newUser = { ...prevState.newUser }
+            newUser[prevState.loginStep] = result
+            return {
+                newUser,
+                loginStep: prevState.loginStep + 1
+            }
+        })
+    }
+
+    // LOGIN_STEPS = {
+    //     [ActiveStep.FirstStep]: <AvatarSelectorStep onSelect={this.handleSelectBtnClick} />,
+    //     3: <ColorSelectorStep onSelect={this.handleSelectBtnClick} />,
+    // }
+
+
+
     render() {
+        const ActiveStepComponent = StepComponent[this.state.loginStep];
         return (
-            <div className="login-animal__container">
-
-                <p className='login-animal__title'>Add a family member</p>
-                <p className='login-animal__subtitle'>What is your favorite animal?</p>
-
-                <div className="login-animal__items-wrapper">
-                    <div className="login-animal__item-container" id="1">
-                        <img className="login-animal__item login-animal__item--active" src={owl} alt="" />
-                    </div>
-                    <div className="login-animal__item-container" id="2">
-                        <img className="login-animal__item login-animal__item--active" src={eagle} alt="" />
-                    </div>
-                    <div className="login-animal__item-container" id="3">
-                        <img className="login-animal__item login-animal__item--active" src={raccoon} alt="" />
-                    </div>
-                    <div className="login-animal__item-container" id="4">
-                        <img className="login-animal__item login-animal__item--active" src={parrot} alt="" />
-                    </div>
-                    <div className="login-animal__item-container" id="5">
-                        <img className="login-animal__item login-animal__item--active" src={cat} alt="" />
-                    </div>
-                </div>
-                <div className="login-animal__btn-container">
-                    <button className="login-animal__button login-animal__button--cancel">Back</button>
-                    <button className="login-animal__button login-animal__button--select">Select</button>
-                </div>
-            </div>
-        )
+            <ActiveStepComponent onSelect={this.handleSelectBtnClick} />
+        );
     }
 }
 
