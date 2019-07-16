@@ -1,0 +1,15 @@
+.login-color {
+    &__item {
+        height: 115px;
+        width: 115px;
+        border-radius: 10px;
+        margin-right: 20px;
+        opacity: .5;
+        overflow: hidden;
+        cursor: pointer;
+
+        &--active {
+            opacity: 1;
+        }
+    }
+}
