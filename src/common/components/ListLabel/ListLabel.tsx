@@ -19,7 +19,7 @@ class ListLabel extends React.Component<ListLabelProps, ListLabelState> {
                 {this.state.itemsCount} {this.props.labelTxt}
             </span>
             <div className="list-label__btn-container">
-                {this.props.children}
+            {this.props.children}
             </div>
         </div>);
     }

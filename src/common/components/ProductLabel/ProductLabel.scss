@@ -1,0 +1,19 @@
+.product-label{
+width: 420px;
+height: 80px;
+border-radius: 10px;
+background-color: #FFFFFF;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-direction: row;
+padding: 0 20px;
+margin: 5px 0;
+
+&__product-name{
+    font-family: 'Open Sans';
+    font-weight: 700;
+    font-size: 20px;
+    color: #5F7891;
+}
+}
