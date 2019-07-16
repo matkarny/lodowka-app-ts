@@ -1,7 +1,7 @@
 import React  from 'react'
 import './ProductExpireChecker.scss'
 
-export function countDaysLeft(countingFromDate, countingToDate): any {
+export function countDaysLeft(countingFromDate, countingToDate): number {
 
         var oneDayInMilliseconds = 1000 * 60 * 60 * 24;
 

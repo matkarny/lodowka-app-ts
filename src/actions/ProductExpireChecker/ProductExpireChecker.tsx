@@ -3,7 +3,6 @@ import './ProductExpireChecker.scss'
 import { expirationChecker } from './ProductExpireService'
 
 interface DateState {
-    currentDate: Date,
     productYear: number,
     productMounth: number,
     productDay: number
