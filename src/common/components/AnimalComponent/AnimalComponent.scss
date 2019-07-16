@@ -2,11 +2,11 @@
     &__item-container {
         height: 147px;
         width: 147px;
-        cursor: pointer;
-        overflow: hidden;
         border-radius: 10px;
         margin-right: 10px;
         opacity: .5;
+        overflow: hidden;
+        cursor: pointer;
 
         &--active {
             opacity: 1;
@@ -15,6 +15,5 @@
 
     &__item {
         width: 100%;
-
     }
 }
