@@ -1,7 +1,9 @@
 import * as React from 'react';
+import './LoginView.scss'
+import RoleSelectorStep from '../RoleSelectorStep/RoleSelectorStep';
+import NameSelectorStep from '../NameSelectorStep/NameSelectorStep';
 import AvatarSelectorStep from '../AvatarSelectorStep/AvatarSelectorStep';
 import ColorSelectorStep from '../ColorSelectorStep/ColorSelectorStep';
-import NameSelectorStep from '../NameSelectorStep/NameSelectorStep';
 import PinSelectorStep from '../PinSelectorStep/PinSelectorStep';
 
 export enum ActiveStep {
@@ -13,7 +15,7 @@ export enum ActiveStep {
 };
 
 const StepComponent = {
-    [ActiveStep.FirstStep]: AvatarSelectorStep,
+    [ActiveStep.FirstStep]: RoleSelectorStep,
     [ActiveStep.SecondStep]: NameSelectorStep,
     [ActiveStep.ThirdStep]: AvatarSelectorStep,
     [ActiveStep.FourthStep]: ColorSelectorStep,
@@ -44,7 +46,7 @@ export interface LoginViewState {
 class LoginView extends React.Component<LoginViewProps, LoginViewState> {
     state = {
         users: [],
-        loginStep: ActiveStep.SecondStep,
+        loginStep: ActiveStep.FirstStep,
         newUser: {
             role: '',
             username: '',
@@ -75,9 +77,13 @@ class LoginView extends React.Component<LoginViewProps, LoginViewState> {
     render() {
         const ActiveStepComponent = StepComponent[this.state.loginStep];
         return (
-            <ActiveStepComponent
-                onSelect={this.handleSelectBtnClick}
-                onBack={this.handleBackBtnClick} />
+            <div className={`login__container login__container--step-${this.state.loginStep}`}>
+                <p className="login__title">Add a family member</p>
+                <p className="login__subtitle">Start by adding members of your family for a more personalised experience.</p>
+                <ActiveStepComponent
+                    onSelect={this.handleSelectBtnClick}
+                    onBack={this.handleBackBtnClick} />
+            </div>
         );
     }
 }
