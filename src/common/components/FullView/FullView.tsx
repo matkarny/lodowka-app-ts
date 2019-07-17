@@ -3,10 +3,7 @@ import "./FullView.scss"
 import * as Routes from "../../constants/Routes"
 
 export interface FullViewProps {
-    labelName: string,
-    firstButtonName: string,
-    firstButtonName: string,
-
+    labelName: string
 }
 
 export default class FullView extends React.Component<FullViewProps> {
