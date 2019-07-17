@@ -13,6 +13,8 @@
         height: 335px;
         border-radius: 40px;
         background-color: #00C3FF;
+
+        @import url('../../common/constants/ColorConstants.scss');
     }
 
     &__avatar-container {
