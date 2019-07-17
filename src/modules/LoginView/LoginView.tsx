@@ -2,12 +2,14 @@ import * as React from 'react';
 import AvatarSelectorStep from '../AvatarSelectorStep/AvatarSelectorStep';
 import ColorSelectorStep from '../ColorSelectorStep/ColorSelectorStep';
 import NameSelectorStep from '../NameSelectorStep/NameSelectorStep';
+import PinSelectorStep from '../PinSelectorStep/PinSelectorStep';
 
 export enum ActiveStep {
     FirstStep,
     SecondStep,
     ThirdStep,
-    FourthStep
+    FourthStep,
+    FifthStep,
 };
 
 const StepComponent = {
@@ -15,16 +17,17 @@ const StepComponent = {
     [ActiveStep.SecondStep]: NameSelectorStep,
     [ActiveStep.ThirdStep]: AvatarSelectorStep,
     [ActiveStep.FourthStep]: ColorSelectorStep,
+    [ActiveStep.FifthStep]: PinSelectorStep,
 };
 const StepDescription = {
     [ActiveStep.FirstStep]: 'role',
     [ActiveStep.SecondStep]: 'username',
     [ActiveStep.ThirdStep]: 'avatarIndex',
     [ActiveStep.FourthStep]: 'colorIndex',
+    [ActiveStep.FifthStep]: 'pin',
 };
 
 export interface LoginViewProps {
-
 }
 
 export interface LoginViewState {
@@ -34,6 +37,7 @@ export interface LoginViewState {
         username: string,
         avatarIndex: number,
         colorIndex: number,
+        pin: string,
     }
 }
 
@@ -42,10 +46,11 @@ class LoginView extends React.Component<LoginViewProps, LoginViewState> {
         users: [],
         loginStep: ActiveStep.SecondStep,
         newUser: {
-            role: 'parent',
+            role: '',
             username: '',
             avatarIndex: null,
             colorIndex: null,
+            pin: '',
         }
     }
 
