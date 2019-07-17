@@ -1,0 +1,95 @@
+/* POPUT AND INPUTS */
+.popup {
+  position: absolute;
+  box-sizing: border-box;
+  top: -220px;
+  left: -170px;
+  background: #3e474f;
+  background: white;
+  border-radius: 10px;
+  height: 180px;
+  width: 400px;
+  z-index: 100;
+
+  box-shadow: 0px 3px 18px black;
+
+  &__inner {
+    border-radius: 10px;
+    position: absolute;
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 100px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  &__details {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+  }
+
+  &__actions {
+    width: 380px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+  }
+
+  /*== pointer tip ==*/
+  &::before {
+    position: absolute;
+    left: calc(50% - 20px);
+    top: 105%;
+    opacity: 1;
+    z-index: 100;
+    border-style: solid;
+    border-width: 20px;
+    border-color: #3e474f transparent transparent transparent;
+    content: '';
+    border-color: white transparent transparent transparent;
+    transform: scale(1.6) translateY(0);
+  }
+
+  &--rotated {
+    position: absolute;
+    box-sizing: border-box;
+    top: 100px;
+    left: -170px;
+    background: #3e474f;
+    background: white;
+    border-radius: 10px;
+    height: 180px;
+    width: 400px;
+    z-index: 100;
+    box-shadow: 0px 3px 18px black;
+
+    &__inner {
+      border-radius: 10px;
+      position: absolute;
+      background: white;
+      display: flex;
+      flex-wrap: wrap;
+      z-index: 100px;
+      box-sizing: border-box;
+    }
+
+    /*== pointer tip ==*/
+    &::before {
+      position: absolute;
+      left: calc(50% - 20px);
+      opacity: 1;
+      z-index: 100;
+      border-style: solid;
+      border-width: 20px;
+      border-color: #3e474f transparent transparent transparent;
+      content: '';
+      border-color: white transparent transparent transparent;
+      transform: scale(1.6) translateY(0);
+
+      top: -28%;
+      transform: scale(1.6) rotate(180deg);
+    }
+  }
+}

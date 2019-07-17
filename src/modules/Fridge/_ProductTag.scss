@@ -17,13 +17,6 @@
   }
 }
 
-.product-tag__actions {
-  width: 380px;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-}
-
 .product-tag__delete {
   background: #ff4e4e;
   border: transparent;
@@ -50,14 +43,64 @@
   cursor: pointer;
 }
 
-.product-tag__info {
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
+.name {
+  height: 60px;
+  &__display {
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  input[type='text'] {
+    width: 180px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-family: 'Open Sans';
+    background: gray;
+
+    &::placeholder {
+      padding: 0;
+      margin: 0;
+      color: black;
+      font-family: 'Open Sans';
+      border-radius: 2px;
+    }
+  }
+}
+
+.date {
+  height: 60px;
+
+  &__display {
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  input[type='date'] {
+    width: 180px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-family: 'Open Sans';
+    background: gray;
+
+    &::placeholder {
+      padding: 0;
+      margin: 0;
+      color: black;
+      font-family: 'Open Sans';
+      border-radius: 2px;
+    }
+  }
 }
 
 .product-tag__name {
-  width: 200px;
   font-size: 20px;
   padding: 0;
   margin: 0;
@@ -66,111 +109,13 @@
   cursor: pointer;
 }
 
-.product-tag__form {
-  display: flex;
-}
-
-/* POPUP STUFF */
-.popup {
-  position: absolute;
-  box-sizing: border-box;
-  top: -220px;
-  left: -170px;
-  background: #3e474f;
-  background: white;
-  border-radius: 10px;
-  height: 180px;
-  width: 400px;
-  z-index: 100;
-
-  box-shadow: 0px 3px 18px black;
-
-  &__inner {
-    border-radius: 10px;
-    position: absolute;
-    background: white;
-    display: flex;
-    flex-wrap: wrap;
-    z-index: 100px;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  /*== pointer tip ==*/
-  &::before {
-    position: absolute;
-    left: calc(50% - 20px);
-    top: 105%;
-    opacity: 1;
-    z-index: 100;
-    border-style: solid;
-    border-width: 20px;
-    border-color: #3e474f transparent transparent transparent;
-    content: '';
-    border-color: white transparent transparent transparent;
-    transform: scale(1.6) translateY(0);
-  }
-}
-
-.popup--rotated {
-  position: absolute;
-  box-sizing: border-box;
-  top: 100px;
-  left: -170px;
-  background: #3e474f;
-  background: white;
-  border-radius: 10px;
-  height: 180px;
-  width: 400px;
-  z-index: 100;
-
-  box-shadow: 0px 3px 18px black;
-  &__inner {
-    border-radius: 10px;
-    position: absolute;
-    background: white;
-    display: flex;
-    flex-wrap: wrap;
-    z-index: 100px;
-    box-sizing: border-box;
-  }
-
-  /*== pointer tip ==*/
-  &::before {
-    position: absolute;
-    left: calc(50% - 20px);
-    opacity: 1;
-    z-index: 100;
-    border-style: solid;
-    border-width: 20px;
-    border-color: #3e474f transparent transparent transparent;
-    content: '';
-    border-color: white transparent transparent transparent;
-    transform: scale(1.6) translateY(0);
-
-    top: -28%;
-    transform: scale(1.6) rotate(180deg);
-  }
-}
-
-input[type='text'] {
-  width: 200px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  outline: none;
+.product-tag__date {
+  padding-left: 30px;
+  background: red;
   font-size: 20px;
-  font-family: 'Open Sans';
-  background: gray;
-}
-
-input::placeholder {
   padding: 0;
   margin: 0;
-  color: black;
+  position: relative;
   font-family: 'Open Sans';
-  border-radius: 2px;
-}
-
-input:focus::placeholder {
+  cursor: pointer;
 }

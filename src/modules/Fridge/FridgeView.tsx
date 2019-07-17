@@ -4,12 +4,15 @@ import './Fridge.scss';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
 import ProductTag from './ProductTag';
 
+import DatePicker from 'react-date-picker';
+
 interface ProductTagData {
   name: '';
   tagPosTop: number;
   tagPosLeft: number;
   vitalityColor: string;
   addedOn: {};
+  expireDate: Date;
 }
 
 export interface FridgeViewProps {}
@@ -18,19 +21,15 @@ export interface FridgeViewState {
   src: any;
   nextId: number;
   productTags: ProductTagData[];
+  value: any;
 }
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
-  private child;
-
-  constructor(props) {
-    super(props);
-    this.child = React.createRef();
-  }
   state = {
     src: '',
     nextId: 0,
-    productTags: []
+    productTags: [],
+    value: null
   };
 
   // Get image from Socket and send it to state
@@ -58,7 +57,8 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
         month: new Date().getMonth(),
         day: new Date().getDate()
       },
-      shown: true
+      shown: true,
+      expireDate: new Date()
     };
 
     console.log(product);
@@ -77,6 +77,8 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     });
     this.setState({ productTags });
   };
+
+  selectExpDate = (id: number) => {};
 
   closePopup = (id: number) => {
     let { productTags } = this.state;
@@ -130,7 +132,15 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             onClick={this.setTag}
             alt="Fridge"
           />
-          <ul className="fridge__list"> {this.listProductTags()}</ul>
+          <ul className="fridge__list">
+            {/* <DatePicker
+              className="date-picker"
+              value={this.state.value}
+              onChange={date => this.setState({ value: date })}
+              minDate={new Date()}
+            /> */}
+            {this.listProductTags()}
+          </ul>
         </div>
       </div>
     );

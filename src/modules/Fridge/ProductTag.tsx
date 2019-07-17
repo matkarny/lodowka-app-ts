@@ -1,5 +1,5 @@
 import React from 'react';
-import ListBtn from '../../common/components/ListBtn/ListBtn';
+import DatePicker from 'react-datepicker';
 
 export interface ProductTagProps {
   tagPosTop: number;
@@ -13,28 +13,35 @@ export interface ProductTagProps {
 
 export interface ProductTagState {
   showPopup: boolean;
-  showInput: boolean;
+  showNameInput: boolean;
+  showDateInput: boolean;
   productRegistered: boolean;
   popupModifier: string;
   productName: string;
   productExpDate: string;
+  value: any;
 }
 
 class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
+  constructor(props) {
+    super(props);
+  }
   state = {
     id: 0,
     showPopup: false,
-    showInput: false,
+    showNameInput: false,
+    showDateInput: false,
     productRegistered: false,
     popupModifier: '',
     productName: 'Product name',
-    productExpDate: 'DD/MM/YYYY'
+    productExpDate: 'DD/MM/YYYY',
+    value: null
   };
 
   setPopupModifier() {
     const clientHeight = document.documentElement.clientHeight;
     const diff = clientHeight - +this.props.tagPosTop;
-    if (diff >= 395) this.setState({ popupModifier: '--rotated' });
+    if (diff >= 695) this.setState({ popupModifier: '--rotated' });
   }
 
   configureProductName = () => {
@@ -51,7 +58,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         onBlur={() => {
           // Delete ProductName's redundant whitespaces
           this.setState({
-            showInput: !this.state.showInput,
+            showNameInput: !this.state.showNameInput,
             productName: this.state.productName.trim()
           });
 
@@ -67,16 +74,52 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   };
 
   configureProductExpDate = () => {
+    let year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    let day = new Date().getDate();
+
+    console.log(year, month, day);
+
     return (
       <input
-        type="text"
+        type="date"
+        min={`${year}-0${month}-${day}`}
+        // min="2019-07-17"
+
+        autoFocus
         autoComplete="off"
         value={this.state.productExpDate}
         onChange={e => {
           this.setState({ productExpDate: e.target.value });
         }}
+        onBlur={() => {
+          this.setState({
+            showDateInput: !this.state.showDateInput
+          });
+        }}
       />
     );
+  };
+  configureProductExpDate2 = () => {
+    return (
+      <div className="fridge">
+        <div className="EXPDATE">
+          <DatePicker
+            disableCalendar="false"
+            value={this.state.value}
+            onChange={date => {
+              console.log(date);
+              this.setState({ value: date });
+            }}
+            minDate={new Date()}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  handleExpDateChange = e => {
+    this.setState({ value: e.target.value });
   };
 
   popup = () => {
@@ -85,59 +128,59 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     return (
       <div className={`popup${this.state.popupModifier}`}>
         <div className="popup__inner">
-          {this.state.showInput ? (
-            <div className="product-tag__display ">
-              <form autoComplete="off" className="product-tag__form">
-                {this.configureProductName()}
-              </form>
-            </div>
-          ) : (
-            <div className="product-tag__display">
-              <div className="product-tag__info">
-                <div
-                  className="product-tag__name"
-                  onClick={() =>
-                    this.setState({
-                      showInput: !this.state.showInput
-                    })
-                  }
-                >
-                  {this.state.productName}
+          <div className="popup__details">
+            <div className="name">
+              {this.state.showNameInput ? (
+                <div className="name__input">{this.configureProductName()}</div>
+              ) : (
+                <div className="name__display">
+                  <div
+                    className="product-tag__name"
+                    onClick={() =>
+                      this.setState({
+                        showNameInput: !this.state.showNameInput
+                      })
+                    }
+                  >
+                    {this.state.productName}
+                  </div>
                 </div>
-
-                <div
-                  className="product-tag__exp-date"
-                  onClick={() =>
-                    this.setState({
-                      showInput: !this.state.showInput
-                    })
-                  }
-                >
-                  {this.state.productExpDate}
-                </div>
-              </div>
-
-              <div className="product-tag__actions">
-                <button className="product-tag__memo" onClick={null}>
-                  TO DO
-                </button>
-                <button
-                  className="product-tag__delete"
-                  onClick={() => this.props.deleteTag(this.props.id)}
-                >
-                  Remove
-                </button>
-              </div>
+              )}
             </div>
-          )}
 
-          {/* <button
-            style={{ display: 'none' }}
-            className="popup__close"
-            onClick={() => this.props.closePopup(this.props.id)}
-          >
-            close
-          </button> */}
+            <div className="date">
+              {this.state.showDateInput ? (
+                <div className="date__input">
+                  {this.configureProductExpDate()}
+                </div>
+              ) : (
+                <div className="date__display">
+                  <div
+                    className="product-tag__date"
+                    onClick={() =>
+                      this.setState({
+                        showDateInput: !this.state.showDateInput
+                      })
+                    }
+                  >
+                    {this.state.productExpDate}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="popup__actions">
+            <button className="product-tag__memo" onClick={null}>
+              TO DO
+            </button>
+            <button
+              className="product-tag__delete"
+              onClick={() => this.props.deleteTag(this.props.id)}
+            >
+              Remove
+            </button>
+          </div>
         </div>
       </div>
     );
