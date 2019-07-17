@@ -10,19 +10,14 @@ import * as Routes from '../src/common/constants/Routes';
 import LoginModule from './modules/LoginModule/LoginModule';
 import FridgeView from './modules/Fridge/FridgeView';
 import ProductFullList from './modules/ProductFullList/ProductFullList';
+import NotesModule from './modules/NotesModule/NotesModule'
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-    <Router>
       <div>
-        <Route exact path={Routes.LOGIN} component={LoginModule} />
-        <Route path={Routes.DASHBOARD} component={DashboardModule} />
-        <Route path={Routes.FRIDGE} component={FridgeView} />
-        <Route path={Routes.PRODUCTS} component={ProductFullList} />
+        <NotesModule />
       </div>
-    </Router>
-    </Provider>
+
   );
 };
 
