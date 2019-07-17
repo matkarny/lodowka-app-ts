@@ -86,15 +86,6 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     this.setState({ productTags });
   };
 
-  openPopup = (id: number) => {
-    let { productTags } = this.state;
-    productTags.forEach(tag => {
-      if (tag.id === id) tag.shown = true;
-      // else tag.shown = false;
-    });
-    this.setState({ productTags });
-  };
-
   togglePopup = (id: number) => {
     let { productTags } = this.state;
     productTags.forEach(tag => {
@@ -114,7 +105,6 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             tagPosTop={product.tagPosTop - 30}
             tagPosLeft={product.tagPosLeft - 30}
             closePopup={this.closePopup}
-            openPopup={this.openPopup}
             togglePopup={this.togglePopup}
             deleteTag={this.deleteTag}
             shown={product.shown}

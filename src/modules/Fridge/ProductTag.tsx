@@ -1,118 +1,151 @@
 import React from 'react';
+import ListBtn from '../../common/components/ListBtn/ListBtn';
 
 export interface ProductTagProps {
   tagPosTop: number;
   tagPosLeft: number;
   closePopup(id);
-  openPopup(id);
   togglePopup(id);
   deleteTag(id);
   shown: boolean;
   id: number;
 }
-/*
-TO DO: POPUPY:
-1. ALBO Z TEGO POZIOMU EVENT.TARGET POROWNOAC CZY KLIKNIETY CZY OD RODZICA/DZIECKA
-2. PRZENIESC TO DO FRIDGEVIEW
-*/
+
 export interface ProductTagState {
   showPopup: boolean;
-  showRegister: boolean;
+  showInput: boolean;
   productRegistered: boolean;
   popupModifier: string;
   productName: string;
+  productExpDate: string;
 }
 
 class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   state = {
     id: 0,
     showPopup: false,
-    showRegister: false,
+    showInput: false,
     productRegistered: false,
     popupModifier: '',
-    productName: 'Product name'
+    productName: 'Product name',
+    productExpDate: 'DD/MM/YYYY'
   };
 
   setPopupModifier() {
     const clientHeight = document.documentElement.clientHeight;
     const diff = clientHeight - +this.props.tagPosTop;
-
-    if (diff >= 395)
-      this.setState({
-        popupModifier: '--rotated'
-      });
+    if (diff >= 395) this.setState({ popupModifier: '--rotated' });
   }
 
-  onChangeProductName = e => {
-    this.setState({ productName: e.target.value });
+  configureProductName = () => {
+    return (
+      <input
+        type="text"
+        autoFocus
+        autoComplete="off"
+        maxLength={20}
+        value={this.state.productName}
+        onChange={e => {
+          this.setState({ productName: e.target.value });
+        }}
+        onBlur={() => {
+          // Delete ProductName's redundant whitespaces
+          this.setState({
+            showInput: !this.state.showInput,
+            productName: this.state.productName.trim()
+          });
+
+          // Validate if ProductName is null or contains only whitespaces - if yes then replace with default name
+          if (
+            this.state.productName === null ||
+            this.state.productName.match(/^[\s\n\r]*$/) !== null
+          )
+            this.setState({ productName: 'Product name' });
+        }}
+      />
+    );
   };
 
-  componentDidMount() {
-    this.setPopupModifier();
-  }
-
-  handleBlur = () => {
-    console.log('blur');
-    this.setState({ showPopup: false });
-  };
-
-  handleClick = () => {
-    this.props.closePopup(this.props.id);
+  configureProductExpDate = () => {
+    return (
+      <input
+        type="text"
+        autoComplete="off"
+        value={this.state.productExpDate}
+        onChange={e => {
+          this.setState({ productExpDate: e.target.value });
+        }}
+      />
+    );
   };
 
   popup = () => {
+    // return either Input for product name OR Div displaying product name (OnClick on both causes them to switch their visibility)
+    // next return action buttons accordingly to current shown element
     return (
       <div className={`popup${this.state.popupModifier}`}>
         <div className="popup__inner">
-          {this.state.showRegister ? (
-            <div id="register">{this.configureProduct()}</div>
+          {this.state.showInput ? (
+            <div className="product-tag__display ">
+              <form autoComplete="off" className="product-tag__form">
+                {this.configureProductName()}
+              </form>
+            </div>
           ) : (
-            <div
-              className="productName"
-              id="productName"
-              onClick={() =>
-                this.setState({
-                  showRegister: !this.state.showRegister
-                })
-              }
-            >
-              {this.state.productName}
+            <div className="product-tag__display">
+              <div className="product-tag__info">
+                <div
+                  className="product-tag__name"
+                  onClick={() =>
+                    this.setState({
+                      showInput: !this.state.showInput
+                    })
+                  }
+                >
+                  {this.state.productName}
+                </div>
+
+                <div
+                  className="product-tag__exp-date"
+                  onClick={() =>
+                    this.setState({
+                      showInput: !this.state.showInput
+                    })
+                  }
+                >
+                  {this.state.productExpDate}
+                </div>
+              </div>
+
+              <div className="product-tag__actions">
+                <button className="product-tag__memo" onClick={null}>
+                  TO DO
+                </button>
+                <button
+                  className="product-tag__delete"
+                  onClick={() => this.props.deleteTag(this.props.id)}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           )}
 
-          <button onClick={() => this.props.closePopup(this.props.id)}>
+          {/* <button
+            style={{ display: 'none' }}
+            className="popup__close"
+            onClick={() => this.props.closePopup(this.props.id)}
+          >
             close
-          </button>
-          <button onClick={() => this.props.deleteTag(this.props.id)}>
-            delete (todo)
-          </button>
+          </button> */}
         </div>
       </div>
     );
   };
 
-  configureProduct = () => {
-    return (
-      <div>
-        <form>
-          <input
-            type="text"
-            autoFocus
-            onChange={this.onChangeProductName}
-            onBlur={() => {
-              console.log('blur inp');
-              this.setState({
-                showRegister: !this.state.showRegister
-              });
-              console.log(this.state.showRegister);
-            }}
-            value={this.state.productName}
-          />
-          <input type="submit" value="Save product" formAction="/fridge/" />
-        </form>
-      </div>
-    );
-  };
+  componentDidMount() {
+    this.setPopupModifier();
+  }
 
   render() {
     return (
@@ -122,7 +155,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
           position: 'absolute',
           top: `${this.props.tagPosTop}px`,
           left: `${this.props.tagPosLeft}px`,
-          backgroundColor: '#70D9A8'
+          backgroundColor: 'gray'
         }}
       >
         <button

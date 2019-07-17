@@ -2,6 +2,7 @@
   border-radius: 50%;
   height: 60px;
   width: 60px;
+  box-sizing: border-box;
 
   &__circle {
     background-color: transparent;
@@ -16,6 +17,60 @@
   }
 }
 
+.product-tag__actions {
+  width: 380px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.product-tag__delete {
+  background: #ff4e4e;
+  border: transparent;
+  border-radius: 10px;
+  width: 170px;
+  height: 70px;
+  line-height: 70px;
+  color: white;
+  font-family: 'Open Sans';
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.product-tag__memo {
+  background: #00c3ff;
+  border: transparent;
+  border-radius: 10px;
+  width: 170px;
+  height: 70px;
+  line-height: 70px;
+  color: white;
+  font-family: 'Open Sans';
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.product-tag__info {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-tag__name {
+  width: 200px;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  font-family: 'Open Sans';
+  cursor: pointer;
+}
+
+.product-tag__form {
+  display: flex;
+}
+
+/* POPUP STUFF */
 .popup {
   position: absolute;
   box-sizing: border-box;
@@ -38,6 +93,7 @@
     flex-wrap: wrap;
     z-index: 100px;
     padding: 10px;
+    box-sizing: border-box;
   }
 
   /*== pointer tip ==*/
@@ -76,6 +132,7 @@
     display: flex;
     flex-wrap: wrap;
     z-index: 100px;
+    box-sizing: border-box;
   }
 
   /*== pointer tip ==*/
@@ -96,16 +153,6 @@
   }
 }
 
-.productName {
-  width: 200px;
-  font-size: 20px;
-  padding: 0;
-  margin: 0;
-  position: relative;
-  font-family: 'Open Sans';
-  cursor: pointer;
-}
-
 input[type='text'] {
   width: 200px;
   padding: 0;
@@ -114,6 +161,7 @@ input[type='text'] {
   outline: none;
   font-size: 20px;
   font-family: 'Open Sans';
+  background: gray;
 }
 
 input::placeholder {
