@@ -1,5 +1,8 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import './App.css';
+
+import { Provider } from 'react-redux'
+import {store} from './store/storeConfigure'
 
 import DashboardModule from './modules/DashboardModule/DashboardModule';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -10,6 +13,7 @@ import ProductFullList from './modules/ProductFullList/ProductFullList';
 
 const App: React.FC = () => {
   return (
+    <Provider store={store}>
     <Router>
       <div>
         <Route exact path={Routes.LOGIN} component={LoginModule} />
@@ -18,6 +22,7 @@ const App: React.FC = () => {
         <Route path={Routes.PRODUCTS} component={ProductFullList} />
       </div>
     </Router>
+    </Provider>
   );
 };
 

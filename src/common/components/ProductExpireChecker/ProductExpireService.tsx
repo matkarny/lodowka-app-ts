@@ -28,19 +28,14 @@ export function expirationChecker(productExpireDay, productExpireMonth, productE
     switch (true) {
         case days < 0:
             return <div className="expiration-style expiration-style__expiered" >{`Expired`}</div>
-            break;
         case days === 0:
             return <div className="expiration-style expiration-style__short-term" >{`Today`}</div>
-            break;
         case days === 1:
             return <div className="expiration-style expiration-style__short-term">{`${days} DAY`}</div>
-            break;
         case days < 4:
             return <div className="expiration-style expiration-style__short-term">{`${days} DAYS`}</div>
-            break;
         case days < 10:
             return <div className="expiration-style" >{`${days} DAYS`}</div>
-            break;
         default:
             return <div className="expiration-style">{`${String(productExpireDay).padStart(2, "0")}/${String(productExpireMonth).padStart(2, "0")}/${productExpireYear}`}</div>
 

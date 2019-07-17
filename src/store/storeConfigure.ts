@@ -5,7 +5,7 @@ const initialState = {
     imgData: [],
 }
 
-const store = createStore(stateReducer, initialState)
+export const store = createStore(stateReducer, initialState)
 
 
 function stateReducer(state = initialState, action) {
@@ -38,6 +38,6 @@ return store.getState()
 }
 
 
-export default { dispatchAddImage, dispatchDeleteImage, getCurrentStore }
+export default { dispatchAddImage, dispatchDeleteImage, getCurrentStore, store }
 
 //https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e

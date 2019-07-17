@@ -92,7 +92,6 @@ export default class ProductFullList extends React.Component<IProductFullListPro
                     <div className="product-list__middle-container">
                         <div className="product-list__middle-container-text">Your Products </div>
                         <div className="product-list__fridge-list-container">
-
                             <a href={Routes.FRIDGE} className="product-list__link product-list__fridge-list-container product-list__fridge-list-container-fridge product-list__link">Fridge</a>
                             <a href="#" className="product-list__link product-list__fridge-list-container product-list__fridge-list-container-list product-list__link">List</a>
                         </div>
