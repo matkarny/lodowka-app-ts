@@ -35,7 +35,7 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
                                 colorName={color.name}
                                 isActive={true}
                                 key={index}
-                                id={index}
+                                id={color.id}
                                 click={this.handleSelectColor}
                             />
                         }
@@ -44,7 +44,7 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
                                 colorName={color.name}
                                 isActive={false}
                                 key={index}
-                                id={index}
+                                id={color.id}
                                 click={this.handleSelectColor}
                             />
                         }
