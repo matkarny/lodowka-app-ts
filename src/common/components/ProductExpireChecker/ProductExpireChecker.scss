@@ -1,0 +1,22 @@
+.expiration-style{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    font-family: 'Open Sans';
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: #70D9A8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    
+
+    &__expiered{
+        background-color: #FF4E4E;
+    }
+
+    &__short-term{
+        background-color:#FFCE2D;
+    }
+}

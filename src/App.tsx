@@ -6,16 +6,17 @@ import YoutubeWidget from './modules/YoutubeWidget/YoutubeWidget';
 import DrawingComponent from './common/components/DrawingComponent/DrawingComponent';
 import TimeWidget from './modules/TimeWidget/TimeWidget';
 import WeatherWidgetView from './modules/WeatherWidget/WeatherWidgetView';
+import ProductListWidget from './modules/ProductListWidget/ProductListWidget';
+import ProductFullList from './modules/ProductFullList/ProductFullList';
 
 const App: React.FC = () => {
   return (
-    <div>
-      <DashboardModule >
-        <TimeWidget />
-        <WeatherWidgetView />
-        <DrawingComponent />
-        <YoutubeWidget />
-      </DashboardModule>
+    <div >
+
+      <ProductFullList />
+
+    
+
     </div>
   );
 }
