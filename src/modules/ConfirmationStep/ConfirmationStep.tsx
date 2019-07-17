@@ -1,13 +1,18 @@
 import * as React from 'react';
 import './ConfirmationStep.scss'
+import avatarList from '../../common/constants/AnimalConstants';
 import avatar from '../../common/images/pexels-photo-148359@2x.png'
 export interface ConfirmationStepProps {
-    // color: string,
-    // avatarSRCHigh: string,
+    // color: number,
+    avatarId: number,
     // username: string,
 }
 
 const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
+
+    // const chosenAvatar = avatarList.find(avatar => avatar.id === parseInt(props.avatarId))
+    const chosenAvatar = avatarList.find(avatar => avatar.id === props.avatarId)
+
     return (
         <div className="login-confirmation__container">
 
@@ -16,7 +21,9 @@ const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
 
             <div className="login-confirmation__items-wrapper">
                 <div className={`login-confirmation__color login-confirmation__color--`}>
-                    <img src={avatar} alt="" className="login-confirmation__avatar" />
+                    <div className="login-confirmation__avatar-container">
+                        <img src={chosenAvatar.srcHigh} className="login-confirmation__avatar" />
+                    </div>
                     <p className="login-confirmation__username">Janusz</p>
                 </div>
 
