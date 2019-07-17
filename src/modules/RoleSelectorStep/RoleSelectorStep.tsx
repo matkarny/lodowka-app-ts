@@ -1,21 +1,31 @@
 import * as React from 'react';
+import './RoleSelectorStep.scss';
+import roleList from '../../common/constants/RoleConstants'
+import RoleComponent from '../../common/components/RoleComponent/RoleComponent'
 export interface RoleSelectorStepProps {
+    onSelect: any,
+    onBack: any,
 }
 
 export interface RoleSelectorStepState {
-    role: string
+    role: string,
+    selectedRole: number,
 }
 
 class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelectorStepState> {
     state = {
-        role: ''
+        role: '',
+        selectedRole: null
+    }
+    handleSelectRole = e => {
+        this.setState({ selectedRole: e.currentTarget.dataset.id })
     }
     render() {
         return (
             <div className="login-role__container">
 
                 <p className='login-role__title'>What is your role?</p>
-                <p className='login-role__subtitle'>Choose your role.</p>
+                <p className='login-role__subtitle'>Are you child or parent?</p>
 
                 <div className="login-role__items-wrapper">
 
@@ -44,7 +54,7 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
                     }
 
                 </div>
-                {/* <div className="login-role__btn-container">
+                <div className="login-role__btn-container">
                     <button
                         className="login-role__button login-role__button--cancel"
                         onClick={this.props.onBack}>Back</button>
@@ -55,7 +65,7 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
                         Select
                     </button>
 
-                </div> */}
+                </div>
             </div>
         )
     }
