@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import './App.css';
-import DashboardModule from './modules/DashboardModule/DashboardModule';
 
+import DashboardModule from './modules/DashboardModule/DashboardModule';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import * as Routes from '../src/common/constants/Routes';
 import LoginModule from './modules/LoginModule/LoginModule';
