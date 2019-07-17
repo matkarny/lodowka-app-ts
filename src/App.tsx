@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
 
 import DashboardModule from './modules/DashboardModule/DashboardModule';
-import YoutubeWidget from './modules/YoutubeWidget/YoutubeWidget';
-import DrawingComponent from './common/components/DrawingComponent/DrawingComponent';
-import TimeWidget from './modules/TimeWidget/TimeWidget';
-import WeatherWidgetView from './modules/WeatherWidget/WeatherWidgetView';
-import ProductListWidget from './modules/ProductListWidget/ProductListWidget';
-import ProductFullList from './modules/ProductFullList/ProductFullList';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import * as Routes from '../src/common/constants/Routes';
+import LoginModule from './modules/LoginModule/LoginModule';
+import FridgeView from './modules/Fridge/FridgeView';
 
 const App: React.FC = () => {
   return (
-    <div >
+    <Router>
+      <div>
+        <Route exact path={Routes.LOGIN} component={LoginModule} />
+        <Route path={Routes.DASHBOARD} component={DashboardModule} />
+        <Route path={Routes.FRIDGE} component={FridgeView} />
 
-      <ProductFullList />
-
-    
-
-    </div>
+        {/*
+      <DashboardModule>
+        <DrawingComponent />
+        <YoutubeWidget />
+      </DashboardModule>
+      */}
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
