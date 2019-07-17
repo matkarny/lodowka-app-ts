@@ -35,7 +35,7 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
                                 animal={animal.name}
                                 isActive={true}
                                 key={index}
-                                id={index}
+                                id={animal.id}
                                 src={animal.src}
                                 click={this.handleSelectAvatar}
                             />
@@ -45,7 +45,7 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
                                 animal={animal.name}
                                 isActive={false}
                                 key={index}
-                                id={index}
+                                id={animal.id}
                                 src={animal.src}
                                 click={this.handleSelectAvatar}
                             />
