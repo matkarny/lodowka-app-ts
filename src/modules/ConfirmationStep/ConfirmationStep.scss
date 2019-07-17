@@ -1,0 +1,32 @@
+.login-confirmation {
+    &__container {
+        text-align: center;
+    }
+
+    &__items-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__color {
+        width: 280px;
+        height: 335px;
+        border-radius: 40px;
+        background-color: #00C3FF;
+    }
+
+    &__avatar {
+        margin: 20px 20px 14px;
+        width: 240px;
+        height: 240px;
+        border-radius: 30px;
+    }
+
+    &__username {
+        font-size: 30px;
+        color: #fff;
+        text-align: center;
+        font-weight: bold;
+        margin: 0 20px 20px;
+    }
+}
