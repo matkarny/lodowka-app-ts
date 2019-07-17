@@ -2,6 +2,7 @@ import * as React from 'react';
 import "./ProductFullList.scss"
 import ProductLabel from "../../common/components/ProductLabel/ProductLabel"
 import ProductExpireChecker from '../../common/components/ProductExpireChecker/ProductExpireChecker'
+import * as Routes from '../../common/constants/Routes'
 
 export interface IProductFullListProps {
 }
@@ -87,12 +88,12 @@ export default class ProductFullList extends React.Component<IProductFullListPro
         return (
             <div className="product-list">
                 <header className="product-list__header">
-                    <a href="#" className="product-list__link"><div className="product-list__header product-list__arrow">🡠</div> </a>
+                    <a href={Routes.DASHBOARD} className="product-list__link"><div className="product-list__header product-list__arrow">🡠</div> </a>
                     <div className="product-list__middle-container">
                         <div className="product-list__middle-container-text">Your Products </div>
                         <div className="product-list__fridge-list-container">
 
-                            <a href="#" className="product-list__link product-list__fridge-list-container product-list__fridge-list-container-fridge product-list__link">Fridge</a>
+                            <a href={Routes.FRIDGE} className="product-list__link product-list__fridge-list-container product-list__fridge-list-container-fridge product-list__link">Fridge</a>
                             <a href="#" className="product-list__link product-list__fridge-list-container product-list__fridge-list-container-list product-list__link">List</a>
                         </div>
                     </div>

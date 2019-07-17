@@ -6,7 +6,7 @@
     padding: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 200px 40px 500px 40px 250px 40px 250px 40px 500px;
+    grid-template-rows: 200px 40px 500px 40px 200px 20px 200px 40px 500px;
     grid-template-areas: 
     "clock service"
     ". ."
