@@ -1,4 +1,5 @@
 @import '../../common/constants/ColorConstants.scss';
+$btn-color: #00C3FF;
 
 .login-confirmation {
     &__container {
@@ -14,7 +15,6 @@
         width: 280px;
         height: 335px;
         border-radius: 40px;
-        background-color: #00C3FF;
 
         @include color-classes;
     }
@@ -43,5 +43,33 @@
         text-align: center;
         font-weight: bold;
         margin: 0 20px 20px;
+    }
+
+    &__btn-container {
+        width: 55%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__button {
+        min-width: 160px;
+        height: 70px;
+        background-color: $btn-color;
+        border: 1px solid $btn-color;
+        border-radius: 10px;
+        margin-right: 10px;
+        font-size: 24px;
+        color: #fff;
+        cursor: pointer;
+
+        &--cancel {
+            background-color: transparent;
+            color: $btn-color;
+        }
+
+        &--select {
+            background-color: $btn-color;
+        }
     }
 }

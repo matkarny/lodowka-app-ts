@@ -6,11 +6,12 @@ export interface ConfirmationStepProps {
     colorId: number,
     avatarId: number,
     username: string,
+    onBack: any,
+    onSelect: any,
 }
 
 const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
 
-    // const chosenAvatar = avatarList.find(avatar => avatar.id === parseInt(props.avatarId))
     const chosenAvatar = avatarList.find(avatar => avatar.id === props.avatarId)
     const chosenColor = COLORS.find(color => color.id === props.colorId)
 
@@ -29,18 +30,17 @@ const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
                 </div>
 
             </div>
-            {/* <div className="login-confirmation__btn-container">
+            <div className="login-confirmation__btn-container">
                 <button
                     className="login-confirmation__button login-confirmation__button--cancel"
-                    onClick={this.props.onBack}>Back</button>
+                    onClick={props.onBack}>Back</button>
                 <button
-                    className={`login-confirmation__button ${this.state.selectedconfirmation ? 'login-confirmation__button--select' : 'login-confirmation__button--disabled'}`}
-                    disabled={this.state.selectedconfirmation ? false : true}
-                    onClick={() => this.props.onSelect(this.state.selectedconfirmation)}>
-                    Select
+                    className='login-confirmation__button login-confirmation__button--select'
+                >
+                    Confirm and add family member
             </button>
 
-            </div> */}
+            </div>
         </div>
     );
 }
