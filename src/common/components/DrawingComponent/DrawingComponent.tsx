@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 //import { createStore } from 'redux'
 import './DrawingComponent.scss';

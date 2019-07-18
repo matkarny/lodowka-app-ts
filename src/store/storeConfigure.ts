@@ -1,29 +1,19 @@
 import { createStore } from 'redux';
 
 const initialState = {
-  fridgeImg: ''
+    imgData: [],
 };
 
-const store = createStore(stateReducer, initialState);
+export const store = createStore(stateReducer, initialState)
+
 
 function stateReducer(state = initialState, action) {
   switch (action.type) {
-    case 'ADD_FRIDGE_IMG':
-      return { fridgeImg: action.text };
     default:
       return state;
   }
 }
 
-export function dispatchFridge(data) {
-  setInterval(() => {
-    console.log('DISPATCHING FRIDGE');
-    return store.dispatch({
-      type: 'ADD_FRIDGE_IMG',
-      text: data
-    });
-  }, 10000);
-}
 
 export function dispatchAddImage(data) {
   return store.dispatch({
@@ -46,7 +36,6 @@ export function getCurrentStore() {
 export default {
   dispatchAddImage,
   dispatchDeleteImage,
-  dispatchFridge,
   getCurrentStore
 };
 
@@ -63,8 +52,6 @@ export default {
 // const initialState = {
 //   productsList: []
 // };
-
-// const store = createStore(products, initialState);
 
 // function products(state = initialState, action) {
 //   switch (action.type) {

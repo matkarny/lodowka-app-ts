@@ -25,6 +25,7 @@ export interface FridgeViewState {
 }
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
+
   state = {
     src: '',
     nextId: 0,
