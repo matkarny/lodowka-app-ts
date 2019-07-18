@@ -4,7 +4,11 @@ const initialState = {
   fridgeImg: ''
 };
 
-const store = createStore(stateReducer, initialState);
+    imgData: [],
+}
+
+export const store = createStore(stateReducer, initialState)
+
 
 function stateReducer(state = initialState, action) {
   switch (action.type) {
@@ -64,7 +68,7 @@ export default {
 //   productsList: []
 // };
 
-// const store = createStore(products, initialState);
+export default { dispatchAddImage, dispatchDeleteImage, getCurrentStore, store }
 
 // function products(state = initialState, action) {
 //   switch (action.type) {

@@ -1,3 +1,5 @@
-export const LOGIN = '/login';
+export const LOGIN = '/';
 export const DASHBOARD = '/dashboard';
-export const HOME = '/home';
+export const FRIDGE = '/fridge';
+export const PRODUCTS = '/products';
+

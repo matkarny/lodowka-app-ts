@@ -33,7 +33,7 @@ class WeatherServiceNEW {
         return preparedData;
       } catch (e) {}
     }
-    return null;
+    return { icon: '', description: '', temperature: '', wind: 0 };
   }
 
   prepareWeather(data: WeatherResponse) {

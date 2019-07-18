@@ -1,8 +1,9 @@
+@import '../../styles/constant-style.scss';
 .list-label{
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    width: 420px;
+    width: auto;
     height: 80px;
     padding: 20px;
     background-color: #5F7891;
@@ -16,6 +17,7 @@
         flex-direction: column;
         justify-content: center;
         color: #fff;
+        font-family: $font-style;
         font-weight: bold;
     }
 }
