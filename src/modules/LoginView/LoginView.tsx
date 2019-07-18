@@ -1,5 +1,6 @@
 import * as React from 'react';
-import './LoginView.scss'
+import './LoginView.scss';
+import ConfirmationStep from '../ConfirmationStep/ConfirmationStep'
 import RoleSelectorStep from '../RoleSelectorStep/RoleSelectorStep';
 import NameSelectorStep from '../NameSelectorStep/NameSelectorStep';
 import AvatarSelectorStep from '../AvatarSelectorStep/AvatarSelectorStep';
@@ -12,6 +13,7 @@ export enum ActiveStep {
     ThirdStep,
     FourthStep,
     FifthStep,
+    SixthStep,
 };
 
 const StepComponent = {
@@ -20,6 +22,7 @@ const StepComponent = {
     [ActiveStep.ThirdStep]: AvatarSelectorStep,
     [ActiveStep.FourthStep]: ColorSelectorStep,
     [ActiveStep.FifthStep]: PinSelectorStep,
+    [ActiveStep.SixthStep]: ConfirmationStep,
 };
 const StepDescription = {
     [ActiveStep.FirstStep]: 'role',
@@ -75,14 +78,22 @@ class LoginView extends React.Component<LoginViewProps, LoginViewState> {
     }
 
     render() {
-        const ActiveStepComponent = StepComponent[this.state.loginStep];
+        const ActiveStepComponent: React.ReactType = StepComponent[this.state.loginStep];
         return (
             <div className={`login__container login__container--step-${this.state.loginStep}`}>
                 <p className="login__title">Add a family member</p>
                 <p className="login__subtitle">Start by adding members of your family for a more personalised experience.</p>
-                <ActiveStepComponent
-                    onSelect={this.handleSelectBtnClick}
-                    onBack={this.handleBackBtnClick} />
+                {this.state.loginStep < ActiveStep.SixthStep ?
+                    < ActiveStepComponent
+                        onSelect={this.handleSelectBtnClick}
+                        onBack={this.handleBackBtnClick} />
+                    : < ActiveStepComponent
+                        onSelect={this.handleSelectBtnClick}
+                        onBack={this.handleBackBtnClick}
+                        colorId={this.state.newUser.colorIndex}
+                        avatarId={this.state.newUser.avatarIndex}
+                        username={this.state.newUser.username}
+                    />}
             </div>
         );
     }
