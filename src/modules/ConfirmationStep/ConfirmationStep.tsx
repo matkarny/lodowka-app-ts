@@ -12,8 +12,8 @@ export interface ConfirmationStepProps {
 
 const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
 
-    const chosenAvatar = avatarList.find(avatar => avatar.id === props.avatarId)
-    const chosenColor = COLORS.find(color => color.id === props.colorId)
+    const chosenAvatar = avatarList.find(avatar => avatar.id == props.avatarId)
+    const chosenColor = COLORS.find(color => color.id == props.colorId)
 
     return (
         <div className="login-confirmation__container">
