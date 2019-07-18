@@ -2,6 +2,7 @@ import * as React from 'react';
 import "./FullView.scss"
 import * as Routes from "../../constants/Routes"
 
+
 export interface FullViewProps {
     startAtFirst: boolean,
     labelName: string,
@@ -13,10 +14,7 @@ export interface FullViewProps {
 
 
 export default class FullView extends React.Component<FullViewProps> {
-    constructor(props) {
-        super(props);
-    }
-    state = {
+        state = {
         isReverse: false,
         firstButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-nonactive",
         secondButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-active",
@@ -46,6 +44,7 @@ export default class FullView extends React.Component<FullViewProps> {
     componentDidMount() {
         this.handleChangeButton(this.props.startAtFirst)
     };
+
 
     public render() {
         return (
