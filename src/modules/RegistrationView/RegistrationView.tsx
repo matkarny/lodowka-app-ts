@@ -70,6 +70,9 @@ class registrationView extends React.Component<RegistrationViewProps, Registrati
             }
         })
     }
+    handleConfirmBtnClick = () => {
+        console.log(this.state.newUser)
+    }
     handleBackBtnClick = () => {
         this.setState(prevState => ({
             registrationStep: prevState.registrationStep - 1
@@ -88,7 +91,7 @@ class registrationView extends React.Component<RegistrationViewProps, Registrati
                         onSelect={this.handleSelectBtnClick}
                         onBack={this.handleBackBtnClick} />
                     : < ActiveStepComponent
-                        onSelect={this.handleSelectBtnClick}
+                        onSelect={this.handleConfirmBtnClick}
                         onBack={this.handleBackBtnClick}
                         colorId={this.state.newUser.colorIndex}
                         avatarId={this.state.newUser.avatarIndex}
