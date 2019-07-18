@@ -36,6 +36,7 @@ const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
                     onClick={props.onBack}>Back</button>
                 <button
                     className='login-confirmation__button login-confirmation__button--select'
+                    onClick={props.onSelect}
                 >
                     Confirm and add family member
             </button>
