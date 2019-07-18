@@ -4,9 +4,11 @@ $btn-disabled-color:#E9E9E9;
 
 .login-pin {
     &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 1080px;
         height: 1920px;
-        text-align: center;
     }
 
     &__input {
