@@ -23,6 +23,7 @@ class WeatherCard extends React.Component<Props> {
             <p className="temperature__wind">Wind: {this.props.wind}m/s</p>
           </span>
         </div>
+        </div>
     );
   }
 }
