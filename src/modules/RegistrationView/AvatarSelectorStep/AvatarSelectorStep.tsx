@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './AvatarSelectorStep.scss';
-import animalList from '../../common/constants/AnimalConstants';
-import AnimalComponent from '../../common/components/AnimalComponent/AnimalComponent';
+import animalList from '../../../common/constants/AnimalConstants';
+import AnimalComponent from '../../../common/components/AnimalComponent/AnimalComponent';
 export interface AvatarSelectorProps {
     onSelect: any,
     onBack: any
