@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './ColorSelectorStep.scss';
-import { COLORS } from '../../common/constants/ColorConstants';
-import ColorComponent from '../../common/components/ColorComponent/ColorComponent';
+import { COLORS } from '../../../common/constants/ColorConstants';
+import ColorComponent from '../../../common/components/ColorComponent/ColorComponent';
 export interface ColorSelectorProps {
     onSelect: any,
     onBack: any,
