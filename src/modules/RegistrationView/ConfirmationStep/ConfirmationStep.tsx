@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './ConfirmationStep.scss'
-import avatarList from '../../common/constants/AnimalConstants';
-import { COLORS } from '../../common/constants/ColorConstants';
+import avatarList from '../../../common/constants/AnimalConstants';
+import { COLORS } from '../../../common/constants/ColorConstants';
 export interface ConfirmationStepProps {
     colorId: number,
     avatarId: number,
