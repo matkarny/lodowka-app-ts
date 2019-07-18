@@ -56,4 +56,14 @@ $btn-disabled-color:#E9E9E9;
             cursor: default;
         }
     }
+
+    &__error-label {
+        opacity: 0;
+        transition: opacity .3s;
+        color: red;
+
+        &--active {
+            opacity: 1;
+        }
+    }
 }
