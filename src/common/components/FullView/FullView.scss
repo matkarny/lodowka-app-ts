@@ -1,8 +1,11 @@
-@import '../../common/styles/constant-style.scss';
 
-.product-list{
-    background-image: url(../../common/images/background.png);
+@import '../../styles/constant-style.scss';
+
+.full-list{
+    background-image: url(../../images/background.png);
     padding: 80px 100px;
+    width: 1080px;
+    height: 1920px;
 
     &__header{
         color: #5F7891;
@@ -11,6 +14,9 @@
         align-items: baseline;
         flex-direction: row;
 
+    }
+    &__link{
+        text-decoration: none;
     }
 
     &__arrow{
@@ -52,10 +58,19 @@
         border: 1px solid #00C3FF;
 
         &-nonactive{
+            height: 100%;
             border: none;
             color:#00C3FF;
             justify-content: center;
+            background-color: white;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
             
+            &--reverse{
+                color: white;
+                background-color:#00C3FF;
+            }
+       
         }
         &-active{
             border: none;
@@ -66,16 +81,14 @@
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
             color: white;
+
+            &--reverse{
+                color: #00C3FF;
+                background-color:white;
+            }
         }
-        
+       
     }
-&__input{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-}
 
     }
     
