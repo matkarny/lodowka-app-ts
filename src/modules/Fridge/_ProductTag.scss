@@ -15,6 +15,8 @@
     box-shadow: 0px 15px 36px black;
     position: relative;
   }
+  color: #5f7891;
+  font-weight: 600;
 }
 
 .product-tag__delete {
@@ -30,36 +32,25 @@
   cursor: pointer;
 }
 
-.product-tag__memo {
-  background: #00c3ff;
-  border: transparent;
-  border-radius: 10px;
-  width: 170px;
-  height: 70px;
-  line-height: 70px;
-  color: white;
-  font-family: 'Open Sans';
-  font-size: 24px;
-  cursor: pointer;
-}
-
 .name {
   height: 60px;
+
   &__display {
-    width: 180px;
+    width: 200px;
     display: flex;
     justify-content: space-between;
   }
 
   input[type='text'] {
-    width: 180px;
+    color: #5f7891;
+    font-weight: 600;
+    width: 200px;
     padding: 0;
     margin: 0;
     border: none;
     outline: none;
     font-size: 20px;
     font-family: 'Open Sans';
-    background: gray;
 
     &::placeholder {
       padding: 0;
@@ -75,25 +66,31 @@
   height: 60px;
 
   &__display {
-    width: 180px;
+    width: auto;
     display: flex;
     justify-content: space-between;
+    position: relative;
+    left: 50px;
   }
 
   input[type='date'] {
-    width: 180px;
+    color: #5f7891;
+    font-weight: 600;
+    width: 150px;
     padding: 0;
     margin: 0;
+    position: relative;
+    top: -2px;
+    left: 10px;
     border: none;
     outline: none;
     font-size: 20px;
     font-family: 'Open Sans';
-    background: gray;
+    letter-spacing: -0.65px;
 
     &::placeholder {
       padding: 0;
       margin: 0;
-      color: black;
       font-family: 'Open Sans';
       border-radius: 2px;
     }
@@ -111,11 +108,15 @@
 
 .product-tag__date {
   padding-left: 30px;
-  background: red;
   font-size: 20px;
   padding: 0;
   margin: 0;
   position: relative;
   font-family: 'Open Sans';
   cursor: pointer;
+}
+
+::-webkit-clear-button {
+  display: none; /* Hide the button */
+  -webkit-appearance: none; /* turn off default browser styling */
 }

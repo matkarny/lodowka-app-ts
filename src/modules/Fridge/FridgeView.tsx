@@ -3,8 +3,8 @@ import io from 'socket.io-client';
 import './Fridge.scss';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
 import ProductTag from './ProductTag';
-
-import DatePicker from 'react-date-picker';
+import fridgeService from './FridgeService';
+import FridgeService from './FridgeService';
 
 interface ProductTagData {
   name: '';
@@ -32,14 +32,14 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     value: null
   };
 
-  // Get image from Socket and send it to state
-  getImageBase64() {
-    var socket = io(FRIDGE.SOCKET_ADDRESS);
-    socket.on('image', image => {
-      const src = `data:image/jpeg;base64,${image}`;
-      this.setState({ src });
-    });
-  }
+  // // Get image from Socket and send it to state
+  // getImageBase64() {
+  //   var socket = io(FRIDGE.SOCKET_ADDRESS);
+  //   socket.on('image', image => {
+  //     const src = `data:image/jpeg;base64,${image}`;
+  //     this.setState({ src });
+  //   });
+  // }
 
   // Set ProductTag on click and add it to List in state
   setTag = e => {
@@ -61,13 +61,12 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       expireDate: new Date()
     };
 
-    console.log(product);
     let { productTags } = this.state;
     productTags.forEach(tag => {
       tag.shown = false;
     });
+
     productTags.push(product);
-    console.log(productTags);
     this.setState({ productTags, nextId: this.state.nextId + 1 });
   };
 
@@ -77,8 +76,6 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     });
     this.setState({ productTags });
   };
-
-  selectExpDate = (id: number) => {};
 
   closePopup = (id: number) => {
     let { productTags } = this.state;
@@ -117,8 +114,13 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     });
   };
 
+  getImg = (src: string) => {
+    this.setState({ src });
+  };
+
   componentDidMount() {
-    this.getImageBase64();
+    //  this.getImageBase64();
+    new FridgeService(this.getImg).getImageBase64();
   }
 
   render() {
@@ -132,15 +134,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             onClick={this.setTag}
             alt="Fridge"
           />
-          <ul className="fridge__list">
-            {/* <DatePicker
-              className="date-picker"
-              value={this.state.value}
-              onChange={date => this.setState({ value: date })}
-              minDate={new Date()}
-            /> */}
-            {this.listProductTags()}
-          </ul>
+          <ul className="fridge__list">{this.listProductTags()}</ul>
         </div>
       </div>
     );
