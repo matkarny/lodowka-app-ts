@@ -85,17 +85,15 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
         const ActiveStepComponent: React.ReactType = StepComponent[this.state.registrationStep];
         return (
             <div className={`registration__container registration__container--step-${this.state.registrationStep}`}>
-                <p className="registration__title">Add a family member</p>
-                <p className="registration__subtitle">Start by adding members of your family for a more personalised experience.</p>
-                {(this.state.registrationStep < ActiveStep.FifthStep) &&
+                <div className="registration__text-container">
+                    <p className="registration__title">Add a family member</p>
+                    <p className="registration__subtitle">Start by adding members of your family for a more personalised experience.</p>
+                </div>
+                {this.state.registrationStep < ActiveStep.SixthStep ?
                     < ActiveStepComponent
                         onSelect={this.handleSelectBtnClick}
-                        onBack={this.handleBackBtnClick} />}
-                {(this.state.registrationStep === ActiveStep.FifthStep) &&
-                    < ActiveStepComponent
-                        onSelect={this.handleSelectBtnClick}
-                        onBack={this.handleBackBtnClick} />}
-                {(this.state.registrationStep === ActiveStep.SixthStep) &&
+                        onBack={this.handleBackBtnClick} />
+                    :
                     < ActiveStepComponent
                         onSelect={this.handleConfirmBtnClick}
                         onBack={this.handleBackBtnClick}

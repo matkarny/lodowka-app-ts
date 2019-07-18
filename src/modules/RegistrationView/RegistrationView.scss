@@ -1,13 +1,35 @@
-$bg-pos:30%;
+@import './RegistrationConstants.scss';
 
 .registration {
+    &__text-container {
+        text-align: center;
+        height: 50%;
+    }
+
+    &__title {
+        margin: 0;
+        color: $font-color;
+        font-size: 68px;
+    }
+
+    &__subtitle {
+        margin: 0;
+        color: $font-color;
+        font-size: $subtitle-size;
+    }
+
     &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 1080px;
         height: 1920px;
+        box-sizing: border-box;
         background-image: url('../../common/images/pexels-photo-1640777.png');
         background-size: cover;
         background-position-x: 30%;
         margin: 0 auto;
+        padding: 10vh 0;
         transition: background-position 0.3s ease-out;
 
         &--step-1 {
