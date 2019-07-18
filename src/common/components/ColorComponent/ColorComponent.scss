@@ -1,3 +1,5 @@
+@import '../../constants/ColorConstants.scss';
+
 .login-color {
     &__item {
         height: 115px;
@@ -11,5 +13,7 @@
         &--active {
             opacity: 1;
         }
+
+        @include color-classes;
     }
 }
