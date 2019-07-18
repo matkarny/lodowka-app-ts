@@ -11,11 +11,15 @@ import LoginModule from './modules/LoginModule/LoginModule';
 import FridgeView from './modules/Fridge/FridgeView';
 import ProductFullList from './modules/ProductFullList/ProductFullList';
 import NotesModule from './modules/NotesModule/NotesModule'
+import FullView from './common/components/FullView/FullView';
+import AllProductsComponent from './common/components/BasicComponent/AllProductsComponent/AllProductsComponent';
+import AddNoteComponent from './common/components/AddNoteComponent/AddNoteComponent';
 
 const App: React.FC = () => {
   return (
       <div>
-        <NotesModule />
+        <AddNoteComponent />
+        {/* <FullView labelName={"Dupa"} startAtFirst={true} firstButtonName={"1"} secondButtonName={"2"} firstComponent={<AllProductsComponent />} secondComponent={<FridgeView />}/> */}
       </div>
 
   );

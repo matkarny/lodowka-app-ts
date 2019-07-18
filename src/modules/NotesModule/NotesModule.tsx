@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Popup from "reactjs-popup";
 
 
 import ListBtn from "../../common/components/ListBtn/ListBtn"
@@ -15,16 +14,7 @@ export default class App extends React.Component<IAppProps> {
           <div className="product-list-widget">
                 <ListLabel labelCount={9} labelTxt={"Products"}>
                     <a href="#"><ListBtn>VIEW ALL</ListBtn></a>
-                    <Popup trigger={<ListBtn>+</ListBtn>} position="top center">
-{close => (
-  <div>
-    Content here
-    <a className="close" onClick={close}>
-      &times;
-    </a>
-  </div>
-)}
-</Popup>
+                 <ListBtn>+</ListBtn>}
                 </ListLabel>
             
             </div>
