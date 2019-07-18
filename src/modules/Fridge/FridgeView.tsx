@@ -1,9 +1,7 @@
 import React from 'react';
-import io from 'socket.io-client';
 import './Fridge.scss';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
 import ProductTag from './ProductTag';
-import fridgeService from './FridgeService';
 import FridgeService from './FridgeService';
 
 interface ProductTagData {

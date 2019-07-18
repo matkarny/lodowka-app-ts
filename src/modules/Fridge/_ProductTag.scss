@@ -38,7 +38,7 @@
   height: 60px;
 
   &__display {
-    width: 200px;
+    width: 210px;
     display: flex;
     justify-content: space-between;
   }
@@ -46,7 +46,7 @@
   input[type='text'] {
     color: #5f7891;
     font-weight: 600;
-    width: 200px;
+    width: 210px;
     position: relative;
     top: -4px;
     padding: 0;
@@ -74,7 +74,7 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    left: 50px;
+    left: 40px;
   }
 
   input[type='date'] {

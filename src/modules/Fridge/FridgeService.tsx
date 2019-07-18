@@ -1,4 +1,3 @@
-import React from 'react';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
 import io from 'socket.io-client';
 
