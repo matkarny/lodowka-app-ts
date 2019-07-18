@@ -1,11 +1,11 @@
 import * as React from 'react';
 import './RegistrationView.scss';
-import RoleSelectorStep from '../RoleSelectorStep/RoleSelectorStep';
-import NameSelectorStep from '../NameSelectorStep/NameSelectorStep';
-import AvatarSelectorStep from '../AvatarSelectorStep/AvatarSelectorStep';
-import ColorSelectorStep from '../ColorSelectorStep/ColorSelectorStep';
-import PinSelectorStep from '../PinSelectorStep/PinSelectorStep';
-import ConfirmationStep from '../ConfirmationStep/ConfirmationStep'
+import RoleSelectorStep from './RoleSelectorStep/RoleSelectorStep';
+import NameSelectorStep from './NameSelectorStep/NameSelectorStep';
+import AvatarSelectorStep from './AvatarSelectorStep/AvatarSelectorStep';
+import ColorSelectorStep from './ColorSelectorStep/ColorSelectorStep';
+import PinSelectorStep from './PinSelectorStep/PinSelectorStep';
+import ConfirmationStep from './ConfirmationStep/ConfirmationStep'
 
 export enum ActiveStep {
     FirstStep,
