@@ -46,7 +46,7 @@ export interface RegistrationViewState {
     }
 }
 
-class registrationView extends React.Component<RegistrationViewProps, RegistrationViewState> {
+class RegistrationView extends React.Component<RegistrationViewProps, RegistrationViewState> {
     state = {
         users: [],
         registrationStep: ActiveStep.FirstStep,
@@ -70,6 +70,7 @@ class registrationView extends React.Component<RegistrationViewProps, Registrati
             }
         })
     }
+
     handleConfirmBtnClick = () => {
         console.log(this.state.newUser)
     }
@@ -86,11 +87,16 @@ class registrationView extends React.Component<RegistrationViewProps, Registrati
             <div className={`registration__container registration__container--step-${this.state.registrationStep}`}>
                 <p className="registration__title">Add a family member</p>
                 <p className="registration__subtitle">Start by adding members of your family for a more personalised experience.</p>
-                {this.state.registrationStep < ActiveStep.SixthStep ?
+                {(this.state.registrationStep < ActiveStep.FifthStep) &&
                     < ActiveStepComponent
                         onSelect={this.handleSelectBtnClick}
-                        onBack={this.handleBackBtnClick} />
-                    : < ActiveStepComponent
+                        onBack={this.handleBackBtnClick} />}
+                {(this.state.registrationStep === ActiveStep.FifthStep) &&
+                    < ActiveStepComponent
+                        onSelect={this.handleSelectBtnClick}
+                        onBack={this.handleBackBtnClick} />}
+                {(this.state.registrationStep === ActiveStep.SixthStep) &&
+                    < ActiveStepComponent
                         onSelect={this.handleConfirmBtnClick}
                         onBack={this.handleBackBtnClick}
                         colorId={this.state.newUser.colorIndex}
@@ -102,4 +108,4 @@ class registrationView extends React.Component<RegistrationViewProps, Registrati
     }
 }
 
-export default registrationView;
+export default RegistrationView;
