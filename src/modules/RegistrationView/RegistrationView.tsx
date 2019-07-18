@@ -1,11 +1,11 @@
 import * as React from 'react';
-import './LoginView.scss';
-import ConfirmationStep from '../ConfirmationStep/ConfirmationStep'
+import './RegistrationView.scss';
 import RoleSelectorStep from '../RoleSelectorStep/RoleSelectorStep';
 import NameSelectorStep from '../NameSelectorStep/NameSelectorStep';
 import AvatarSelectorStep from '../AvatarSelectorStep/AvatarSelectorStep';
 import ColorSelectorStep from '../ColorSelectorStep/ColorSelectorStep';
 import PinSelectorStep from '../PinSelectorStep/PinSelectorStep';
+import ConfirmationStep from '../ConfirmationStep/ConfirmationStep'
 
 export enum ActiveStep {
     FirstStep,
@@ -32,11 +32,11 @@ const StepDescription = {
     [ActiveStep.FifthStep]: 'pin',
 };
 
-export interface LoginViewProps {
+export interface RegistrationViewProps {
 }
 
-export interface LoginViewState {
-    loginStep: number,
+export interface RegistrationViewState {
+    registrationStep: number,
     newUser: {
         role: string,
         username: string,
@@ -46,10 +46,10 @@ export interface LoginViewState {
     }
 }
 
-class LoginView extends React.Component<LoginViewProps, LoginViewState> {
+class registrationView extends React.Component<RegistrationViewProps, RegistrationViewState> {
     state = {
         users: [],
-        loginStep: ActiveStep.FirstStep,
+        registrationStep: ActiveStep.FirstStep,
         newUser: {
             role: '',
             username: '',
@@ -62,28 +62,28 @@ class LoginView extends React.Component<LoginViewProps, LoginViewState> {
     handleSelectBtnClick = result => {
         this.setState(prevState => {
             let newUser = { ...prevState.newUser }
-            const activeStepDescription = StepDescription[prevState.loginStep]
+            const activeStepDescription = StepDescription[prevState.registrationStep]
             newUser[activeStepDescription] = result
             return {
                 newUser,
-                loginStep: prevState.loginStep + 1
+                registrationStep: prevState.registrationStep + 1
             }
         })
     }
     handleBackBtnClick = () => {
         this.setState(prevState => ({
-            loginStep: prevState.loginStep - 1
+            registrationStep: prevState.registrationStep - 1
         })
         )
     }
 
     render() {
-        const ActiveStepComponent: React.ReactType = StepComponent[this.state.loginStep];
+        const ActiveStepComponent: React.ReactType = StepComponent[this.state.registrationStep];
         return (
-            <div className={`login__container login__container--step-${this.state.loginStep}`}>
-                <p className="login__title">Add a family member</p>
-                <p className="login__subtitle">Start by adding members of your family for a more personalised experience.</p>
-                {this.state.loginStep < ActiveStep.SixthStep ?
+            <div className={`registration__container registration__container--step-${this.state.registrationStep}`}>
+                <p className="registration__title">Add a family member</p>
+                <p className="registration__subtitle">Start by adding members of your family for a more personalised experience.</p>
+                {this.state.registrationStep < ActiveStep.SixthStep ?
                     < ActiveStepComponent
                         onSelect={this.handleSelectBtnClick}
                         onBack={this.handleBackBtnClick} />
@@ -99,4 +99,4 @@ class LoginView extends React.Component<LoginViewProps, LoginViewState> {
     }
 }
 
-export default LoginView;
+export default registrationView;
