@@ -30,7 +30,7 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
                 <div className="login-color__items-wrapper">
 
                     {COLORS.map((color, index) => {
-                        if (index == this.state.selectedColor || this.state.selectedColor === null) {
+                        if (color.id == this.state.selectedColor || this.state.selectedColor === null) {
                             return <ColorComponent
                                 colorName={color.name}
                                 isActive={true}
