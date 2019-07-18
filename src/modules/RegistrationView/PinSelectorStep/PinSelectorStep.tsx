@@ -7,39 +7,88 @@ export interface PinSelectorStepProps {
 
 export interface PinSelectorStepState {
     inputValue: string,
+    inputValidatorValue: string,
     isValid: boolean,
+    isInputFilled: boolean,
+    isInputValidatorfilled: boolean,
 }
 
 class PinSelectorStep extends React.Component<PinSelectorStepProps, PinSelectorStepState> {
     state = {
         inputValue: '',
+        inputValidatorValue: '',
+        isInputFilled: false,
+        isInputValidatorfilled: false,
         isValid: false
     }
 
-    inputChangeHandler = e => {
-        let targetValue = e.target.value
-        const lastChar = targetValue.charAt(targetValue.length - 1)
-        const parsedLastChar = parseInt(lastChar)
+    inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>, inputType: string) => {
+        let targetValue = e.target.value;
+        const lastChar = targetValue.charAt(targetValue.length - 1);
+        const parsedLastChar = parseInt(lastChar);
 
         if (!isNaN(parsedLastChar) || !targetValue.length) {
-            this.setState({
-                inputValue: e.target.value
-            })
+            switch (inputType) {
+                case 'main':
+                    this.setState({
+                        inputValue: e.target.value
+                    })
+                    if (e.target.value.length === 4) {
+                        this.setState({
+                            isInputFilled: true,
+                        })
+                        if (this.state.isInputValidatorfilled) {
+                            this.setState({
+                                isValid: true,
+                            })
+                        }
+                    }
+                    else {
+                        this.setState({
+                            isInputFilled: false,
+                            isValid: false,
+                        })
+                    }
+                    break;
+
+                default:
+                    this.setState({
+                        inputValidatorValue: e.target.value
+                    })
+                    if (e.target.value.length === 4) {
+                        this.setState({
+                            isInputValidatorfilled: true,
+                        })
+                        if (this.state.isInputFilled) {
+                            this.setState({
+                                isValid: true,
+                            })
+                        }
+
+                    }
+                    else {
+                        this.setState({
+                            isInputValidatorfilled: false,
+                            isValid: false,
+                        })
+                    }
+                    break;
+            }
         }
         else {
             targetValue = this.state.inputValue
         }
 
-        if (targetValue.length === 4) {
-            this.setState({
-                isValid: true
-            })
-        }
-        else {
-            this.setState({
-                isValid: false
-            })
-        }
+        // if (this.state.isInputFilled && this.state.isInputValidatorfilled) {
+        //     this.setState({
+        //         isValid: true
+        //     })
+        // }
+        // else {
+        //     this.setState({
+        //         isValid: false
+        //     })
+        // }
     }
     render() {
         return (
@@ -53,14 +102,24 @@ class PinSelectorStep extends React.Component<PinSelectorStepProps, PinSelectorS
                     type='password'
                     className="login-pin__input"
                     value={this.state.inputValue}
-                    onChange={this.inputChangeHandler}
+                    onChange={e => { this.inputChangeHandler(e, 'main') }}
+                    pattern="[0-9]{4}"
+                    maxLength={4}
+                    minLength={4}
+                />
+                <input
+                    type='password'
+                    className="login-pin__input login-pin__input--validate"
+                    value={this.state.inputValidatorValue}
+                    onChange={e => { this.inputChangeHandler(e, 'validator') }}
                     pattern="[0-9]{4}"
                     maxLength={4}
                     minLength={4}
                 />
 
                 <div className="login-pin__btn-container">
-                    <button className="login-pin__button login-pin__button--cancel" onClick={this.props.onBack}>
+                    <button className="login-pin__button login-pin__button--cancel"
+                        onClick={this.props.onBack}>
                         Back
                     </button>
                     <button
