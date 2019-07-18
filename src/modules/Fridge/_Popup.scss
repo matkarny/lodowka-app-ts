@@ -4,7 +4,6 @@
   box-sizing: border-box;
   top: -220px;
   left: -170px;
-  background: #3e474f;
   background: white;
   border-radius: 10px;
   height: 180px;
@@ -43,7 +42,6 @@
     z-index: 100;
     border-style: solid;
     border-width: 20px;
-    border-color: #3e474f transparent transparent transparent;
     content: '';
     border-color: white transparent transparent transparent;
     transform: scale(1.6) translateY(0);
@@ -54,7 +52,6 @@
     box-sizing: border-box;
     top: 100px;
     left: -170px;
-    background: #3e474f;
     background: white;
     border-radius: 10px;
     height: 180px;
@@ -79,10 +76,8 @@
       z-index: 100;
       border-style: solid;
       border-width: 20px;
-      border-color: #3e474f transparent transparent transparent;
       content: '';
       border-color: white transparent transparent transparent;
-
       top: -28%;
       transform: scale(1.6) rotate(180deg);
     }

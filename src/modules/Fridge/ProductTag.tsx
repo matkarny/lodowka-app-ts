@@ -114,14 +114,9 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     let currentMonth = new Date().getMonth();
     let currentDay = new Date().getDate();
 
-    /* Set month format (cut off '0' when month is earlier than 10) */
+    /* Set month format (cut off '0' when month is earlier/lower than 10) */
     if (monthString[0] === '0') month = +monthString[1] - 1;
     else month = +`${monthString[0]}${monthString[1]}` - 1;
-
-    /* Check if given month is earlier than current month*/
-    if (month < currentMonth) {
-      month = currentMonth;
-    }
 
     /* Check if given month and day are earlier than current date */
     if (month < currentMonth && day < currentDay) {
@@ -129,12 +124,17 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
       day = currentDay;
     }
 
+    /* Check if given month is earlier than current month*/
+    if (month < currentMonth) {
+      month = currentMonth;
+    }
+
     /* Check if given day is earlier than current day this month */
     if (month === currentMonth && day < currentDay) {
       day = currentDay;
     }
 
-    /* Create Date object applicable for Redux store */
+    /* Create Date object applicable for Redux store and ProductExpireChecker */
     let expirationDate = {
       year,
       month,
@@ -148,9 +148,11 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   };
 
   popup = () => {
-    // return either Input for Date and Name OR Div displaying Date and Name
-    // (OnClick on both causes them to switch their visibility)
-    // next return action buttons accordingly to current shown element
+    /* 
+    Return Popup that displays, depending on show-Name/Date-Input, inputs or displays. 
+    OnClick on either input and display causes them to switch their visibility / places.
+    Below that return Remove button. 
+    */
 
     let { year, month, day } = this.state.expirationDate;
     month++;
