@@ -78,17 +78,6 @@ class PinSelectorStep extends React.Component<PinSelectorStepProps, PinSelectorS
         else {
             targetValue = this.state.inputValue
         }
-
-        // if (this.state.isInputFilled && this.state.isInputValidatorfilled) {
-        //     this.setState({
-        //         isValid: true
-        //     })
-        // }
-        // else {
-        //     this.setState({
-        //         isValid: false
-        //     })
-        // }
     }
     render() {
         return (
