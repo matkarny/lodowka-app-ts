@@ -10,16 +10,17 @@ import * as Routes from '../src/common/constants/Routes';
 import LoginModule from './modules/LoginModule/LoginModule';
 import FridgeView from './modules/Fridge/FridgeView';
 import ProductFullList from './modules/ProductFullList/ProductFullList';
-import NotesModule from './modules/NotesModule/NotesModule'
+import NotesWidget from './modules/NotesWidget/NotesWidget'
 import FullView from './common/components/FullView/FullView';
 import AllProductsComponent from './common/components/BasicComponent/AllProductsComponent/AllProductsComponent';
 import AddNoteComponent from './common/components/AddNoteComponent/AddNoteComponent';
+import FullNotesView from './modules/NotesFullView/NotesFullView'
+import NoteLabel from './common/components/NoteLabel/NoteLabel';
 
 const App: React.FC = () => {
   return (
       <div>
-        <AddNoteComponent />
-        {/* <FullView labelName={"Dupa"} startAtFirst={true} firstButtonName={"1"} secondButtonName={"2"} firstComponent={<AllProductsComponent />} secondComponent={<FridgeView />}/> */}
+        <FullNotesView />
       </div>
 
   );

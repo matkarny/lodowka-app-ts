@@ -1,19 +1,16 @@
 import { createStore } from 'redux'
 
 const initialState = {
-
-    imgData: [],
+    notes: []
 }
+
 
 export const store = createStore(stateReducer, initialState)
 
-
 function stateReducer(state = initialState, action) {
     switch (action.type) {
-        case 'ADD_IMAGE':
-            return { imgData: [...state.imgData, action.text] }
-        case 'DELETE_IMAGE':
-            return { imgData: state.imgData.filter(image => image !== action.text)}
+        case 'ADD_NOTE':
+            return { notes: [...state.notes, action.note]}
         default:
             return state
     }
@@ -33,11 +30,18 @@ export function dispatchDeleteImage(data) {
     })
 }
 
+export function dispatchAddNote(data) {
+    return store.dispatch({
+        type: 'ADD_NOTE', note:
+            data
+    })
+}
+
 export function getCurrentStore(){
 return store.getState()
 }
 
 
-export default { dispatchAddImage, dispatchDeleteImage, getCurrentStore, store }
+export default { dispatchAddImage, dispatchDeleteImage, getCurrentStore, dispatchAddNote, store }
 
 //https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e

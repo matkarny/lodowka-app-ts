@@ -14,9 +14,6 @@ export interface FullViewProps {
 
 
 export default class FullView extends React.Component<FullViewProps> {
-    constructor(props) {
-        super(props);
-    }
     state = {
         isReverse: false,
         firstButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-nonactive",

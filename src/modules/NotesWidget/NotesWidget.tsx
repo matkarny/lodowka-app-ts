@@ -1,4 +1,5 @@
 import * as React from 'react';
+import "./NotesWidget.scss"
 
 
 import ListBtn from "../../common/components/ListBtn/ListBtn"
