@@ -3,49 +3,44 @@ import { POPUP_SWITCH_VALUE } from '../../common/constants/FridgeConstants';
 import Store from '../../store/storeConfigure';
 
 import { Product } from '../../common/interfaces/Product';
-export interface ProductTagProps {
-  tagPosTop: number;
-  tagPosLeft: number;
-  closePopup(id);
+export interface ProductTagNEWProps {
+  product: Product;
   togglePopup(id);
-  deleteTag(id);
-  shown: boolean;
-  id: number;
+  removeProduct(id);
+  shownPopup: boolean;
 }
 
-export interface ProductTagState {
+export interface ProductTagNEWState {
   showPopup: boolean;
   showNameInput: boolean;
   showDateInput: boolean;
-  productRegistered: boolean;
   popupModifier: string;
-  productName: string;
+  product: Product;
   inputedDate: string;
   expirationDate: { year: number; month: number; day: number };
-  value: any;
 }
 
-class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
+class ProductTagNEW extends React.Component<
+  ProductTagNEWProps,
+  ProductTagNEWState
+> {
   state = {
-    id: 0,
     showPopup: false,
     showNameInput: false,
     showDateInput: false,
-    productRegistered: false,
     popupModifier: '',
-    productName: 'Product name',
+    product: this.props.product,
     inputedDate: 'date',
     expirationDate: {
       year: new Date().getFullYear(),
       month: new Date().getMonth(),
       day: new Date().getDate()
-    },
-    value: null
+    }
   };
 
   setPopupModifier() {
     const clientHeight = document.documentElement.clientHeight;
-    const diff = clientHeight - +this.props.tagPosTop;
+    const diff = clientHeight - +this.state.product.tagPosition;
     if (diff >= POPUP_SWITCH_VALUE)
       this.setState({ popupModifier: '--rotated' });
   }
@@ -57,23 +52,34 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         autoFocus
         autoComplete="off"
         maxLength={20}
-        value={this.state.productName}
+        value={this.state.product.name}
         onChange={e => {
-          this.setState({ productName: e.target.value });
+          this.setState(previousState => ({
+            product: { ...previousState.product, name: e.target.value }
+          }));
         }}
         onBlur={() => {
           /* Delete ProductName's redundant whitespaces */
           this.setState({
-            showNameInput: !this.state.showNameInput,
-            productName: this.state.productName.trim()
+            showNameInput: !this.state.showNameInput
+            //  productName: this.state.productName.trim()
           });
+
+          this.setState(previousState => ({
+            product: {
+              ...previousState.product,
+              name: this.state.product.name.trim()
+            }
+          }));
 
           /* Validate if ProductName is null or contains only whitespaces. If any is true then replace with default name */
           if (
-            this.state.productName === null ||
-            this.state.productName.match(/^[\s\n\r]*$/) !== null
+            this.state.product.name === null ||
+            this.state.product.name.match(/^[\s\n\r]*$/) !== null
           )
-            this.setState({ productName: 'Product name' });
+            this.setState(previousState => ({
+              product: { ...previousState.product, name: 'Product name' }
+            }));
         }}
       />
     );
@@ -96,7 +102,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
           this.setState({
             showDateInput: !this.state.showDateInput
           });
-          if (this.state.productName === null)
+          if (this.state.product.name === null)
             this.setState({ inputedDate: 'date' });
         }}
       />
@@ -150,11 +156,8 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   };
 
   popup = () => {
-    /* 
-    Return Popup that displays, depending on show-Name/Date-Input, inputs or displays. 
-    OnClick on either input and display causes them to switch their visibility / places.
-    Below that return Remove button. 
-    */
+    /*  Return Popup that shows - depending on show-Name/Date-Input - inputs or displays. OnClick on either input and display causes them to switch their visibility / places. Below that Popup shows Remove button.
+     */
 
     let { year, month, day } = this.state.expirationDate;
     month++; // without this month values would be from 0 to 11
@@ -182,7 +185,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
                       })
                     }
                   >
-                    {this.state.productName}
+                    {this.state.product.name}
                   </div>
                 </div>
               )}
@@ -211,57 +214,15 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
           <div className="popup__actions">
             <button
               className="product-tag__delete"
-              onClick={() => this.props.deleteTag(this.props.id)}
+              onClick={() => this.props.removeProduct(this.state.product.id)}
             >
               Remove
-            </button>
-
-            <button
-              className="product-tag__delete"
-              onClick={() => this.saveToStore()}
-            >
-              TO STORE
-            </button>
-
-            <button
-              className="product-tag__delete"
-              onClick={() => this.removeFromStore()}
-            >
-              OUTTA STORE
             </button>
           </div>
         </div>
       </div>
     );
   };
-
-  saveToStore() {
-    let { year, month, day } = this.state.expirationDate;
-    let date = {
-      year: '' + year,
-      month: '' + month,
-      day: '' + day
-    };
-
-    const product = {
-      name: this.state.productName,
-      addedBy: 'USER',
-      expirationDate: date,
-      tagPosition: { left: this.props.tagPosLeft, top: this.props.tagPosTop },
-      id: this.props.id
-    };
-    Store.addProduct(product);
-    console.log(Store.getCurrentStore());
-
-    // return addProduct()
-  }
-
-  removeFromStore() {
-    console.log('deleting', this.props.id);
-
-    Store.deleteProduct(this.props.id);
-    console.log(Store.getCurrentStore());
-  }
 
   componentDidMount() {
     this.setPopupModifier();
@@ -273,20 +234,20 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         className="product-tag"
         style={{
           position: 'absolute',
-          top: `${this.props.tagPosTop}px`,
-          left: `${this.props.tagPosLeft}px`,
+          top: `${this.state.product.tagPosition.top - 30}px`,
+          left: `${this.state.product.tagPosition.left - 30}px`,
           backgroundColor: 'gray'
         }}
       >
         <button
           className="product-tag__circle "
-          onClick={() => this.props.togglePopup(this.props.id)}
+          onClick={() => this.props.togglePopup(this.state.product.id)}
         />
 
-        {this.props.shown ? <div>{this.popup()}</div> : null}
+        {this.props.shownPopup ? <div>{this.popup()}</div> : null}
       </div>
     );
   }
 }
 
-export default ProductTag;
+export default ProductTagNEW;

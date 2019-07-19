@@ -4,6 +4,9 @@ import * as FRIDGE from '../../common/constants/FridgeConstants';
 import ProductTag from './ProductTag';
 import FridgeService from './FridgeService';
 import Loader from 'react-loader-spinner';
+import Store from '../../store/storeConfigure';
+import ProductTagNEW from './ProductTagNEW';
+import { Product } from '../../common/interfaces/Product';
 
 interface ProductTagData {
   name: '';
@@ -21,6 +24,7 @@ export interface FridgeViewState {
   nextId: number;
   productTags: ProductTagData[];
   value: any;
+  products: Product[];
 }
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
@@ -28,91 +32,85 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     src: '',
     nextId: 0,
     productTags: [],
-    value: null
+    value: null,
+    products: []
   };
 
   /* Set ProductTag on click and add it to List in state */
-  setTag = e => {
+  addProduct = e => {
     e.preventDefault();
-    let tagPosTop = `${e.nativeEvent.layerY}`;
-    let tagPosLeft = `${e.nativeEvent.layerX}`;
-    let product = {
-      id: this.state.nextId,
-      tagPosTop,
-      tagPosLeft,
-      name: '',
-      vitalityColor: FRIDGE.PRODUCT_FRESH,
-      addedOn: {
-        year: new Date().getFullYear(),
-        month: new Date().getMonth(),
-        day: new Date().getDate()
-      },
-      shown: true,
-      expireDate: new Date()
+    const tagPosition = {
+      top: e.nativeEvent.layerY,
+      left: e.nativeEvent.layerX
     };
 
-    let { productTags } = this.state;
-    productTags.forEach(tag => {
-      tag.shown = false;
+    const expirationDate = {
+      year: '' + new Date().getFullYear(),
+      month: '' + (new Date().getMonth() + 1),
+      day: '' + new Date().getDate()
+    };
+    let product: Product = {
+      name: 'PRODUCT',
+      //  tagPosition: { top: +tagPosTop, left: +tagPosLeft },
+      tagPosition,
+      addedBy: 'USER X',
+      // expirationDate: { year, month, day },
+      expirationDate,
+      id: this.state.nextId,
+      shownPopup: true
+    };
+
+    let { products } = this.state;
+    products.forEach(prod => {
+      prod.shownPopup = false;
     });
 
-    productTags.push(product);
-    this.setState({ productTags, nextId: this.state.nextId + 1 });
+    Store.addProduct(product);
+    this.setState({
+      nextId: this.state.nextId + 1,
+      products: Store.getCurrentStore().products
+    });
   };
 
   listProductTags = () => {
-    const { productTags } = this.state;
-
-    return productTags.map(product => {
+    return this.state.products.map(product => {
       return (
-        <li key={`key-${product.tagPosLeft + product.tagPosTop}`}>
-          <ProductTag
-            tagPosTop={product.tagPosTop - 30}
-            tagPosLeft={product.tagPosLeft - 30}
-            closePopup={this.closePopup}
+        <li key={`key-${product.tagPosition.left + product.tagPosition.top}`}>
+          <ProductTagNEW
+            product={product}
             togglePopup={this.togglePopup}
-            deleteTag={this.deleteTag}
-            shown={product.shown}
-            id={product.id}
+            removeProduct={this.removeProduct}
+            shownPopup={product.shownPopup}
           />
         </li>
       );
     });
   };
 
-  getImg = (src: string) => {
+  getFridgeImage = (src: string) => {
     this.setState({ src });
   };
 
   /* Functions passed to ProductTag */
-  deleteTag = (id: number) => {
-    let productTags = this.state.productTags.filter(productTag => {
-      return productTag.id !== id;
-    });
-    this.setState({ productTags });
-  };
-
-  closePopup = (id: number) => {
-    let { productTags } = this.state;
-    productTags.forEach(tag => {
-      if (tag.id === id) tag.shown = false;
-    });
-    this.setState({ productTags });
+  removeProduct = (id: number) => {
+    Store.deleteProduct(id);
+    this.setState({ products: Store.getCurrentStore().products });
   };
 
   togglePopup = (id: number) => {
-    let { productTags } = this.state;
-    productTags.forEach(tag => {
-      if (tag.id === id) tag.shown = !tag.shown;
-      else tag.shown = false;
+    let { products } = this.state;
+    products.forEach(product => {
+      if (product.id === id) product.shownPopup = !product.shownPopup;
+      else product.shownPopup = false;
     });
-    this.setState({ productTags });
+
+    this.setState({ products });
   };
 
   componentDidMount() {
-    //  this.getImageBase64();
-    new FridgeService(this.getImg).getImageBase64();
-    //  this.DUPA();
+    new FridgeService(this.getFridgeImage).getImageBase64();
+    Store.testPopulateProducts();
+    this.setState({ products: Store.getCurrentStore().products });
   }
 
   render() {
@@ -124,7 +122,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
               src={this.state.src}
               id="image"
               className="fridge__image"
-              onClick={this.setTag}
+              onClick={this.addProduct}
               alt="Fridge"
             />
           ) : (
