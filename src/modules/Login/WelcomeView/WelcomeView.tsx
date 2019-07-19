@@ -1,6 +1,8 @@
 import * as React from 'react';
 import avatarList from '../../../common/constants/AnimalConstants';
 import { COLORS } from '../../../common/constants/ColorConstants';
+import UserComponent from '../../../common/components/UserComponent/UserComponent';
+import { getCurrentStore } from '../../../store/UsersStore';
 export interface WelcomeViewProps {
 
 }
@@ -12,7 +14,9 @@ export interface WelcomeViewState {
 class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
     state = { dab: 1 }
 
-
+    getUsers = () => {
+        console.log(getCurrentStore())
+    }
     render() {
         return (
             <>
