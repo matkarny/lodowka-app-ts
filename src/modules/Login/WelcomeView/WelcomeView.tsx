@@ -20,7 +20,7 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
             avatarId={user.avatarIndex}
             colorId={user.colorIndex}
             username={user.username}
-            bigger={true}
+            bigger={false}
             key={index} />)
         this.setState({ users: currentUsers })
     }
