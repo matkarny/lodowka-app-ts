@@ -155,7 +155,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     */
 
     let { year, month, day } = this.state.expirationDate;
-    month++;
+    month++; // without this month values would be from 0 to 11
     let dateString = '';
     let monthString = '' + month;
     let dayString = '' + day;

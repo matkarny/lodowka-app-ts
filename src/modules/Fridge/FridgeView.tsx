@@ -31,17 +31,6 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     value: null
   };
 
-  DUPA() {
-    let link = document.createElement('link');
-    link.rel = 'stylesheet';
-
-    link.type = 'text/css';
-    link.href =
-      'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css';
-    console.log(link);
-    document.head.appendChild(link);
-  }
-
   /* Set ProductTag on click and add it to List in state */
   setTag = e => {
     e.preventDefault();
@@ -146,7 +135,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
                 height="100"
                 width="100"
               />
-              GETTING FRIDGE IMAGE
+              LOADING FRIDGE IMAGE
             </div>
           )}
 
