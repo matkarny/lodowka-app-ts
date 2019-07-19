@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './RegistrationView.scss';
+import './Register.scss';
 import RoleSelectorStep from './RoleSelectorStep/RoleSelectorStep';
 import NameSelectorStep from './NameSelectorStep/NameSelectorStep';
 import AvatarSelectorStep from './AvatarSelectorStep/AvatarSelectorStep';

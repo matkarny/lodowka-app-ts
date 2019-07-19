@@ -1,4 +1,4 @@
-@import './RegistrationConstants.scss';
+@import './RegisterConstants.scss';
 
 .registration {
     &__text-container {
@@ -25,7 +25,7 @@
         width: 1080px;
         height: 1920px;
         box-sizing: border-box;
-        background-image: url('../../common/images/pexels-photo-1640777.png');
+        background-image: url('../../common/images/background.png');
         background-size: cover;
         background-position-x: 30%;
         margin: 0 auto;
