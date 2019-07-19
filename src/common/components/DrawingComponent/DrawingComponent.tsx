@@ -1,6 +1,6 @@
 import * as React from "react";
 import './DrawingComponent.scss'
-import { dispatchAddImage, dispatchDeleteImage, getCurrentStore } from '../../../store/storeConfigure'
+// import { dispatchAddImage, dispatchDeleteImage, getCurrentStore } from '../../../store/storeConfigure'
 
 interface props {
     mode: string,
@@ -9,7 +9,7 @@ interface props {
     penColor: string,
     penCoords: any,
     canvasImg: string,
-    
+
 }
 //simple draw component made in react
 class DrawingComponent extends React.Component<{}, props> {
@@ -26,18 +26,18 @@ class DrawingComponent extends React.Component<{}, props> {
     componentDidMount() {
         this.settings();
     }
-    componentDidUpdate(){
-       
-        this.canvasImg = this.saveFile("mycanvas").toDataURL('image/jpeg', 0.5) 
+    componentDidUpdate() {
+
+        this.canvasImg = this.saveFile("mycanvas").toDataURL('image/jpeg', 0.5)
 
     }
 
-    saveToStore(){
-       return dispatchAddImage(this.canvasImg)
+    saveToStore() {
+        // return dispatchAddImage(this.canvasImg)
     }
 
-    deleteFromStore(){
-        return dispatchDeleteImage(this.canvasImg)
+    deleteFromStore() {
+        // return dispatchDeleteImage(this.canvasImg)
     }
     settings() {
         this.setState({
@@ -101,31 +101,31 @@ class DrawingComponent extends React.Component<{}, props> {
         })
     }
 
-    
+
     erase(e) { //mouse is up on the canvas
         this.setState({
             mode: 'erase'
         })
     }
 
-    saveFile(id){
-        let fileToSave: any =  document.getElementById(id)
-   return fileToSave
+    saveFile(id) {
+        let fileToSave: any = document.getElementById(id)
+        return fileToSave
     }
 
-  
+
 
 
     render() {
         return (
             <div className="canvas-styling">
-                <canvas id="mycanvas" ref={this.canvasRef} width="480px" height="480px" className="canvas-background" 
+                <canvas id="mycanvas" ref={this.canvasRef} width="480px" height="480px" className="canvas-background"
                     onMouseMove={(e) => this.drawing(e)}
                     onMouseDown={(e) => this.penDown(e)}
                     onMouseUp={(e) => this.penUp(e)}>
                 </canvas>
 
-            {/* <button onClick={ () => console.log(this.canvasImg)} > Click</button>
+                {/* <button onClick={ () => console.log(this.canvasImg)} > Click</button>
             <button onClick={ () => this.saveToStore()} > Save to store </button>
             <button onClick={ () => this.deleteFromStore()} > Delete from store </button>
             <button onClick={ () => console.log(getCurrentStore())} > Store </button>
