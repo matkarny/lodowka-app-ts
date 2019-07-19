@@ -19,7 +19,7 @@ const UserComponent: React.SFC<UserComponentProps> = props => {
         <div className="user-component__items-wrapper">
             <div className={`user-component__color user-component__color--${chosenColor.name} ${bigger ? 'user-component__color--bigger' : ''}`}>
                 <div className={`user-component__avatar-container ${bigger ? 'user-component__avatar-container--bigger' : ''}`}>
-                    <img src={`${bigger ? chosenAvatar.srcHigh : chosenAvatar.src}`} className="user-component__avatar" />
+                    <img src={chosenAvatar.srcHigh} className="user-component__avatar" />
                 </div>
                 <p className={`user-component__username ${bigger ? 'user-component__username--bigger' : ''}`}>{username}</p>
             </div>
