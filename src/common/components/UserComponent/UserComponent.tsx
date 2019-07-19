@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './UserComponent.scss';
-import avatarList from '../../../common/constants/AnimalConstants';
-import { COLORS } from '../../../common/constants/ColorConstants';
+import avatarList from '../../constants/AnimalConstants';
+import { COLORS } from '../../constants/ColorConstants';
 
 export interface UserComponentProps {
     avatarId: number,
