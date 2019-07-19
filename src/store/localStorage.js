@@ -1,6 +1,6 @@
 export function loadLocalStorage() {
   try {
-    const serializedState = localStorage.getItem('fridge');
+    const serializedState = localStorage.getItem('users');
     if (serializedState === null) {
       return undefined;
     }
@@ -13,7 +13,7 @@ export function loadLocalStorage() {
 export function saveLocalStorage(data) {
   try {
     const serializedState = JSON.stringify(data);
-    localStorage.setItem('fridge', serializedState);
+    localStorage.setItem('users', serializedState);
   } catch (e) {
     console.log(e);
   }
