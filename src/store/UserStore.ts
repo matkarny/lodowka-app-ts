@@ -1,19 +1,19 @@
 import { createStore } from 'redux';
+import { loadState, saveState } from "./globalLocalStorage";
 
-const initialState = {
-    UsersData: [],
-};
+const persistedStore = loadState();
+export const store = createStore(stateReducer, persistedStore)
 
-export const store = createStore(stateReducer, initialState)
-
-
-function stateReducer(state = initialState, action) {
+function stateReducer(state = persistedStore, action) {
     switch (action.type) {
+        case 'ADD_USER':
+            state.users.push(action.text);
+
+            return state;
         default:
             return state;
     }
 }
-
 
 export function dispatchAddUser(data) {
     return store.dispatch({
@@ -32,6 +32,10 @@ export function dispatchDeleteUser(data) {
 export function getCurrentStore() {
     return store.getState();
 }
+store.subscribe(() => {
+    console.log('store has changed, new store:', store.getState());
+    saveState(store.getState());
+});
 
 export default {
     dispatchAddUser,
