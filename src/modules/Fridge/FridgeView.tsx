@@ -66,6 +66,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       addedBy: 'USER X',
       expirationDate,
       id: this.state.nextId,
+
       shownPopup: true
     };
 
@@ -119,6 +120,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   };
 
   UPDATE = (data: Product) => {
+    console.log('Data', data);
     Store.deleteProduct(data.id);
     Store.addProduct(data);
     //Store.updateProduct(data);

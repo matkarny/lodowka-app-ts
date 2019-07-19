@@ -106,8 +106,10 @@ class ProductTagNEW extends React.Component<
           this.setState({
             showDateInput: !this.state.showDateInput
           });
-          if (this.state.product.name === null)
-            this.setState({ inputedDate: 'date' });
+
+          this.props.UPDATE(this.state.product);
+          // if (this.state.product.expirationDate === null)
+          //   this.setState({ inputedDate: 'date' });
         }}
       />
     );
@@ -152,11 +154,13 @@ class ProductTagNEW extends React.Component<
       month,
       day
     };
-
+    console.log('NEW  DATE', expirationDate);
     this.setState({
       expirationDate: expirationDate,
       inputedDate: e.target.value
     });
+
+    this.props.UPDATE(this.state.product);
   };
 
   popup = () => {
