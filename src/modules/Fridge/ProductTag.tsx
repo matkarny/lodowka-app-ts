@@ -66,7 +66,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
             productName: this.state.productName.trim()
           });
 
-          /* Validate if ProductName is null or contains only whitespaces - if any is true then replace with default name */
+          /* Validate if ProductName is null or contains only whitespaces. If any is true then replace with default name */
           if (
             this.state.productName === null ||
             this.state.productName.match(/^[\s\n\r]*$/) !== null

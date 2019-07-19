@@ -3,6 +3,7 @@ import './Fridge.scss';
 import * as FRIDGE from '../../common/constants/FridgeConstants';
 import ProductTag from './ProductTag';
 import FridgeService from './FridgeService';
+import Loader from 'react-loader-spinner';
 
 interface ProductTagData {
   name: '';
@@ -29,6 +30,17 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     productTags: [],
     value: null
   };
+
+  DUPA() {
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+
+    link.type = 'text/css';
+    link.href =
+      'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css';
+    console.log(link);
+    document.head.appendChild(link);
+  }
 
   /* Set ProductTag on click and add it to List in state */
   setTag = e => {
@@ -111,19 +123,33 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   componentDidMount() {
     //  this.getImageBase64();
     new FridgeService(this.getImg).getImageBase64();
+    //  this.DUPA();
   }
 
   render() {
     return (
       <div>
         <div className="fridge">
-          <img
-            src={this.state.src}
-            id="image"
-            className="fridge__image"
-            onClick={this.setTag}
-            alt="Fridge"
-          />
+          {this.state.src ? (
+            <img
+              src={this.state.src}
+              id="image"
+              className="fridge__image"
+              onClick={this.setTag}
+              alt="Fridge"
+            />
+          ) : (
+            <div className="fridge__loader">
+              <Loader
+                type="Triangle"
+                color="#00C3FF"
+                height="100"
+                width="100"
+              />
+              GETTING FRIDGE IMAGE
+            </div>
+          )}
+
           <ul className="fridge__list">{this.listProductTags()}</ul>
         </div>
       </div>
