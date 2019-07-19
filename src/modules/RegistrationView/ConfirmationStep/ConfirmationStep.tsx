@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './ConfirmationStep.scss'
-import avatarList from '../../../common/constants/AnimalConstants';
-import { COLORS } from '../../../common/constants/ColorConstants';
+import UserComponent from '../../../common/components/UserComponent/UserComponent';
 export interface ConfirmationStepProps {
     colorId: number,
     avatarId: number,
@@ -12,24 +11,19 @@ export interface ConfirmationStepProps {
 
 const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
 
-    const chosenAvatar = avatarList.find(avatar => avatar.id == props.avatarId)
-    const chosenColor = COLORS.find(color => color.id == props.colorId)
-
     return (
         <div className="login-confirmation__container">
 
             <p className='login-confirmation__title'>Does that sound alright?</p>
             <p className='login-confirmation__subtitle'>Check if everything is in order and confirm to create an account or go back to make changes.</p>
 
-            <div className="login-confirmation__items-wrapper">
-                <div className={`login-confirmation__color login-confirmation__color--${chosenColor.name}`}>
-                    <div className="login-confirmation__avatar-container">
-                        <img src={chosenAvatar.srcHigh} className="login-confirmation__avatar" />
-                    </div>
-                    <p className="login-confirmation__username">{props.username}</p>
-                </div>
+            <UserComponent
+                colorId={props.colorId}
+                avatarId={props.avatarId}
+                username={props.username}
+                bigger={true}
+            />
 
-            </div>
             <div className="login-confirmation__btn-container">
                 <button
                     className="login-confirmation__button login-confirmation__button--cancel"
