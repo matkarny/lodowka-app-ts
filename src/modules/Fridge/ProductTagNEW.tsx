@@ -7,6 +7,7 @@ export interface ProductTagNEWProps {
   product: Product;
   togglePopup(id);
   removeProduct(id);
+  changeProductName(id, name);
   shownPopup: boolean;
 }
 
@@ -54,36 +55,80 @@ class ProductTagNEW extends React.Component<
         maxLength={20}
         value={this.state.product.name}
         onChange={e => {
-          this.setState(previousState => ({
-            product: { ...previousState.product, name: e.target.value }
-          }));
+          this.setState({
+            product: {
+              name: e.target.value,
+              tagPosition: this.state.product.tagPosition,
+              addedBy: this.state.product.name,
+              expirationDate: this.state.product.expirationDate,
+              id: this.state.product.id
+            }
+          });
         }}
         onBlur={() => {
-          /* Delete ProductName's redundant whitespaces */
+          /* Delete ProductName's redundant whitespaces. Then validate if product name is null or contains only whitespaces - if any is true then replace with default name */
+          let { name } = this.state.product;
+          name = name.trim();
+          if (name === null || name.match(/^[\s\n\r]*$/) !== null)
+            name = 'PRODUCT';
+
+          /* then pass to redux store */
           this.setState({
-            showNameInput: !this.state.showNameInput
-            //  productName: this.state.productName.trim()
+            showNameInput: !this.state.showNameInput,
+            product: {
+              name: name,
+              tagPosition: this.state.product.tagPosition,
+              addedBy: this.state.product.name,
+              expirationDate: this.state.product.expirationDate,
+              id: this.state.product.id
+            }
           });
 
-          this.setState(previousState => ({
-            product: {
-              ...previousState.product,
-              name: this.state.product.name.trim()
-            }
-          }));
-
-          /* Validate if ProductName is null or contains only whitespaces. If any is true then replace with default name */
-          if (
-            this.state.product.name === null ||
-            this.state.product.name.match(/^[\s\n\r]*$/) !== null
-          )
-            this.setState(previousState => ({
-              product: { ...previousState.product, name: 'Product name' }
-            }));
+          Store.editProductName(this.state.product.id, this.state.product.name);
         }}
       />
     );
   };
+
+  // nameInputOLD = () => {
+  //     return (
+  //       <input
+  //         type="text"
+  //         autoFocus
+  //         autoComplete="off"
+  //         maxLength={20}
+  //         value={this.state.product.name}
+  //         onChange={e => {
+  //           this.setState(previousState => ({
+  //             product: { ...previousState.product, name: e.target.value }
+  //           }));
+  //         }}
+  //         onBlur={() => {
+  //           /* Delete ProductName's redundant whitespaces */
+  //           this.setState({
+  //             showNameInput: !this.state.showNameInput
+  //             //  productName: this.state.productName.trim()
+  //           });
+
+  //           this.setState(previousState => ({
+  //             product: {
+  //               ...previousState.product,
+  //               name: this.state.product.name.trim()
+  //             }
+  //           }));
+
+  //           /* Validate if ProductName is null or contains only whitespaces. If any is true then replace with default name */
+  //           if (
+  //             this.state.product.name === null ||
+  //             this.state.product.name.match(/^[\s\n\r]*$/) !== null
+  //           )
+  //             this.setState(previousState => ({
+  //               product: { ...previousState.product, name: 'Product name' }
+  //             }));
+  //         }}
+  //       />
+  //     );
+  //   };
 
   expirationDateInput = () => {
     let year = new Date().getFullYear();
@@ -97,7 +142,7 @@ class ProductTagNEW extends React.Component<
         autoFocus
         autoComplete="off"
         value={this.state.inputedDate}
-        onChange={this.handleChangeDateInput}
+        onChange={this.handleDateInputChange}
         onBlur={() => {
           this.setState({
             showDateInput: !this.state.showDateInput
@@ -109,7 +154,7 @@ class ProductTagNEW extends React.Component<
     );
   };
 
-  handleChangeDateInput = e => {
+  handleDateInputChange = e => {
     /* Transform from YYYY-MM-DD (given by html input value) to DD.MM.YYYY */
     let inputVal = e.target.value;
     let splittedVal = inputVal.split('-').reverse();

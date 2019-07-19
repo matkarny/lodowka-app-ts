@@ -1,7 +1,5 @@
 import React from 'react';
 import './Fridge.scss';
-import * as FRIDGE from '../../common/constants/FridgeConstants';
-import ProductTag from './ProductTag';
 import FridgeService from './FridgeService';
 import Loader from 'react-loader-spinner';
 import Store from '../../store/storeConfigure';
@@ -36,9 +34,21 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     products: []
   };
 
+  componentDidMount() {
+    new FridgeService(this.getFridgeImage).getImageBase64();
+    Store.testPopulateProducts();
+    this.setState({ products: Store.getCurrentStore().products });
+  }
+
+  componentDidUpdate() {
+    // console.log(Store.getCurrentStore().products);
+    console.log(this.state.products);
+  }
+
   /* Set ProductTag on click and add it to List in state */
   addProduct = e => {
     e.preventDefault();
+
     const tagPosition = {
       top: e.nativeEvent.layerY,
       left: e.nativeEvent.layerX
@@ -49,12 +59,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       month: '' + (new Date().getMonth() + 1),
       day: '' + new Date().getDate()
     };
+
     let product: Product = {
       name: 'PRODUCT',
-      //  tagPosition: { top: +tagPosTop, left: +tagPosLeft },
       tagPosition,
       addedBy: 'USER X',
-      // expirationDate: { year, month, day },
       expirationDate,
       id: this.state.nextId,
       shownPopup: true
@@ -81,12 +90,14 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             togglePopup={this.togglePopup}
             removeProduct={this.removeProduct}
             shownPopup={product.shownPopup}
+            changeProductName={this.changeProductName}
           />
         </li>
       );
     });
   };
 
+  /* Function passed to FridgeService */
   getFridgeImage = (src: string) => {
     this.setState({ src });
   };
@@ -106,12 +117,6 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
     this.setState({ products });
   };
-
-  componentDidMount() {
-    new FridgeService(this.getFridgeImage).getImageBase64();
-    Store.testPopulateProducts();
-    this.setState({ products: Store.getCurrentStore().products });
-  }
 
   render() {
     return (

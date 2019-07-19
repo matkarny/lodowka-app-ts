@@ -24,6 +24,14 @@ function stateReducer(state = initialState, action) {
         products: action.data
       };
 
+    case 'EDIT_PRODUCT_NAME':
+      return {
+        products: state.products.forEach(product => {
+          if (product.id === action.text.productId)
+            product.name = action.text.newName;
+        })
+      };
+
     default:
       return state;
   }
@@ -70,8 +78,11 @@ export function deleteProduct(productId) {
   });
 }
 
-export function editProduct(data) {
-  return store.dispatch({ type: 'EDIT_PRODUCT_NAME', text: data });
+export function editProductName(productId, newName) {
+  return store.dispatch({
+    type: 'EDIT_PRODUCT_NAME',
+    text: { productId, newName }
+  });
 }
 
 export function dispatchAddImage(data) {
@@ -99,5 +110,6 @@ export default {
   store,
   deleteProduct,
   addProduct,
-  testPopulateProducts
+  testPopulateProducts,
+  editProductName
 };
