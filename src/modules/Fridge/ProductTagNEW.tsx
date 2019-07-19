@@ -7,7 +7,7 @@ export interface ProductTagNEWProps {
   product: Product;
   togglePopup(id);
   removeProduct(id);
-  changeProductName(id, name);
+  UPDATE(data);
   shownPopup: boolean;
 }
 
@@ -83,52 +83,11 @@ class ProductTagNEW extends React.Component<
               id: this.state.product.id
             }
           });
-
-          Store.editProductName(this.state.product.id, this.state.product.name);
+          this.props.UPDATE(this.state.product);
         }}
       />
     );
   };
-
-  // nameInputOLD = () => {
-  //     return (
-  //       <input
-  //         type="text"
-  //         autoFocus
-  //         autoComplete="off"
-  //         maxLength={20}
-  //         value={this.state.product.name}
-  //         onChange={e => {
-  //           this.setState(previousState => ({
-  //             product: { ...previousState.product, name: e.target.value }
-  //           }));
-  //         }}
-  //         onBlur={() => {
-  //           /* Delete ProductName's redundant whitespaces */
-  //           this.setState({
-  //             showNameInput: !this.state.showNameInput
-  //             //  productName: this.state.productName.trim()
-  //           });
-
-  //           this.setState(previousState => ({
-  //             product: {
-  //               ...previousState.product,
-  //               name: this.state.product.name.trim()
-  //             }
-  //           }));
-
-  //           /* Validate if ProductName is null or contains only whitespaces. If any is true then replace with default name */
-  //           if (
-  //             this.state.product.name === null ||
-  //             this.state.product.name.match(/^[\s\n\r]*$/) !== null
-  //           )
-  //             this.setState(previousState => ({
-  //               product: { ...previousState.product, name: 'Product name' }
-  //             }));
-  //         }}
-  //       />
-  //     );
-  //   };
 
   expirationDateInput = () => {
     let year = new Date().getFullYear();

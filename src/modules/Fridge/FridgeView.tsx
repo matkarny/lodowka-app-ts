@@ -36,7 +36,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   componentDidMount() {
     new FridgeService(this.getFridgeImage).getImageBase64();
-    Store.testPopulateProducts();
+    //   Store.testPopulateProducts();
     this.setState({ products: Store.getCurrentStore().products });
   }
 
@@ -90,7 +90,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             togglePopup={this.togglePopup}
             removeProduct={this.removeProduct}
             shownPopup={product.shownPopup}
-            changeProductName={this.changeProductName}
+            UPDATE={this.UPDATE}
           />
         </li>
       );
@@ -116,6 +116,13 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     });
 
     this.setState({ products });
+  };
+
+  UPDATE = (data: Product) => {
+    Store.deleteProduct(data.id);
+    Store.addProduct(data);
+    //Store.updateProduct(data);
+    //  this.setState({ products: Store.getCurrentStore().products });
   };
 
   render() {
