@@ -37,11 +37,12 @@
     }
 
     &__username {
+        color: #fff;
+        text-align: center;
+        font-weight: bold;
+
         &--bigger {
             font-size: 30px;
-            color: #fff;
-            text-align: center;
-            font-weight: bold;
             margin: 0 20px 20px;
         }
     }
