@@ -10,21 +10,28 @@
     &__color {
         @include color-classes;
 
+        border-radius: 40px;
+        width: 210px;
+        height: 255px;
+
         &--bigger {
             width: 280px;
             height: 335px;
-            border-radius: 40px;
         }
     }
 
     &__avatar-container {
+        position: relative;
+        border-radius: 30px;
+        overflow: hidden;
+        width: 185px;
+        height: 185px;
+        margin: 14px 14px 14px;
+
         &--bigger {
-            position: relative;
-            margin: 20px 20px 14px;
+            margin: 20px 20px 10px;
             width: 240px;
             height: 240px;
-            border-radius: 30px;
-            overflow: hidden
         }
     }
 
@@ -41,9 +48,9 @@
         text-align: center;
         font-weight: bold;
 
-        &--bigger {
+        font-size: 22px &--bigger {
             font-size: 30px;
-            margin: 0 20px 20px;
+            margin: 0 14px 14px;
         }
     }
 
