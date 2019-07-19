@@ -16,7 +16,7 @@ const UserComponent: React.SFC<UserComponentProps> = props => {
     const chosenAvatar = avatarList.find(avatar => avatar.id == avatarId)
     const chosenColor = COLORS.find(color => color.id == colorId)
     return (
-        <div className="user-component__items-wrapper">
+        <div className={`user-component__items-wrapper ${bigger ? 'user-component__items-wrapper' : ''}`}>
             <div className={`user-component__color user-component__color--${chosenColor.name} ${bigger ? 'user-component__color--bigger' : ''}`}>
                 <div className={`user-component__avatar-container ${bigger ? 'user-component__avatar-container--bigger' : ''}`}>
                     <img src={chosenAvatar.srcHigh} className="user-component__avatar" />

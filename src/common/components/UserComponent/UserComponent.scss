@@ -5,6 +5,11 @@
     &__items-wrapper {
         display: flex;
         justify-content: center;
+        margin-right: 3vw;
+
+        &--bigger {
+            margin-right: 0;
+        }
     }
 
     &__color {
