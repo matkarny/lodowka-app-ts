@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './WelcomeView.scss';
 import UserComponent from '../../../common/components/UserComponent/UserComponent';
 import { getCurrentStore } from '../../../store/UserStore';
 export interface WelcomeViewProps {
