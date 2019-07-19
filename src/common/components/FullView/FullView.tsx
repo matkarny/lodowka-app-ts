@@ -2,7 +2,6 @@ import * as React from 'react';
 import "./FullView.scss"
 import * as Routes from "../../constants/Routes"
 
-
 export interface FullViewProps {
     startAtFirst: boolean,
     labelName: string,
@@ -44,7 +43,6 @@ export default class FullView extends React.Component<FullViewProps> {
     componentDidMount() {
         this.handleChangeButton(this.props.startAtFirst)
     };
-
 
     public render() {
         return (

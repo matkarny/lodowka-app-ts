@@ -1,7 +1,6 @@
 import * as React from 'react';
 import FullView from '../../common/components/FullView/FullView';
 import AddNoteComponent from "../../common/components/AddNoteComponent/AddNoteComponent"
-import { store } from '../../store/storeConfigure'
 export interface INotesFullViewProps {
 }
 
