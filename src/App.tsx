@@ -1,27 +1,29 @@
-import React from 'react'
+import React from 'react';
+import './App.css';
+
 import { Provider } from 'react-redux'
 import {store} from './store/storeConfigure'
 
 import DashboardModule from './modules/DashboardModule/DashboardModule';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import * as Routes from '../src/common/constants/Routes';
-import LoginModule from './modules/LoginModule/LoginModule';
-import FridgeView from './modules/Fridge/FridgeView';
 import ProductFullList from './modules/ProductFullList/ProductFullList';
-import NotesWidget from './modules/NotesWidget/NotesWidget'
-import FullView from './common/components/FullView/FullView';
-import AllProductsComponent from './common/components/BasicComponent/AllProductsComponent/AllProductsComponent';
-import AddNoteComponent from './common/components/AddNoteComponent/AddNoteComponent';
-import FullNotesView from './modules/NotesFullView/NotesFullView'
-import NoteLabel from './common/components/NoteLabel/NoteLabel';
+import LoginModule from './modules/LoginModule/LoginModule'
+import NotesFullView from './modules/NotesFullView/NotesFullView';
 
 const App: React.FC = () => {
   return (
+    <Provider store={store}>
+    <Router>
       <div>
-        <FullNotesView />
+        <Route exact path={Routes.LOGIN} component={LoginModule} />
+        <Route path={Routes.DASHBOARD} component={DashboardModule} />
+        <Route path={Routes.PRODUCTS} component={ProductFullList} />
+        <Route path={Routes.NOTES} component={NotesFullView} />
       </div>
-
+    </Router>
+    </Provider>
   );
 };
 
-export default App;
+export default App

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { format } from 'date-fns';
 import "./AddNoteComponent.scss"
-import { dispatchAddNote } from "../../../store/storeConfigure"
+import { dispatchAddNote} from "../../../store/storeConfigure"
+import { store } from '../../../store/storeConfigure'
+import { saveState, loadState } from '../../../store/globalLocalStorage';
 
 export interface IAddNoteComponentProps {
 }
@@ -24,6 +26,10 @@ export default class AddNoteComponent extends React.Component<IAddNoteComponentP
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
+
+      componentDidMount () {
+        loadState()
+      }
     
       handleChange(event) {
         this.setState({message: event.target.value});
@@ -32,9 +38,11 @@ export default class AddNoteComponent extends React.Component<IAddNoteComponentP
       handleSubmit(event) {
 
       dispatchAddNote(this.state)
-      
+      // store.subscribe(() => {
+      //   saveState(store.getState());
+      // });
       event.preventDefault();
-      console.log(this.state)
+
 
       }
     

@@ -1,12 +1,15 @@
 import { createStore } from 'redux';
-
+import { loadState, saveState } from "./globalLocalStorage"
+ 
 const initialState = {
-    notes: []
+    notes: [
+    ],
 }
 
+const persistedStore = loadState();
 
 
-export const store = createStore(stateReducer, initialState)
+export const store = createStore(stateReducer,  persistedStore)
 
 function stateReducer(state = initialState, action) {
     switch (action.type) {
@@ -15,48 +18,37 @@ function stateReducer(state = initialState, action) {
         default:
             return state
     }
-
-
-export function dispatchAddImage(data) {
-  return store.dispatch({
-    type: 'ADD_IMAGE',
-    text: data
-  });
 }
 
-export function dispatchDeleteImage(data) {
-  return store.dispatch({
-    type: 'DELETE_IMAGE',
-    text: data
-  });
-}
+// export function dispatchAddImage(data) {
+//   return store.dispatch({
+//     type: 'ADD_IMAGE',
+//     text: data
+//   });
+// }
 
-<<<<<<< HEAD
+// export function dispatchDeleteImage(data) {
+//   return store.dispatch({
+//     type: 'DELETE_IMAGE',
+//     text: data
+//   });
+// }
+
 export function dispatchAddNote(data) {
     return store.dispatch({
-        type: 'ADD_NOTE', note:
-            data
+        type: 'ADD_NOTE', note: data
     })
 }
 
-export function getCurrentStore(){
-return store.getState()
-}
+store.subscribe(() => {
+    console.log('store has changed, new store:', store.getState());
+    saveState(store.getState());
+  });
 
+export default {dispatchAddNote, store }
 
-export default { dispatchAddImage, dispatchDeleteImage, getCurrentStore, dispatchAddNote, store }
+// export default { dispatchAddImage, dispatchDeleteImage, dispatchAddNote, store }
 
-//https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e
-=======
-export function getCurrentStore() {
-  return store.getState();
-}
-
-export default {
-  dispatchAddImage,
-  dispatchDeleteImage,
-  getCurrentStore
-};
 
 //https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e
 // export interface Product {
