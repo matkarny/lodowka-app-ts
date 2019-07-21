@@ -7,8 +7,8 @@ export const store = createStore(stateReducer, persistedStore)
 function stateReducer(state = persistedStore, action) {
     switch (action.type) {
         case 'ADD_USER':
-            state.users.push(action.text);
-
+            state.users.id = action.text.id
+            state.users.usersList.push(action.text);
             return state;
         default:
             return state;
