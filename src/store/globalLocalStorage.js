@@ -3,6 +3,7 @@ export const loadState = () => {
     const initialState = {
         notes: [
         ],
+        
     }
 
     try {

@@ -2,6 +2,7 @@ import * as React from 'react';
 import "./FullView.scss"
 import * as Routes from "../../constants/Routes"
 import { loadState } from '../../../store/globalLocalStorage';
+import { Link } from "react-router-dom"
 
 export interface FullViewProps {
     startAtFirst: boolean,
@@ -50,7 +51,7 @@ export default class FullView extends React.Component<FullViewProps> {
         return (
             <div className="full-list">
                 <header className="full-list__header">
-                    <a href={Routes.DASHBOARD} className="full-list__link"><div className="full-list__header full-list__arrow">🡠</div> </a>
+                    <Link to={Routes.DASHBOARD} className="full-list__link "><div className="full-list__header full-list__arrow ">🡠</div></Link>
                     <div className="full-list__middle-container">
                         <div className="full-list__middle-container-text">{this.props.labelName}</div>
                         <div className="full-list__buttons-list-container">

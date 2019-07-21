@@ -4,17 +4,16 @@ import AddNoteComponent from "../../common/components/AddNoteComponent/AddNoteCo
 import MapNotesCompoent from '../../common/components/MapNotesComponent/MapNotesComponent';
 
 export interface INotesFullViewProps {
+  location
 }
-
+export interface INotesFullViewState {
+}
 export default class NotesFullView extends React.Component<INotesFullViewProps> {
   //mapOfNotes = store.getState().notes.map(note => <NoteLabel date={note.date} message={note.message} />)
-
-
-  
   public render() {
     return (    
        <FullView 
-       startAtFirst={true} 
+       startAtFirst={this.props.location.state.startingAtFirst} 
        labelName={"Notes"} 
        firstButtonName={"Show all notes"} 
        secondButtonName={"Add new note"} 
