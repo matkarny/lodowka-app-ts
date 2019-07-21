@@ -3,7 +3,9 @@ import './WelcomeView.scss';
 import UserComponent from '../../../common/components/UserComponent/UserComponent';
 import { getCurrentStore } from '../../../store/UserStore';
 export interface WelcomeViewProps {
-
+    isUserLoggedIn: boolean,
+    isParent: boolean,
+    getUsersData: any
 }
 
 export interface WelcomeViewState {
@@ -13,19 +15,20 @@ export interface WelcomeViewState {
 class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
     state = { users: null }
 
-    getUsers = () => {
-
-        const data = getCurrentStore()
-        const usersArray = data.users
-        const currentUsers = usersArray.map((user, index) => <UserComponent
+    renderUsers = () => {
+        const usersData = this.props.getUsersData();
+        const currentUsers = usersData.usersList.map((user, index) => <UserComponent
             avatarId={user.avatarIndex}
             colorId={user.colorIndex}
             username={user.username}
             bigger={false}
             key={index} />)
         this.setState({ users: currentUsers })
+
     }
-    componentDidMount() { this.getUsers() }
+    componentDidMount() {
+        this.renderUsers();
+    }
     render() {
         return (
             <>
