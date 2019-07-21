@@ -4,6 +4,7 @@ import * as Routes from "../../constants/Routes"
 import { loadState } from '../../../store/globalLocalStorage';
 import { Link } from "react-router-dom"
 
+
 export interface FullViewProps {
     startAtFirst: boolean,
     labelName: string,
@@ -15,7 +16,8 @@ export interface FullViewProps {
 
 
 export default class FullView extends React.Component<FullViewProps> {
-    state = {
+
+        state = {
         isReverse: false,
         firstButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-nonactive",
         secondButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-active",
@@ -46,6 +48,7 @@ export default class FullView extends React.Component<FullViewProps> {
     componentDidMount() {
         this.handleChangeButton(this.props.startAtFirst)
     };
+
 
     public render() {
         return (
