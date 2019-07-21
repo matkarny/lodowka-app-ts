@@ -1,6 +1,8 @@
 import * as React from 'react';
 import "./FullView.scss"
 import * as Routes from "../../constants/Routes"
+import { loadState } from '../../../store/globalLocalStorage';
+import { Link } from "react-router-dom"
 
 
 export interface FullViewProps {
@@ -14,6 +16,7 @@ export interface FullViewProps {
 
 
 export default class FullView extends React.Component<FullViewProps> {
+
         state = {
         isReverse: false,
         firstButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-nonactive",
@@ -21,23 +24,24 @@ export default class FullView extends React.Component<FullViewProps> {
         injectedComponent: this.props.firstComponent,
     }
 
+
     handleChangeButton = (change) => {
         if (change) {
 
-            this.setState(() => {return {
+            this.setState({
                 isReverse: true,
                 firstButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-nonactive full-list__buttons-list-container-nonactive--reverse",
                 secondButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-active full-list__buttons-list-container-active--reverse",
                 injectedComponent: this.props.firstComponent,
-            }});
+            });
         } else {
 
-            this.setState(() => {return {
+            this.setState({
                 isReverse: false,
                 firstButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-nonactive",
                 secondButtonClass: "full-list__buttons-list-container full-list__buttons-list-container-active",
                 injectedComponent: this.props.secondComponent,
-            }});
+            });
         };
     }
 
@@ -50,7 +54,7 @@ export default class FullView extends React.Component<FullViewProps> {
         return (
             <div className="full-list">
                 <header className="full-list__header">
-                    <a href={Routes.DASHBOARD} className="full-list__link"><div className="full-list__header full-list__arrow">🡠</div> </a>
+                    <Link to={Routes.DASHBOARD} className="full-list__link "><div className="full-list__header full-list__arrow ">🡠</div></Link>
                     <div className="full-list__middle-container">
                         <div className="full-list__middle-container-text">{this.props.labelName}</div>
                         <div className="full-list__buttons-list-container">

@@ -5,6 +5,7 @@ import WeatherWidgetView from '../WeatherWidget/WeatherWidgetView';
 import YoutubeWidget from '../YoutubeWidget/YoutubeWidget';
 import TimeWidget from '../TimeWidget/TimeWidget';
 import ProductListWidget from '../ProductListWidget/ProductListWidget';
+import NotesWidget from '../NotesWidget/NotesWidget';
 
 export default class DashboardModule extends Component {
   render() {
@@ -15,6 +16,7 @@ export default class DashboardModule extends Component {
         <YoutubeWidget />
         <TimeWidget />
         <ProductListWidget />
+        <NotesWidget />
       </div>
     );
   }
