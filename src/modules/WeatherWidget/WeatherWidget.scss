@@ -1,27 +1,23 @@
 @import '../../common/styles/reset';
 
-.weather-container {
-  padding: 1em;
-  background-color: #bbb;
-}
-
 .weather {
-  background-color: #fff;
-  border: 1px solid black; // temporarily for visibility
-  border-radius: 10px;
-  width: 480px;
-  height: 250px;
   grid-area: place5;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100%;
+  height: 190px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  grid-area: place5;
   font-family: 'Open Sans';
   color: rgb(90, 120, 145);
 
   &__icon {
     padding-top: 20px;
     font-size: 110px;
-
     align-self: center;
   }
 

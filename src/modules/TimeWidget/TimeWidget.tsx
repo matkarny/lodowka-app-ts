@@ -55,7 +55,7 @@ export class TimeWidget extends Component<{}, ClockState> {
 render() {
     return <div className='clock-widget'>
 <div className='clock-widget__date'>{this.dayOfWeek()}, {this.state.time.getDate()} {this.currentMounthInPl()} {this.state.time.getFullYear()}</div>
-<div className='clock-widget__time'>{this.state.time.getHours()}:{this.state.time.getMinutes()}</div>
+<div className='clock-widget__time'>{this.state.time.getHours()}:{String(this.state.time.getMinutes()).padStart(2, "0")}</div>
     </div>
 
 }

@@ -1,43 +1,74 @@
-import { createStore } from 'redux'
-
+import { createStore } from 'redux';
+import { loadState, saveState } from "./globalLocalStorage"
+ 
 const initialState = {
-
-    imgData: [],
+    notes: [
+    ],
 }
 
-const store = createStore(stateReducer, initialState)
+const persistedStore = loadState();
 
+
+export const store = createStore(stateReducer,  persistedStore)
 
 function stateReducer(state = initialState, action) {
     switch (action.type) {
-        case 'ADD_IMAGE':
-            return { imgData: [...state.imgData, action.text] }
-        case 'DELETE_IMAGE':
-            return { imgData: state.imgData.filter(image => image !== action.text)}
+        case 'ADD_NOTE':
+            return { notes: [...state.notes, action.note]}
         default:
             return state
     }
 }
 
-export function dispatchAddImage(data) {
+// export function dispatchAddImage(data) {
+//   return store.dispatch({
+//     type: 'ADD_IMAGE',
+//     text: data
+//   });
+// }
+
+// export function dispatchDeleteImage(data) {
+//   return store.dispatch({
+//     type: 'DELETE_IMAGE',
+//     text: data
+//   });
+// }
+
+export function dispatchAddNote(data) {
     return store.dispatch({
-        type: 'ADD_IMAGE', text:
-            data
+        type: 'ADD_NOTE', note: data
     })
 }
 
-export function dispatchDeleteImage(data) {
-    return store.dispatch({
-        type: 'DELETE_IMAGE', text:
-            data
-    })
-}
+store.subscribe(() => {
+    console.log('store has changed, new store:', store.getState());
+    saveState(store.getState());
+  });
 
-export function getCurrentStore(){
-return store.getState()
-}
+export default {dispatchAddNote, store }
 
+// export default { dispatchAddImage, dispatchDeleteImage, dispatchAddNote, store }
 
-export default { dispatchAddImage, dispatchDeleteImage, getCurrentStore }
 
 //https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e
+// export interface Product {
+//   name: string;
+//   addedOn: { year: string; month: string; day: string };
+//   addedBy: string;
+//   tagPosLeft: number;
+//   tagPosTop: number;
+//   vitalityColor: 'grey';
+// }
+
+// const initialState = {
+//   productsList: []
+// };
+
+// function products(state = initialState, action) {
+//   switch (action.type) {
+//     case 'ADD_PRODUCT':
+//       return [...state, action];
+//     default:
+//       return state;
+//   }
+// }

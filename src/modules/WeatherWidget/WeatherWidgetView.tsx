@@ -1,7 +1,3 @@
-/*
-This component when Mounted gets geolocation and based on returned coords calls OpenWeatherAPI. Repeat every 60 seconds.
-*/
-
 import React from 'react';
 import WeatherCard from './WeatherCard';
 import { PreparedData } from '../../common/interfaces/WeatherInterfaces';

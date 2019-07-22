@@ -1,0 +1,23 @@
+@import 'ProductTag';
+@import 'Popup';
+
+.fridge {
+  position: relative;
+  height: auto;
+  box-sizing: border-box;
+
+  &__image {
+    width: 1920px;
+    height: 1080px;
+    position: absolute;
+    background-color: grey;
+  }
+
+  &__list {
+    display: inline-block;
+  }
+}
+
+.DATEPICK {
+  z-index: 999 !important;
+}

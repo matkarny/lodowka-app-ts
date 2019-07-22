@@ -1,0 +1,122 @@
+.product-tag {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  box-sizing: border-box;
+
+  &__circle {
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0px 15px 36px black;
+    position: relative;
+  }
+  color: #5f7891;
+  font-weight: 600;
+}
+
+.product-tag__delete {
+  background: #ff4e4e;
+  border: transparent;
+  border-radius: 10px;
+  width: 170px;
+  height: 70px;
+  line-height: 70px;
+  color: white;
+  font-family: 'Open Sans';
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.name {
+  height: 60px;
+
+  &__display {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  input[type='text'] {
+    color: #5f7891;
+    font-weight: 600;
+    width: 200px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-family: 'Open Sans';
+
+    &::placeholder {
+      padding: 0;
+      margin: 0;
+      color: black;
+      font-family: 'Open Sans';
+      border-radius: 2px;
+    }
+  }
+}
+
+.date {
+  height: 60px;
+
+  &__display {
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    left: 50px;
+  }
+
+  input[type='date'] {
+    color: #5f7891;
+    font-weight: 600;
+    width: 150px;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    top: -2px;
+    left: 10px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-family: 'Open Sans';
+    letter-spacing: -0.65px;
+
+    &::placeholder {
+      padding: 0;
+      margin: 0;
+      font-family: 'Open Sans';
+      border-radius: 2px;
+    }
+  }
+}
+
+.product-tag__name {
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  font-family: 'Open Sans';
+  cursor: pointer;
+}
+
+.product-tag__date {
+  padding-left: 30px;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  font-family: 'Open Sans';
+  cursor: pointer;
+}
+
+::-webkit-clear-button {
+  display: none; /* Hide the button */
+  -webkit-appearance: none; /* turn off default browser styling */
+}
