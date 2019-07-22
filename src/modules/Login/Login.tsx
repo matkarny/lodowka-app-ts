@@ -1,5 +1,6 @@
 import * as React from 'react';
 import WelcomeView from './WelcomeView/WelcomeView';
+import LoginPanel from './LoginPanel/LoginPanel';
 import Register from '../Register/Register';
 import { getCurrentStore } from '../../store/UserStore';
 
@@ -9,12 +10,6 @@ export enum ActiveStep {
     ThirdStep,
 };
 
-const ActiveComponent = {
-    [ActiveStep.FirstStep]: WelcomeView,
-    [ActiveStep.SecondStep]: WelcomeView, // to change
-    [ActiveStep.ThirdStep]: Register,
-}
-
 export interface LoginProps {
 
 }
@@ -23,13 +18,15 @@ export interface LoginState {
     isUserLoggedIn: boolean,
     isParent: boolean,
     loginStep: number,
+    clickedUserId: number,
 }
 
 class Login extends React.Component<LoginProps, LoginState> {
     state = {
         isUserLoggedIn: true,
         isParent: true,
-        loginStep: ActiveStep.FirstStep
+        clickedUserId: null,
+        loginStep: ActiveStep.FirstStep, // USTAWIĆ
     }
 
     getUsersData = () => {
@@ -37,23 +34,24 @@ class Login extends React.Component<LoginProps, LoginState> {
         const usersData = currentData.users;
         return usersData;
     }
+
     handleUserLoginClick = e => {
-        console.log(e.currentTarget.dataset.id);
+        this.setState({
+            clickedUserId: e.currentTarget.dataset.id,
+            loginStep: ActiveStep.SecondStep
+        })
     }
 
     addNewUser = () => {
         this.setState({ loginStep: ActiveStep.ThirdStep })
     }
-    goToLoginPanel = () => {
-        this.setState({ loginStep: ActiveStep.SecondStep })
-    }
+
     goToWelcomeView = () => {
         this.setState({ loginStep: ActiveStep.FirstStep })
     }
 
 
     render() {
-        const ActiveComp: React.ReactType = ActiveComponent[this.state.loginStep]
         return (
             <>
                 {this.state.loginStep === ActiveStep.FirstStep && <WelcomeView
@@ -63,6 +61,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                     userClick={this.handleUserLoginClick}
                     newMemberClick={this.addNewUser}
                 />}
+                {this.state.loginStep === ActiveStep.SecondStep && <LoginPanel clickedUserId={this.state.clickedUserId} getUsersData={this.getUsersData} />}
                 {this.state.loginStep === ActiveStep.ThirdStep && <Register goToWelcomeView={this.goToWelcomeView} />}
             </>
         );
