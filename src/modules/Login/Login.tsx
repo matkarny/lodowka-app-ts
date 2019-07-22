@@ -47,6 +47,9 @@ class Login extends React.Component<LoginProps, LoginState> {
     goToLoginPanel = () => {
         this.setState({ loginStep: ActiveStep.SecondStep })
     }
+    goToWelcomeView = () => {
+        this.setState({ loginStep: ActiveStep.FirstStep })
+    }
 
 
     render() {
@@ -54,13 +57,13 @@ class Login extends React.Component<LoginProps, LoginState> {
         return (
             <>
                 {/* <ActiveComp /> */}
-                <WelcomeView
+                {/* <WelcomeView
                     isUserLoggedIn={this.state.isUserLoggedIn}
                     isParent={true}
                     getUsersData={this.getUsersData}
                     userClick={this.handleUserLoginClick}
-                />
-                {/* <Register /> */}
+                /> */}
+                <Register goToWelcomeView={this.goToWelcomeView} />
                 {/* Dodać id do UserComponent, połączyć state'y, metody Register z Login */}
             </>
         );
