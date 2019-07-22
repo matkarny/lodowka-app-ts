@@ -1,11 +1,10 @@
 import * as React from 'react';
 import ListLabel from '../../common/components/ListLabel/ListLabel';
 import ListBtn from '../../common/components/ListBtn/ListBtn';
-import ProductLabel from "../../common/components/ProductLabel/ProductLabel"
-import ProductExpireChecker from "../../common/components/ProductExpireChecker/ProductExpireChecker"
 import "./ProductListWidget.scss"
 import * as Routes from '../../common/constants/Routes'
 import { Link } from "react-router-dom"
+import ProductExpireViewComponent from '../../common/components/ProductExpireViewComponent/ProductExpireViewComponent';
 
 
 export interface ProductListWidgetProps {
@@ -21,7 +20,7 @@ export default class ProductListWidget extends React.Component<ProductListWidget
         window.scrollTo(0,0);
       }
 
-    public exampleObject = {
+      public exampleObject = {
         products: [
             {
                 name: "Pomidor", addedOn: {
@@ -59,6 +58,7 @@ export default class ProductListWidget extends React.Component<ProductListWidget
                 }
             }],}
         ;
+ 
   
     render() {
         return (
@@ -67,7 +67,7 @@ export default class ProductListWidget extends React.Component<ProductListWidget
                 <Link to={{pathname: Routes.PRODUCTS, state: {startingAtFirst: false}}} ><ListBtn>VIEW ALL</ListBtn></Link>
                 <Link to={{pathname: Routes.PRODUCTS, state: {startingAtFirst: true}}} ><ListBtn>+</ListBtn></Link>
                 </ListLabel>
-                {Object.values(this.exampleObject.products).splice(0,4).map(product => <ProductLabel productName={product.name}> <ProductExpireChecker productDay={product.addedOn.day} productMounth={product.addedOn.mounth} productYear={product.addedOn.year} /> </ProductLabel>)}
+             <ProductExpireViewComponent />
             </div>
         );
     }
