@@ -34,6 +34,7 @@ const StepDescription = {
 };
 
 export interface RegistrationViewProps {
+    goToWelcomeView: any,
 }
 
 export interface RegistrationViewState {
@@ -92,6 +93,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
 
     handleConfirmBtnClick = () => {
         dispatchAddUser(this.state.newUser)
+        this.props.goToWelcomeView();
     }
     handleBackBtnClick = () => {
         this.setState(prevState => ({
@@ -119,6 +121,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
                         colorId={this.state.newUser.colorIndex}
                         avatarId={this.state.newUser.avatarIndex}
                         username={this.state.newUser.username}
+                        id={this.state.newUser.id}
                     />}
             </div>
         );
