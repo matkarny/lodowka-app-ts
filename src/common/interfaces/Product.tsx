@@ -1,6 +1,6 @@
 export interface Product {
   name: string;
-  expirationDate: { year: string; month: string; day: string };
+  expirationDate: { year: number; month: number; day: number };
   addedBy: string;
   tagPosition: { left: number; top: number };
   id: number;

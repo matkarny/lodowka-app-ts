@@ -1,7 +1,6 @@
 import { createStore, Action } from 'redux';
 import { Product } from '../common/interfaces/Product';
 import { saveState, loadState } from './globalLocalStorage';
-
 const persistedStore = loadState();
 
 export const store = createStore(stateReducer, persistedStore);
@@ -10,34 +9,56 @@ function stateReducer(state = persistedStore, action) {
   switch (action.type) {
     case 'ADD_PRODUCT':
       // TO DO: Store must not accept 2 same products (same by position and id)
-      return { products: [...state.products, action.text] };
+      return { products: [...state.products, action.payload] };
 
     case 'DELETE_PRODUCT':
       return {
-        products: state.products.filter(product => product.id !== action.text)
+        products: state.products.filter(
+          product => product.id !== action.payload
+        )
       };
 
-    case 'POPULATE_PRODUCTS':
-      return {
-        products: action.data
-      };
+    case 'DELETE_PRODUCTS':
+      return { products: [] };
+
+    case 'UPDATE_PRODUCT': {
+      let newProducts = state.products;
+      newProducts.forEach(element => {
+        if (element.id === action.payload.id) {
+          console.log('TO UPDATE');
+        }
+      });
+    }
 
     default:
       return state;
   }
 }
 
-export function addProduct(data) {
+export function addProduct(product: Product) {
   return store.dispatch({
     type: 'ADD_PRODUCT',
-    text: data
+    payload: product
   });
 }
 
-export function deleteProduct(productId) {
+export function deleteProduct(productId: number) {
   return store.dispatch({
     type: 'DELETE_PRODUCT',
-    text: productId
+    payload: productId
+  });
+}
+
+export function deleteProducts() {
+  return store.dispatch({
+    type: 'DELETE_PRODUCTS'
+  });
+}
+
+export function updateProduct(product: Product) {
+  return store.dispatch({
+    type: 'UPDATE_PRODUCT',
+    payload: product
   });
 }
 
@@ -52,31 +73,6 @@ export function dispatchDeleteImage(data) {
   return store.dispatch({
     type: 'DELETE_IMAGE',
     text: data
-  });
-}
-
-export function testPopulateProducts() {
-  let productA: Product = {
-    name: 'TRUSKAWKI',
-    addedBy: 'USER1',
-    expirationDate: { year: '2019', month: '6', day: '11' },
-    tagPosition: { left: 400, top: 400 },
-    id: 99,
-    shownPopup: false
-  };
-
-  let productB: Product = {
-    name: 'MLEKO',
-    addedBy: 'USER2',
-    expirationDate: { year: '2019', month: '11', day: '19' },
-    tagPosition: { left: 530, top: 330 },
-    id: 98,
-    shownPopup: false
-  };
-
-  return store.dispatch({
-    type: 'POPULATE_PRODUCTS',
-    data: [productA, productB]
   });
 }
 
@@ -95,6 +91,6 @@ export default {
   getCurrentStore,
   store,
   deleteProduct,
-  addProduct,
-  testPopulateProducts
+  deleteProducts,
+  addProduct
 };
