@@ -56,16 +56,14 @@ class Login extends React.Component<LoginProps, LoginState> {
         const ActiveComp: React.ReactType = ActiveComponent[this.state.loginStep]
         return (
             <>
-                {/* <ActiveComp /> */}
-                <WelcomeView
+                {this.state.loginStep === ActiveStep.FirstStep && <WelcomeView
                     isUserLoggedIn={this.state.isUserLoggedIn}
                     isParent={true}
                     getUsersData={this.getUsersData}
                     userClick={this.handleUserLoginClick}
                     newMemberClick={this.addNewUser}
-                />
-                {/* <Register goToWelcomeView={this.goToWelcomeView} /> */}
-                {/* Dodać id do UserComponent, połączyć state'y, metody Register z Login */}
+                />}
+                {this.state.loginStep === ActiveStep.ThirdStep && <Register goToWelcomeView={this.goToWelcomeView} />}
             </>
         );
     }
