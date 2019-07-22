@@ -19,7 +19,6 @@ export interface ProductTagState {
   popupModifier: string;
   product: Product;
   inputedDate: string;
-  inputedDateObject: { year: number; month: number; day: number };
 }
 
 class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
@@ -29,12 +28,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     showDateInput: false,
     popupModifier: '',
     product: this.props.product,
-    inputedDate: 'date',
-    inputedDateObject: {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth(),
-      day: new Date().getDate()
-    }
+    inputedDate: 'date'
   };
 
   setPopupModifier() {
@@ -121,48 +115,45 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     let month: number;
     let year = +splittedVal[2];
 
-    let currentMonth = new Date().getMonth();
-    let currentDay = new Date().getDate();
-
     /* Set month format (cut off '0' when month is earlier/lower than 10) */
     if (monthString[0] === '0') month = +monthString[1] - 1;
     else month = +`${monthString[0]}${monthString[1]}` - 1;
 
-    /* Check if given month and day are earlier than current date */
+    /* Check if given date is earlier than current date */
+    let currentMonth = new Date().getMonth();
+    let currentDay = new Date().getDate();
+
+    // month and day are earlier
     if (month < currentMonth && day < currentDay) {
       month = currentMonth;
       day = currentDay;
     }
-    /* Check if given month is earlier than current month*/
+
+    // month is earlier
     if (month < currentMonth) {
       month = currentMonth;
     }
-    /* Check if given day is earlier than current day this month */
+
+    // day is earlier than current day this month
     if (month === currentMonth && day < currentDay) {
       day = currentDay;
     }
 
     /* Create Date object applicable for Redux store and ProductExpireChecker */
-    let inputedDateObject = {
-      year,
-      month,
-      day
-    };
 
-    let inputedDateObjectString = {
-      year: '' + year,
-      month: month + '',
-      day: day + ''
+    let date = {
+      year: year,
+      month: month,
+      day: day
     };
 
     this.setState({
-      inputedDateObject: inputedDateObject,
       inputedDate: e.target.value,
       product: {
         name: this.state.product.name,
         tagPosition: this.state.product.tagPosition,
         addedBy: this.state.product.name,
-        expirationDate: inputedDateObjectString,
+        expirationDate: date,
         id: this.state.product.id
       }
     });
@@ -175,7 +166,6 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
       showDateInput: !this.state.showDateInput
     });
 
-    // Update in Store
     this.props.updateProduct(this.state.product);
   };
 
@@ -184,7 +174,8 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     /*  Return Popup that shows - depending on show-Name/Date-Input - inputs or displays. OnClick on either input and display causes them to switch their visibility / places. Below that Popup shows Remove button.
      */
 
-    let { year, month, day } = this.state.inputedDateObject;
+    let { year, month, day } = this.state.product.expirationDate;
+
     month++; // without this month values would be from 0 to 11
     let dateString = '';
     let monthString = '' + month;
@@ -192,7 +183,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     if (month < 10) monthString = '0' + month;
     if (day < 10) dayString = '0' + day;
     dateString += `${dayString}.${monthString}.${year}`;
-    console.log('dateString', dateString, this.state.inputedDateObject);
+
     return (
       <div className={`popup${this.state.popupModifier}`}>
         <div className="popup__inner">
@@ -251,10 +242,6 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
 
   componentDidMount() {
     this.setPopupModifier();
-  }
-
-  componentDidUpdate() {
-    console.log('UPDATE', this.state.inputedDate, this.state.inputedDateObject);
   }
 
   render() {

@@ -57,9 +57,9 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     };
 
     const expirationDate = {
-      year: '' + new Date().getFullYear(),
-      month: '' + (new Date().getMonth() + 1),
-      day: '' + new Date().getDate()
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate()
     };
 
     let product: Product = {

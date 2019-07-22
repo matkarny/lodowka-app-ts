@@ -21,7 +21,7 @@ class FridgeService {
     window.setInterval(() => {
       if (this.imgSrc === '') {
         this.getFridgeImage(noImgSrc);
-      } else console.log('img set');
+      }
     }, 10000);
   };
 }
