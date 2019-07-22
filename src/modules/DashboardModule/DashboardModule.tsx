@@ -6,8 +6,12 @@ import YoutubeWidget from '../YoutubeWidget/YoutubeWidget';
 import TimeWidget from '../TimeWidget/TimeWidget';
 import ProductListWidget from '../ProductListWidget/ProductListWidget';
 import NotesWidget from '../NotesWidget/NotesWidget';
+import { loadState } from '../../store/globalLocalStorage';
 
 export default class DashboardModule extends Component {
+  componentDidMount(){
+    loadState()
+  }
   render() {
     return (
       <div className="dashboard-module">
