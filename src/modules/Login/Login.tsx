@@ -35,9 +35,9 @@ class Login extends React.Component<LoginProps, LoginState> {
         return usersData;
     }
 
-    handleUserLoginClick = e => {
+    handleUserLoginClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         this.setState({
-            clickedUserId: e.currentTarget.dataset.id,
+            clickedUserId: parseInt(e.currentTarget.dataset.id),
             loginStep: ActiveStep.SecondStep
         })
     }
