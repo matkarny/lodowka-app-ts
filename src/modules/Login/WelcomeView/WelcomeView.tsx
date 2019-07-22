@@ -27,7 +27,10 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
             bigger={false}
             key={index}
             onSelect={this.props.userClick} />)
-        currentUsers.push(<NewUserComponent onSelect={this.props.newMemberClick} />)
+        currentUsers.push(
+            <NewUserComponent
+                onSelect={this.props.newMemberClick}
+                key={currentUsers.length} />)
         this.setState({ users: currentUsers })
 
     }
