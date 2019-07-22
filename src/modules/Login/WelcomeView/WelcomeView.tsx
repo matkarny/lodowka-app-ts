@@ -5,11 +5,12 @@ import { getCurrentStore } from '../../../store/UserStore';
 export interface WelcomeViewProps {
     isUserLoggedIn: boolean,
     isParent: boolean,
-    getUsersData: any
+    getUsersData: any,
+    userClick: any,
 }
 
 export interface WelcomeViewState {
-
+    users: any,
 }
 
 class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
@@ -21,8 +22,10 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
             avatarId={user.avatarIndex}
             colorId={user.colorIndex}
             username={user.username}
+            id={user.id}
             bigger={false}
-            key={index} />)
+            key={index}
+            onSelect={this.props.userClick} />)
         this.setState({ users: currentUsers })
 
     }

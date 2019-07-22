@@ -2,7 +2,6 @@ import * as React from 'react';
 import WelcomeView from './WelcomeView/WelcomeView';
 import Register from '../Register/Register';
 import { getCurrentStore } from '../../store/UserStore';
-import UserComponent from '../../common/components/UserComponent/UserComponent';
 
 export enum ActiveStep {
     FirstStep,
@@ -38,6 +37,10 @@ class Login extends React.Component<LoginProps, LoginState> {
         const usersData = currentData.users;
         return usersData;
     }
+    handleUserLoginClick = e => {
+        console.log(e.currentTarget.dataset.id);
+    }
+
     addNewUser = () => {
         this.setState({ loginStep: ActiveStep.ThirdStep })
     }
@@ -54,7 +57,9 @@ class Login extends React.Component<LoginProps, LoginState> {
                 <WelcomeView
                     isUserLoggedIn={this.state.isUserLoggedIn}
                     isParent={true}
-                    getUsersData={this.getUsersData} />
+                    getUsersData={this.getUsersData}
+                    userClick={this.handleUserLoginClick}
+                />
                 {/* <Register /> */}
                 {/* Dodać id do UserComponent, połączyć state'y, metody Register z Login */}
             </>
