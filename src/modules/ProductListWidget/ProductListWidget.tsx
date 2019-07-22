@@ -13,6 +13,14 @@ export interface ProductListWidgetProps {
 
 export default class ProductListWidget extends React.Component<ProductListWidgetProps> {
 
+    componentDidMount(){
+        window.scrollTo(0,0);
+       }
+
+       componentDidUpdate() {
+        window.scrollTo(0,0);
+      }
+
     public exampleObject = {
         products: [
             {
@@ -51,6 +59,7 @@ export default class ProductListWidget extends React.Component<ProductListWidget
                 }
             }],}
         ;
+  
     render() {
         return (
             <div className="product-list-widget">
@@ -59,7 +68,6 @@ export default class ProductListWidget extends React.Component<ProductListWidget
                 <Link to={{pathname: Routes.PRODUCTS, state: {startingAtFirst: true}}} ><ListBtn>+</ListBtn></Link>
                 </ListLabel>
                 {Object.values(this.exampleObject.products).splice(0,4).map(product => <ProductLabel productName={product.name}> <ProductExpireChecker productDay={product.addedOn.day} productMounth={product.addedOn.mounth} productYear={product.addedOn.year} /> </ProductLabel>)}
-            {/* <button onClick={() => console.log(Object.values(this.exampleObject.products))}> Click</button> */}
             </div>
         );
     }

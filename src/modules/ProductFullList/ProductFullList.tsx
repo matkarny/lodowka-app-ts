@@ -13,7 +13,14 @@ export interface IProductFullListProps {
 
 export default class ProductFullList extends React.Component<IProductFullListProps> {
 
+    componentDidMount(){
+        window.scrollTo(0,0);
+       }
 
+       componentDidUpdate() {
+        window.scrollTo(0,0);
+      }
+      
     public render() {
         return (
     <FullView 
