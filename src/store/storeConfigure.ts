@@ -8,21 +8,22 @@ export const store = createStore(stateReducer, persistedStore);
 function stateReducer(state = persistedStore, action) {
   switch (action.type) {
     case 'ADD_NOTE':
-      return { notes: [...state.notes, action.note] };
+      return { ...state, notes: [...state.notes, action.note] };
 
     case 'ADD_PRODUCT':
       // TO DO: Store must not accept 2 same products (same by position and id)
-      return { products: [...state.products, action.payload] };
+      return { ...state, products: [...state.products, action.payload] };
 
     case 'DELETE_PRODUCT':
       return {
+        ...state,
         products: state.products.filter(
           product => product.id !== action.payload
         )
       };
 
     case 'DELETE_PRODUCTS':
-      return { products: [] };
+      return { ...state, products: [] };
 
     case 'UPDATE_PRODUCT': {
       let newProducts = state.products;

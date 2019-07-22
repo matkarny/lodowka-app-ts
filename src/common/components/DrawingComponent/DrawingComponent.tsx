@@ -13,6 +13,8 @@ interface props {
 class DrawingComponent extends React.Component<{}, props> {
   private canvasRef: any;
   public canvasImg: string;
+  public positionX: any;
+  public positionY: any;
 
   constructor(props: props) {
     super(props);
@@ -49,7 +51,7 @@ class DrawingComponent extends React.Component<{}, props> {
 
   drawing(e) {
     //if the pen is down in the canvas, draw/erase
-    const ctx = this.canvasRef.current.getContext('2d');
+    const ctx = this.canvasRef.current.getContext('2d') as CanvasRenderingContext2D;
     if (this.state.pen === 'down') {
       ctx.beginPath();
       ctx.lineWidth = this.state.lineWidth;
@@ -63,14 +65,12 @@ class DrawingComponent extends React.Component<{}, props> {
         ctx.strokeStyle = '#ffffff';
       }
 
-      ctx.moveTo(this.state.penCoords[0], this.state.penCoords[1]); //move to old position
+      ctx.moveTo(this.positionX, this.positionY); //move to old position
       ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY); //draw to new position
       ctx.stroke();
-
-      this.setState({
-        //save new position
-        penCoords: [e.nativeEvent.offsetX, e.nativeEvent.offsetY]
-      });
+      ctx.beginPath();
+      this.positionX = e.nativeEvent.offsetX;
+      this.positionY = e.nativeEvent.offsetY;
     }
   }
 
@@ -78,11 +78,13 @@ class DrawingComponent extends React.Component<{}, props> {
     //mouse is down on the canvas
     this.setState({
       pen: 'down',
-      penCoords: [e.nativeEvent.offsetX, e.nativeEvent.offsetY]
+      // penCoords: [e.nativeEvent.offsetX, e.nativeEvent.offsetY]
     });
+    this.positionX = e.nativeEvent.offsetX;
+      this.positionY = e.nativeEvent.offsetY;
   }
 
-  penUp(e) {
+  penUp = (e) => {
     //mouse is up on the canvas
     this.setState({
       pen: 'up'
@@ -102,6 +104,7 @@ class DrawingComponent extends React.Component<{}, props> {
   }
 
   render() {
+    console.log('render!');
     return (
       <div className="canvas-styling">
         <canvas
@@ -112,7 +115,7 @@ class DrawingComponent extends React.Component<{}, props> {
           className="canvas-background"
           onMouseMove={e => this.drawing(e)}
           onMouseDown={e => this.penDown(e)}
-          onMouseUp={e => this.penUp(e)}
+          onMouseUp={this.penUp}
         />
       </div>
     );
