@@ -3,7 +3,7 @@ import './Fridge.scss';
 import FridgeService from './FridgeService';
 import Loader from 'react-loader-spinner';
 import Store from '../../store/storeConfigure';
-import ProductTagNEW from './ProductTagNEW';
+import ProductTag from './ProductTag';
 import { Product } from '../../common/interfaces/Product';
 
 interface ProductTagData {
@@ -36,16 +36,18 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   componentDidMount() {
     new FridgeService(this.getFridgeImage).getImageBase64();
-    //   Store.testPopulateProducts();
     this.setState({ products: Store.getCurrentStore().products });
   }
 
   componentDidUpdate() {
-    // console.log(Store.getCurrentStore().products);
     console.log(this.state.products);
   }
 
-  /* Set ProductTag on click and add it to List in state */
+  removeAll = () => {
+    Store.deleteProducts();
+    this.setState({ products: Store.getCurrentStore().products });
+  };
+
   addProduct = e => {
     e.preventDefault();
 
@@ -65,8 +67,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       tagPosition,
       addedBy: 'USER X',
       expirationDate,
-      id: this.state.nextId,
-
+      id: +('' + expirationDate.day + tagPosition.left + tagPosition.top),
       shownPopup: true
     };
 
@@ -86,12 +87,12 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     return this.state.products.map(product => {
       return (
         <li key={`key-${product.tagPosition.left + product.tagPosition.top}`}>
-          <ProductTagNEW
+          <ProductTag
             product={product}
             togglePopup={this.togglePopup}
             removeProduct={this.removeProduct}
             shownPopup={product.shownPopup}
-            UPDATE={this.UPDATE}
+            updateProduct={this.updateProduct}
           />
         </li>
       );
@@ -119,17 +120,21 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     this.setState({ products });
   };
 
-  UPDATE = (data: Product) => {
+  updateProduct = (data: Product) => {
     console.log('Data', data);
     Store.deleteProduct(data.id);
     Store.addProduct(data);
-    //Store.updateProduct(data);
-    //  this.setState({ products: Store.getCurrentStore().products });
+    console.log(Store.getCurrentStore().products);
   };
 
   render() {
     return (
       <div>
+        <div className="popup__actions">
+          <button className="product-tag__delete" onClick={this.removeAll}>
+            Remove all
+          </button>
+        </div>
         <div className="fridge">
           {this.state.src ? (
             <img

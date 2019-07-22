@@ -69,12 +69,13 @@
 .date {
   height: 60px;
 
+  letter-spacing: 0px;
   &__display {
     width: auto;
     display: flex;
     justify-content: space-between;
     position: relative;
-    left: 40px;
+    left: 35px;
   }
 
   input[type='date'] {
@@ -85,12 +86,11 @@
     margin: 0;
     position: relative;
     top: -6px;
-    left: 10px;
+    left: -10px;
     border: none;
     outline: none;
     font-size: 20px;
     font-family: 'Open Sans';
-    letter-spacing: -0.65px;
 
     &::placeholder {
       padding: 0;
