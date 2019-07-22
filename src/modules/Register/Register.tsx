@@ -119,6 +119,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
                         colorId={this.state.newUser.colorIndex}
                         avatarId={this.state.newUser.avatarIndex}
                         username={this.state.newUser.username}
+                        id={this.state.newUser.id}
                     />}
             </div>
         );
