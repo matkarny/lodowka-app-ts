@@ -6,46 +6,15 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        border: 1px solid #5F7891;
+        border-radius: 30px;
     }
 
-    &__color {
-        @include color-classes;
-
-        &--bigger {
-            width: 280px;
-            height: 335px;
-            border-radius: 40px;
-        }
+    &__description {
+        margin-top: 20px;
+        font-size: 19px;
+        color: #5F7891;
     }
 
-    &__avatar-container {
-        &--bigger {
-            position: relative;
-            margin: 20px 20px 14px;
-            width: 240px;
-            height: 240px;
-            border-radius: 30px;
-            overflow: hidden
-        }
-    }
-
-    &__avatar {
-        width: 100%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    &__username {
-        color: #fff;
-        text-align: center;
-        font-weight: bold;
-
-        &--bigger {
-            font-size: 30px;
-            margin: 0 20px 20px;
-        }
-    }
 
 }
