@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './WelcomeView.scss';
 import UserComponent from '../../../common/components/UserComponent/UserComponent';
-import { getCurrentStore } from '../../../store/UserStore';
+import NewUserComponent from '../../../common/components/NewUserComponent/NewUserComponent';
 export interface WelcomeViewProps {
     isUserLoggedIn: boolean,
     isParent: boolean,
@@ -26,6 +26,7 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
             bigger={false}
             key={index}
             onSelect={this.props.userClick} />)
+        currentUsers.push(<NewUserComponent />)
         this.setState({ users: currentUsers })
 
     }
