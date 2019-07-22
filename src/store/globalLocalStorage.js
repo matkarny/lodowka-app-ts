@@ -1,6 +1,14 @@
 export const loadState = () => {
   const initialState = {
-    notes: []
+    notes: [],
+    products: [{
+      name: "MLEKO",
+      expirationDate: { year: 2019, month: 6, day: 21 },
+      addedBy: "USER",
+      tagPosition: { left: 550, top: 550},
+      id: 0,
+      shownPopup: true,
+    }]
   };
 
   try {
