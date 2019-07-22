@@ -7,6 +7,9 @@ export const store = createStore(stateReducer, persistedStore);
 
 function stateReducer(state = persistedStore, action) {
   switch (action.type) {
+    case 'ADD_NOTE':
+      return { notes: [...state.notes, action.note] };
+
     case 'ADD_PRODUCT':
       // TO DO: Store must not accept 2 same products (same by position and id)
       return { products: [...state.products, action.payload] };
@@ -62,6 +65,13 @@ export function updateProduct(product: Product) {
   });
 }
 
+export function dispatchAddNote(data) {
+  return store.dispatch({
+    type: 'ADD_NOTE',
+    note: data
+  });
+}
+
 export function dispatchAddImage(data) {
   return store.dispatch({
     type: 'ADD_IMAGE',
@@ -92,5 +102,6 @@ export default {
   store,
   deleteProduct,
   deleteProducts,
-  addProduct
+  addProduct,
+  dispatchAddNote
 };
