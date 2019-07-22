@@ -57,13 +57,14 @@ class Login extends React.Component<LoginProps, LoginState> {
         return (
             <>
                 {/* <ActiveComp /> */}
-                {/* <WelcomeView
+                <WelcomeView
                     isUserLoggedIn={this.state.isUserLoggedIn}
                     isParent={true}
                     getUsersData={this.getUsersData}
                     userClick={this.handleUserLoginClick}
-                /> */}
-                <Register goToWelcomeView={this.goToWelcomeView} />
+                    newMemberClick={this.addNewUser}
+                />
+                {/* <Register goToWelcomeView={this.goToWelcomeView} /> */}
                 {/* Dodać id do UserComponent, połączyć state'y, metody Register z Login */}
             </>
         );

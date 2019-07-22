@@ -7,6 +7,7 @@ export interface WelcomeViewProps {
     isParent: boolean,
     getUsersData: any,
     userClick: any,
+    newMemberClick: any,
 }
 
 export interface WelcomeViewState {
@@ -26,7 +27,7 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
             bigger={false}
             key={index}
             onSelect={this.props.userClick} />)
-        currentUsers.push(<NewUserComponent />)
+        currentUsers.push(<NewUserComponent onSelect={this.props.newMemberClick} />)
         this.setState({ users: currentUsers })
 
     }
