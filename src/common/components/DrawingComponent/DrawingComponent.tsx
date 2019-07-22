@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './DrawingComponent.scss';
 
-
 interface props {
   mode: string;
   pen: string;
@@ -26,7 +25,6 @@ class DrawingComponent extends React.Component<{}, props> {
   componentDidUpdate() {
     this.canvasImg = this.saveFile('mycanvas').toDataURL('image/jpeg', 0.5);
   }
-
 
   settings() {
     this.setState({

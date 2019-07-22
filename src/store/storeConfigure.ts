@@ -1,74 +1,107 @@
-import { createStore } from 'redux';
-import { loadState, saveState } from "./globalLocalStorage"
- 
-const initialState = {
-    notes: [
-    ],
-}
-
+import { createStore, Action } from 'redux';
+import { Product } from '../common/interfaces/Product';
+import { saveState, loadState } from './globalLocalStorage';
 const persistedStore = loadState();
 
+export const store = createStore(stateReducer, persistedStore);
 
-export const store = createStore(stateReducer,  persistedStore)
+function stateReducer(state = persistedStore, action) {
+  switch (action.type) {
+    case 'ADD_NOTE':
+      return { notes: [...state.notes, action.note] };
 
-function stateReducer(state = initialState, action) {
-    switch (action.type) {
-        case 'ADD_NOTE':
-            return { notes: [...state.notes, action.note]}
-        default:
-            return state
+    case 'ADD_PRODUCT':
+      // TO DO: Store must not accept 2 same products (same by position and id)
+      return { products: [...state.products, action.payload] };
+
+    case 'DELETE_PRODUCT':
+      return {
+        products: state.products.filter(
+          product => product.id !== action.payload
+        )
+      };
+
+    case 'DELETE_PRODUCTS':
+      return { products: [] };
+
+    case 'UPDATE_PRODUCT': {
+      let newProducts = state.products;
+      newProducts.forEach(element => {
+        if (element.id === action.payload.id) {
+          console.log('TO UPDATE');
+        }
+      });
     }
+
+    default:
+      return state;
+  }
 }
 
-// export function dispatchAddImage(data) {
-//   return store.dispatch({
-//     type: 'ADD_IMAGE',
-//     text: data
-//   });
-// }
+export function addProduct(product: Product) {
+  return store.dispatch({
+    type: 'ADD_PRODUCT',
+    payload: product
+  });
+}
 
-// export function dispatchDeleteImage(data) {
-//   return store.dispatch({
-//     type: 'DELETE_IMAGE',
-//     text: data
-//   });
-// }
+export function deleteProduct(productId: number) {
+  return store.dispatch({
+    type: 'DELETE_PRODUCT',
+    payload: productId
+  });
+}
+
+export function deleteProducts() {
+  return store.dispatch({
+    type: 'DELETE_PRODUCTS'
+  });
+}
+
+export function updateProduct(product: Product) {
+  return store.dispatch({
+    type: 'UPDATE_PRODUCT',
+    payload: product
+  });
+}
 
 export function dispatchAddNote(data) {
-    return store.dispatch({
-        type: 'ADD_NOTE', note: data
-    })
+  return store.dispatch({
+    type: 'ADD_NOTE',
+    note: data
+  });
+}
+
+export function dispatchAddImage(data) {
+  return store.dispatch({
+    type: 'ADD_IMAGE',
+    text: data
+  });
+}
+
+export function dispatchDeleteImage(data) {
+  return store.dispatch({
+    type: 'DELETE_IMAGE',
+    text: data
+  });
+}
+
+export function getCurrentStore() {
+  return store.getState();
 }
 
 store.subscribe(() => {
-    console.log('store has changed, new store:', store.getState());
-    saveState(store.getState());
-  });
+  console.log('store has changed, new store:', store.getState());
+  saveState(store.getState());
+});
 
-export default {dispatchAddNote, store }
-
-// export default { dispatchAddImage, dispatchDeleteImage, dispatchAddNote, store }
-
-
-//https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e
-// export interface Product {
-//   name: string;
-//   addedOn: { year: string; month: string; day: string };
-//   addedBy: string;
-//   tagPosLeft: number;
-//   tagPosTop: number;
-//   vitalityColor: 'grey';
-// }
-
-// const initialState = {
-//   productsList: []
-// };
-
-// function products(state = initialState, action) {
-//   switch (action.type) {
-//     case 'ADD_PRODUCT':
-//       return [...state, action];
-//     default:
-//       return state;
-//   }
-// }
+export default {
+  dispatchAddImage,
+  dispatchDeleteImage,
+  getCurrentStore,
+  store,
+  deleteProduct,
+  deleteProducts,
+  addProduct,
+  dispatchAddNote
+};
