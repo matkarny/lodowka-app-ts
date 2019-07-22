@@ -6,8 +6,11 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        border: 1px solid #5F7891;
+        align-items: center;
+        border: 1px solid #5f7891;
         border-radius: 30px;
+        width: 210px;
+        height: 255px;
     }
 
     &__description {
