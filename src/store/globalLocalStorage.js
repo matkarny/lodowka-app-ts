@@ -22,8 +22,8 @@ export const loadState = () => {
     //session: [{ currentUserId: -1 }],
     currentUserId: -1,
     users: [
-      { name: 'Rodzic', id: 0, role: 0 },
-      { name: 'Dziecko', id: 1, role: 1 }
+      { name: 'Rodzic', id: 0, role: 0, pin: '1234' },
+      { name: 'Dziecko', id: 1, role: 1, pin: '1111' }
     ]
   };
 

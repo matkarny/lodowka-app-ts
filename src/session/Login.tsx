@@ -12,16 +12,12 @@ import { store, login, logout } from '../store/storeConfigure';
 class Login extends React.Component {
   state = {
     redirectToReferrer: false,
-    nameValue: ''
-  };
-
-  onChange = e => {
-    this.setState({ nameValue: e.target.value });
+    pinValue: ''
   };
 
   login = () => {
     const users = store.getState().users;
-    const user = users.find(user => user.name === this.state.nameValue);
+    const user = users.find(user => user.pin === this.state.pinValue);
     if (user) {
       Authenticator.authenticate(user.id, () => {
         this.setState(() => ({
@@ -45,9 +41,9 @@ class Login extends React.Component {
 
         <input
           type="text"
-          placeholder="name"
-          value={this.state.nameValue}
-          onChange={this.onChange}
+          placeholder="pin"
+          value={this.state.pinValue}
+          onChange={e => this.setState({ pinValue: e.target.value })}
         />
         <button onClick={this.login}>Log in</button>
       </div>

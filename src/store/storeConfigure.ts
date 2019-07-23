@@ -43,6 +43,13 @@ function stateReducer(state = persistedStore, action) {
       return { ...state, currentUserId: -1 };
     }
 
+    // case 'GET_LOGGED_USER': {
+    //  {
+    //     const user = store.getState().users.find(user => user.pin === store.getState().currentUserId);
+    //     return user;
+    //  }
+    // }
+
     default:
       return state;
   }
@@ -60,6 +67,13 @@ export function login(userId: number) {
     type: 'LOGIN',
     payload: userId
   });
+}
+
+export function getLoggedUser() {
+  const user = store
+    .getState()
+    .users.find(user => user.pin === store.getState().currentUserId);
+  return user;
 }
 
 export function addProduct(product: Product) {
@@ -128,5 +142,7 @@ export default {
   deleteProducts,
   addProduct,
   dispatchAddNote,
-  login
+  login,
+  logout,
+  getLoggedUser
 };

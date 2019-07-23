@@ -6,7 +6,7 @@ import YoutubeWidget from '../YoutubeWidget/YoutubeWidget';
 import TimeWidget from '../TimeWidget/TimeWidget';
 import ProductListWidget from '../ProductListWidget/ProductListWidget';
 import NotesWidget from '../NotesWidget/NotesWidget';
-import { store, login } from '../../store/storeConfigure';
+import { store } from '../../store/storeConfigure';
 
 export default class DashboardModule extends React.Component {
   state = {

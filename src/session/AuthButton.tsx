@@ -8,12 +8,12 @@ import {
 } from 'react-router-dom';
 import Authenticator from './Authenticator';
 import './AuthButton.scss';
+import { store, login, logout, getLoggedUser } from '../store/storeConfigure';
 
 const AuthButton = withRouter(({ history }) =>
   Authenticator.isAuthenticated ? (
     <div style={{ backgroundColor: 'skyblue' }}>
-      {' '}
-      AUTHORIZED Welcome!{' '}
+      AUTHORIZED Welcome!{console.log(getLoggedUser())}
       <div className="auth-button">
         <button
           onClick={() => {
