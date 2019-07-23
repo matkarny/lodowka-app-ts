@@ -7,9 +7,12 @@ export const store = createStore(stateReducer, persistedStore)
 function stateReducer(state = persistedStore, action) {
     switch (action.type) {
         case 'ADD_USER':
-            state.users.id = action.payload.id
-            state.users.usersList.push(action.payload);
-            return state;
+            return {
+                ...state, users: {
+                    id: action.payload.id,
+                    usersList: [...state.users.usersList, action.payload]
+                }
+            }
         case 'LOG_USER':
             state.loggedUser = action.payload
             return state;

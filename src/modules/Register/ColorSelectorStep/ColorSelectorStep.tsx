@@ -55,8 +55,8 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
                 <div className="login-color__btn-container">
                     <button className="login-color__button login-color__button--cancel" onClick={this.props.onBack}>Back</button>
                     <button
-                        className={`login-color__button ${this.state.selectedColor ? 'login-color__button--select' : 'login-color__button--disabled'}`}
-                        disabled={this.state.selectedColor ? false : true} onClick={() => this.props.onSelect(this.state.selectedColor)}>Select</button>
+                        className={`login-color__button ${this.state.selectedColor !== null ? 'login-color__button--select' : 'login-color__button--disabled'}`}
+                        disabled={this.state.selectedColor !== null ? false : true} onClick={() => this.props.onSelect(this.state.selectedColor)}>Select</button>
                 </div>
             </div >
         )
