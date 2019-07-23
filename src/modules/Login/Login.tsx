@@ -15,16 +15,14 @@ export interface LoginProps {
 }
 
 export interface LoginState {
-    isUserLoggedIn: boolean,
-    isParent: boolean,
+    isParentLogged: boolean,
     loginStep: number,
     clickedUserId: number,
 }
 
 class Login extends React.Component<LoginProps, LoginState> {
     state = {
-        isUserLoggedIn: true,
-        isParent: true,
+        isParentLogged: true,
         clickedUserId: null,
         loginStep: ActiveStep.FirstStep, // USTAWIĆ
     }
@@ -34,6 +32,15 @@ class Login extends React.Component<LoginProps, LoginState> {
         const usersData = currentData.users;
         return usersData;
     }
+    getUsersAndLoggedUserId = () => {
+        const currentData = store.getState();
+        const usersData = currentData.users;
+        const loggedUserId = currentData.loggedUser;
+        return {
+            usersData,
+            loggedUserId
+        }
+    }
 
     handleUserLoginClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         this.setState({
@@ -41,6 +48,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             loginStep: ActiveStep.SecondStep
         })
     }
+
 
     addNewUser = () => {
         this.setState({ loginStep: ActiveStep.ThirdStep })
@@ -50,17 +58,37 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.setState({ loginStep: ActiveStep.FirstStep })
     }
 
+    checkIsParentLogged = () => {
 
+        const dataUsers = this.getUsersAndLoggedUserId();
+
+        const usersList = dataUsers.usersData.usersList;
+        const loggedUserId = dataUsers.loggedUserId
+        if (loggedUserId) {
+
+            const activeUser = usersList.filter(user => user.id === loggedUserId)
+            const activeUserRole = activeUser[0].role
+            if (activeUserRole) {
+                this.setState({ isParentLogged: true })
+            }
+            else { this.setState({ isParentLogged: false }) }
+
+        }
+        else if (!usersList.length) {
+            this.setState({ isParentLogged: true })
+        }
+        else { this.setState({ isParentLogged: false }) }
+    }
 
     render() {
         return (
             <>
                 {this.state.loginStep === ActiveStep.FirstStep && <WelcomeView
-                    isUserLoggedIn={this.state.isUserLoggedIn}
-                    isParent={true}
+                    isParentLogged={this.state.isParentLogged}
                     getUsersData={this.getUsersData}
                     userClick={this.handleUserLoginClick}
                     newMemberClick={this.addNewUser}
+                    checkIsParentLogged={this.checkIsParentLogged}
                 />}
                 {this.state.loginStep === ActiveStep.SecondStep && <LoginPanel
                     clickedUserId={this.state.clickedUserId}
