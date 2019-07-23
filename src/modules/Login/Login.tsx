@@ -2,7 +2,7 @@ import * as React from 'react';
 import WelcomeView from './WelcomeView/WelcomeView';
 import LoginPanel from './LoginPanel/LoginPanel';
 import Register from '../Register/Register';
-import { getCurrentStore } from '../../store/UserStore';
+import { store } from '../../store/UserStore';
 
 export enum ActiveStep {
     FirstStep,
@@ -30,7 +30,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
     getUsersData = () => {
-        const currentData = getCurrentStore();
+        const currentData = store.getState();
         const usersData = currentData.users;
         return usersData;
     }

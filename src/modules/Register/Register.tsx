@@ -6,7 +6,7 @@ import AvatarSelectorStep from './AvatarSelectorStep/AvatarSelectorStep';
 import ColorSelectorStep from './ColorSelectorStep/ColorSelectorStep';
 import PinSelectorStep from './PinSelectorStep/PinSelectorStep';
 import ConfirmationStep from './ConfirmationStep/ConfirmationStep';
-import { addUser, getCurrentStore } from '../../store/UserStore';
+import { addUser, store } from '../../store/UserStore';
 
 export enum ActiveStep {
     FirstStep,
@@ -66,7 +66,8 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
     handleSelectBtnClick = result => {
 
         if (this.state.registrationStep === ActiveStep.FirstStep) {
-            const currentData = getCurrentStore();
+            const currentData = store.getState();
+            console.log(currentData);
             let userId = currentData.users.id;
             const newUserID = userId + 1;
 
