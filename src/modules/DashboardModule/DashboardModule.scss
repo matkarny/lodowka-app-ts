@@ -4,6 +4,7 @@
     width: 1080px;
     height: 1920px;
     padding: 100px;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 200px 40px 500px 40px 200px 40px 200px 40px 500px;

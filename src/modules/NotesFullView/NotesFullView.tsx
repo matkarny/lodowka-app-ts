@@ -10,6 +10,10 @@ export interface INotesFullViewState {
 }
 export default class NotesFullView extends React.Component<INotesFullViewProps> {
   //mapOfNotes = store.getState().notes.map(note => <NoteLabel date={note.date} message={note.message} />)
+ componentDidMount(){
+  window.scrollTo(0,0);
+ }
+ 
   public render() {
     return (    
        <FullView 
