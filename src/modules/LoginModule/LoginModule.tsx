@@ -5,7 +5,6 @@ import BasicComponent from '../../common/components/BasicComponent/BasicComponen
 import { Link } from 'react-router-dom';
 
 import * as Routes from '../../common/constants/Routes';
-import { loadState } from '../../store/globalLocalStorage';
 
 export default class LoginModule extends Component {
   render() {
