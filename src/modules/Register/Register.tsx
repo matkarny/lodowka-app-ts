@@ -41,7 +41,7 @@ export interface RegistrationViewState {
     registrationStep: number,
     newUser: {
         id: number,
-        role: string,
+        role: number,
         username: string,
         avatarIndex: number,
         colorIndex: number,
@@ -55,7 +55,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
         registrationStep: ActiveStep.FirstStep,
         newUser: {
             id: null,
-            role: '',
+            role: null,
             username: '',
             avatarIndex: null,
             colorIndex: null,
