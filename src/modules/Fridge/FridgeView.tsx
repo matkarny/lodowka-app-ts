@@ -58,7 +58,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
     const expirationDate = {
       year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
+      month: new Date().getMonth(),
       day: new Date().getDate()
     };
 
@@ -131,7 +131,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     return (
       <div>
         <div className="popup__actions">
-          <button className="product-tag__delete" onClick={this.removeAll}>
+          <button
+            className="product-tag__delete"
+            onClick={this.removeAll}
+            style={{ display: 'none' }}
+          >
             Remove all
           </button>
         </div>
@@ -156,7 +160,9 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             </div>
           )}
 
-          <ul className="fridge__list">{this.listProductTags()}</ul>
+          <ul className="fridge__list">
+            {this.state.src && this.listProductTags()}
+          </ul>
         </div>
       </div>
     );
