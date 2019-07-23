@@ -14,7 +14,7 @@ import NotesFullView from './modules/NotesFullView/NotesFullView';
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-    <Router>
+    <Router onUpdate={() => window.scrollTo(0, 0)}  >
       <div>
         <Route exact path={Routes.LOGIN} component={LoginModule} />
         <Route path={Routes.DASHBOARD} component={DashboardModule} />

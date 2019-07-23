@@ -1,16 +1,11 @@
 export const loadState = () => {
-
   const initialState = {
     notes: [],
-    users: {
-      id: 0,
-      usersList: [],
-    },
-    loggedUser: null,
-  }
+    products: []
+  };
 
   try {
-    const serializedState = localStorage.getItem("state");
+    const serializedState = localStorage.getItem('state');
     if (!serializedState) return initialState;
     else return JSON.parse(serializedState);
   } catch (err) {
@@ -18,10 +13,10 @@ export const loadState = () => {
   }
 };
 
-export const saveState = (state) => {
+export const saveState = state => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("state", serializedState);
+    localStorage.setItem('state', serializedState);
   } catch (err) {
     console.log(err);
   }
