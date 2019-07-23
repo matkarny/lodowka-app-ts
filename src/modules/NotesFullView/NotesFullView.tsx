@@ -21,7 +21,7 @@ export default class NotesFullView extends React.Component<INotesFullViewProps> 
        labelName={"Notes"} 
        firstButtonName={"Show all notes"} 
        secondButtonName={"Add new note"} 
-       firstComponent={<MapNotesCompoent />} 
+       firstComponent={<MapNotesCompoent shortText={false}/>} 
        secondComponent={<AddNoteComponent />} />
     );
   }
