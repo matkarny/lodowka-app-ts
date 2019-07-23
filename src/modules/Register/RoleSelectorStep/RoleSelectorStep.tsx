@@ -10,18 +10,26 @@ export interface RoleSelectorStepProps {
 
 export interface RoleSelectorStepState {
     selectedRole: number,
+    isChildBlocked: boolean,
 }
 
 class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelectorStepState> {
     state = {
-        selectedRole: null
+        selectedRole: null,
+        isChildBlocked: false,
     }
     handleSelectRole = e => {
         this.setState({ selectedRole: parseInt(e.currentTarget.dataset.id) })
     }
     checkRegisteredUsersCount = () => {
-
         const data = store.getState();
+        const usersListLength = data.users.usersList.length;
+        if (!usersListLength) {
+            this.setState({ isChildBlocked: true })
+        }
+    }
+    componentDidMount() {
+        this.checkRegisteredUsersCount();
     }
     render() {
         return (
@@ -33,7 +41,41 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
                 <div className="login-role__items-wrapper">
 
                     {roleList.map((role, index) => {
-                        if (role.id === this.state.selectedRole || this.state.selectedRole === null) {
+
+                        if (!this.state.isChildBlocked) {
+
+                            if (role.id === this.state.selectedRole || this.state.selectedRole === null) {
+                                return <RoleComponent
+                                    role={role.name}
+                                    isActive={true}
+                                    key={index}
+                                    id={role.id}
+                                    src={role.src}
+                                    click={this.handleSelectRole}
+                                />
+                            }
+                            else {
+                                return <RoleComponent
+                                    role={role.name}
+                                    isActive={false}
+                                    key={index}
+                                    id={role.id}
+                                    src={role.src}
+                                    click={this.handleSelectRole}
+                                />
+                            }
+                        }
+                        else if (role.name === 'child') {
+                            return <RoleComponent
+                                role={role.name}
+                                isActive={false}
+                                key={index}
+                                id={role.id}
+                                src={role.src}
+                                click={null}
+                            />
+                        }
+                        else {
                             return <RoleComponent
                                 role={role.name}
                                 isActive={true}
@@ -43,17 +85,8 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
                                 click={this.handleSelectRole}
                             />
                         }
-                        else {
-                            return <RoleComponent
-                                role={role.name}
-                                isActive={false}
-                                key={index}
-                                id={index}
-                                src={role.src}
-                                click={this.handleSelectRole}
-                            />
-                        }
-                    })
+                    }
+                    )
                     }
 
                 </div>
