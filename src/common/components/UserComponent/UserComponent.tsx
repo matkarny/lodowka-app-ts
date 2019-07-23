@@ -19,8 +19,8 @@ const UserComponent: React.SFC<UserComponentProps> = props => {
 
     const { colorId, avatarId, bigger, username, onSelect } = props;
 
-    const chosenAvatar = avatarList.find(avatar => avatar.id == avatarId)
-    const chosenColor = COLORS.find(color => color.id == colorId)
+    const chosenAvatar = avatarList.find(avatar => avatar.id === avatarId)
+    const chosenColor = COLORS.find(color => color.id === colorId)
     return (
         <div className={`user-component__items-wrapper ${bigger ? 'user-component__items-wrapper' : ''}`} data-id={props.id} onClick={bigger ? null : onSelect}>
             <div className={`user-component__color user-component__color--${chosenColor.name} ${bigger ? 'user-component__color--bigger' : ''}`}>
