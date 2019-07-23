@@ -17,7 +17,7 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
     }
 
     handleSelectColor = e => {
-        this.setState({ selectedColor: e.currentTarget.dataset.id })
+        this.setState({ selectedColor: parseInt(e.currentTarget.dataset.id) })
     }
 
     render() {
@@ -30,7 +30,7 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
                 <div className="login-color__items-wrapper">
 
                     {COLORS.map((color, index) => {
-                        if (color.id == this.state.selectedColor || this.state.selectedColor === null) {
+                        if (color.id === this.state.selectedColor || this.state.selectedColor === null) {
                             return <ColorComponent
                                 colorName={color.name}
                                 isActive={true}

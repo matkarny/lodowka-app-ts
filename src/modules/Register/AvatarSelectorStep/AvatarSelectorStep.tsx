@@ -17,7 +17,7 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
     }
 
     handleSelectAvatar = e => {
-        this.setState({ selectedAvatar: e.currentTarget.dataset.id })
+        this.setState({ selectedAvatar: parseInt(e.currentTarget.dataset.id) })
     }
 
     render() {
@@ -30,7 +30,7 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
                 <div className="login-avatar__items-wrapper">
 
                     {animalList.map((animal, index) => {
-                        if (animal.id == this.state.selectedAvatar || this.state.selectedAvatar === null) {
+                        if (animal.id === this.state.selectedAvatar || this.state.selectedAvatar === null) {
                             return <AnimalComponent
                                 animal={animal.name}
                                 isActive={true}

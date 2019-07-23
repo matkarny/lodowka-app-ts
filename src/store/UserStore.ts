@@ -21,7 +21,7 @@ function stateReducer(state = persistedStore, action) {
 export function addUser(data) {
     return store.dispatch({
         type: 'ADD_USER',
-        text: data
+        payload: data
     });
 }
 export function logUser(data) {

@@ -8,17 +8,15 @@ export interface RoleSelectorStepProps {
 }
 
 export interface RoleSelectorStepState {
-    role: string,
     selectedRole: number,
 }
 
 class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelectorStepState> {
     state = {
-        role: '',
         selectedRole: null
     }
     handleSelectRole = e => {
-        this.setState({ selectedRole: e.currentTarget.dataset.id })
+        this.setState({ selectedRole: parseInt(e.currentTarget.dataset.id) })
     }
     render() {
         return (
@@ -30,12 +28,12 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
                 <div className="login-role__items-wrapper">
 
                     {roleList.map((role, index) => {
-                        if (index == this.state.selectedRole || this.state.selectedRole === null) {
+                        if (role.id === this.state.selectedRole || this.state.selectedRole === null) {
                             return <RoleComponent
                                 role={role.name}
                                 isActive={true}
                                 key={index}
-                                id={index}
+                                id={role.id}
                                 src={role.src}
                                 click={this.handleSelectRole}
                             />
@@ -59,8 +57,8 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
                         className="login-role__button login-role__button--cancel"
                         onClick={this.props.onBack}>Back</button>
                     <button
-                        className={`login-role__button ${this.state.selectedRole ? 'login-role__button--select' : 'login-role__button--disabled'}`}
-                        disabled={this.state.selectedRole ? false : true}
+                        className={`login-role__button ${this.state.selectedRole !== null ? 'login-role__button--select' : 'login-role__button--disabled'}`}
+                        disabled={this.state.selectedRole !== null ? false : true}
                         onClick={() => this.props.onSelect(this.state.selectedRole)}>
                         Select
                     </button>
