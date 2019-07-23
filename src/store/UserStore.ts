@@ -10,15 +10,24 @@ function stateReducer(state = persistedStore, action) {
             state.users.id = action.text.id
             state.users.usersList.push(action.text);
             return state;
+        case 'LOG_USER':
+            state.loggedUser = action.payload
+            return state;
         default:
             return state;
     }
 }
 
-export function dispatchAddUser(data) {
+export function addUser(data) {
     return store.dispatch({
         type: 'ADD_USER',
         text: data
+    });
+}
+export function logUser(data) {
+    return store.dispatch({
+        type: 'LOG_USER',
+        payload: data
     });
 }
 
@@ -38,7 +47,7 @@ store.subscribe(() => {
 });
 
 export default {
-    dispatchAddUser,
+    addUser,
     dispatchDeleteUser,
     getCurrentStore
 };

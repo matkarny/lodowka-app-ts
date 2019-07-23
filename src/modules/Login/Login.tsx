@@ -51,6 +51,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
 
+
     render() {
         return (
             <>
@@ -61,8 +62,13 @@ class Login extends React.Component<LoginProps, LoginState> {
                     userClick={this.handleUserLoginClick}
                     newMemberClick={this.addNewUser}
                 />}
-                {this.state.loginStep === ActiveStep.SecondStep && <LoginPanel clickedUserId={this.state.clickedUserId} getUsersData={this.getUsersData} />}
-                {this.state.loginStep === ActiveStep.ThirdStep && <Register goToWelcomeView={this.goToWelcomeView} />}
+                {this.state.loginStep === ActiveStep.SecondStep && <LoginPanel
+                    clickedUserId={this.state.clickedUserId}
+                    getUsersData={this.getUsersData}
+                    goToWelcomeView={this.goToWelcomeView}
+                />}
+                {this.state.loginStep === ActiveStep.ThirdStep && <Register
+                    goToWelcomeView={this.goToWelcomeView} />}
             </>
         );
     }

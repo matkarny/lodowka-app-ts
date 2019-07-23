@@ -1,8 +1,11 @@
 import * as React from 'react';
 import './LoginPanel.scss';
+import { logUser } from '../../../store/UserStore';
 export interface LoginPanelProps {
     clickedUserId: number,
     getUsersData: any,
+    goToWelcomeView: any,
+
 }
 
 export interface LoginPanelState {
@@ -35,6 +38,7 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
                 this.setState({
                     isErrorVisible: false,
                 })
+                logUser(this.props.clickedUserId)
                 console.log('ACCESS GRANTED');
             }
             else {
@@ -57,23 +61,31 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
         this.setState({ clickedUserData: clickedUser })
         console.log(clickedUser);
     }
+
     render() {
         return (
+            <>
+                <div className="login-pin__container">
+                    <p className="login-pin__title">PIN</p>
 
-            <div className="login-pin__container">
-                <p className="login-pin__title">PIN</p>
+                    <input
+                        type='password'
+                        className="login-pin__input"
+                        value={this.state.inputValue}
+                        onChange={e => { this.inputChangeHandler(e) }}
+                        pattern="[0-9]{4}"
+                        maxLength={4}
+                        minLength={4}
+                    />
+                    <p className={`login-pin__error-label ${this.state.isErrorVisible ? 'login-pin__error-label--active' : ''}`}>PIN is invalid</p>
 
-                <input
-                    type='password'
-                    className="login-pin__input"
-                    value={this.state.inputValue}
-                    onChange={e => { this.inputChangeHandler(e) }}
-                    pattern="[0-9]{4}"
-                    maxLength={4}
-                    minLength={4}
-                />
-                <p className={`login-pin__error-label ${this.state.isErrorVisible ? 'login-pin__error-label--active' : ''}`}>PIN is invalid</p>
-            </div>
+                    <div className="login-confirmation__btn-container">
+                        <button
+                            className="login-confirmation__button login-confirmation__button--cancel"
+                            onClick={this.props.goToWelcomeView}>Back</button>
+                    </div>
+                </div>
+            </>
         );
     }
 }

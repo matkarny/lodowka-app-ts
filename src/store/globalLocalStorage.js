@@ -6,6 +6,7 @@ export const loadState = () => {
       id: 0,
       usersList: [],
     },
+    loggedUser: null,
   }
 
   try {
