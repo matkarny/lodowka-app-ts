@@ -6,7 +6,7 @@ import AvatarSelectorStep from './AvatarSelectorStep/AvatarSelectorStep';
 import ColorSelectorStep from './ColorSelectorStep/ColorSelectorStep';
 import PinSelectorStep from './PinSelectorStep/PinSelectorStep';
 import ConfirmationStep from './ConfirmationStep/ConfirmationStep';
-import { dispatchAddUser, getCurrentStore } from '../../store/UserStore';
+import { addUser, getCurrentStore } from '../../store/UserStore';
 
 export enum ActiveStep {
     FirstStep,
@@ -92,7 +92,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
     }
 
     handleConfirmBtnClick = () => {
-        dispatchAddUser(this.state.newUser)
+        addUser(this.state.newUser)
         this.props.goToWelcomeView();
     }
     handleBackBtnClick = () => {
