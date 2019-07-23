@@ -25,7 +25,7 @@ const UserComponent: React.SFC<UserComponentProps> = props => {
         <div className={`user-component__items-wrapper ${bigger ? 'user-component__items-wrapper' : ''}`} data-id={props.id} onClick={bigger ? null : onSelect}>
             <div className={`user-component__color user-component__color--${chosenColor.name} ${bigger ? 'user-component__color--bigger' : ''}`}>
                 <div className={`user-component__avatar-container ${bigger ? 'user-component__avatar-container--bigger' : ''}`}>
-                    <img src={chosenAvatar.srcHigh} className="user-component__avatar" />
+                    <img src={chosenAvatar.srcHigh} alt={chosenAvatar.name} className="user-component__avatar" />
                 </div>
                 <p className={`user-component__username ${bigger ? 'user-component__username--bigger' : ''}`}>{username}</p>
             </div>
