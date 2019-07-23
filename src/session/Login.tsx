@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Authenticator from './Authenticator';
 import { store, login, logout } from '../store/storeConfigure';
 

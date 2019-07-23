@@ -1,14 +1,15 @@
 .canvas-styling {
-    grid-area: place1;
-};
+  grid-area: place1;
+}
 
 .canvas-background {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 10px;
-    margin: 0;
-    width: 100;
-    padding: 0;
-    border-radius: 10px;
-};
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+  margin: 0;
+  width: 100;
+  padding: 0;
+  border-radius: 10px;
+  border: 0.5px solid rgba(0, 0, 0, 0.5);
+}

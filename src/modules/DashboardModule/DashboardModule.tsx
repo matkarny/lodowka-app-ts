@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './DashboardModule.scss';
 import DrawingComponent from '../../common/components/DrawingComponent/DrawingComponent';
 import WeatherWidgetView from '../WeatherWidget/WeatherWidgetView';
@@ -7,6 +7,8 @@ import TimeWidget from '../TimeWidget/TimeWidget';
 import ProductListWidget from '../ProductListWidget/ProductListWidget';
 import NotesWidget from '../NotesWidget/NotesWidget';
 import { store } from '../../store/storeConfigure';
+import { Link } from 'react-router-dom';
+import * as Routes from '../../common/constants/Routes';
 
 export default class DashboardModule extends React.Component {
   state = {
@@ -25,6 +27,16 @@ export default class DashboardModule extends React.Component {
   render() {
     return (
       <div className="dashboard-module">
+        <div className="dashboard__navi">
+          <Link to={Routes.LOGIN} className="full-list__link ">
+            <div className="dashboard__button">🡠</div>
+          </Link>
+          <Link to={Routes.LOGIN} className="full-list__link ">
+            <div className="dashboard__button dashboard__button--secondary">
+              ◉
+            </div>
+          </Link>
+        </div>
         {this.state.loggedRole ? (
           <DrawingComponent />
         ) : (

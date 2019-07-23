@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Authenticator from './Authenticator';
 import './AuthButton.scss';
 import { store, login, logout, getLoggedUser } from '../store/storeConfigure';

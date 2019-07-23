@@ -1,4 +1,4 @@
-import { store, login, logout } from '../store/storeConfigure';
+import { login, logout } from '../store/storeConfigure';
 
 class Authenticator {
   isAuthenticated: boolean = false; // -1 - logged out, >= 0 - logged in
