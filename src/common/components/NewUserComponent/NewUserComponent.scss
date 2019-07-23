@@ -1,0 +1,24 @@
+@import '../../constants/ColorConstants.scss';
+
+.new-user-component {
+
+    &__items-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #5f7891;
+        border-radius: 30px;
+        width: 210px;
+        height: 255px;
+        cursor: pointer;
+    }
+
+    &__description {
+        margin-top: 20px;
+        font-size: 19px;
+        color: #5F7891;
+    }
+
+
+}

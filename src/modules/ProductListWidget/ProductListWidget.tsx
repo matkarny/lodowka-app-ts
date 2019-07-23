@@ -5,6 +5,7 @@ import ProductLabel from "../../common/components/ProductLabel/ProductLabel"
 import ProductExpireChecker from "../../common/components/ProductExpireChecker/ProductExpireChecker"
 import "./ProductListWidget.scss"
 import * as Routes from '../../common/constants/Routes'
+import { Link } from "react-router-dom"
 
 
 export interface ProductListWidgetProps {
@@ -54,8 +55,8 @@ export default class ProductListWidget extends React.Component<ProductListWidget
         return (
             <div className="product-list-widget">
                 <ListLabel labelCount={this.exampleObject.products.length} labelTxt={"Products"}>
-                    <a href={Routes.PRODUCTS}><ListBtn>VIEW ALL</ListBtn></a>
-                    <a href={Routes.FRIDGE}><ListBtn>+</ListBtn></a>
+                <Link to={{pathname: Routes.PRODUCTS, state: {startingAtFirst: false}}} ><ListBtn>VIEW ALL</ListBtn></Link>
+                <Link to={{pathname: Routes.PRODUCTS, state: {startingAtFirst: true}}} ><ListBtn>+</ListBtn></Link>
                 </ListLabel>
                 {Object.values(this.exampleObject.products).splice(0,4).map(product => <ProductLabel productName={product.name}> <ProductExpireChecker productDay={product.addedOn.day} productMounth={product.addedOn.mounth} productYear={product.addedOn.year} /> </ProductLabel>)}
             {/* <button onClick={() => console.log(Object.values(this.exampleObject.products))}> Click</button> */}

@@ -1,0 +1,11 @@
+.login-pin {
+    &__error-label {
+        opacity: 0;
+        transition: opacity .3s;
+        color: red;
+
+        &--active {
+            opacity: 1;
+        }
+    }
+}

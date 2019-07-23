@@ -3,7 +3,7 @@ import './ListLabel.scss';
 
 export interface ListLabelProps {
     labelTxt: string,
-    labelCount: number
+    labelCount?: number
 
 }
 

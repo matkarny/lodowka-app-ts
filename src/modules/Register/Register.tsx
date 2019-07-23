@@ -6,7 +6,7 @@ import AvatarSelectorStep from './AvatarSelectorStep/AvatarSelectorStep';
 import ColorSelectorStep from './ColorSelectorStep/ColorSelectorStep';
 import PinSelectorStep from './PinSelectorStep/PinSelectorStep';
 import ConfirmationStep from './ConfirmationStep/ConfirmationStep';
-import { dispatchAddUser } from '../../store/UserStore';
+import { dispatchAddUser, getCurrentStore } from '../../store/UserStore';
 
 export enum ActiveStep {
     FirstStep,
@@ -34,11 +34,13 @@ const StepDescription = {
 };
 
 export interface RegistrationViewProps {
+    goToWelcomeView: any,
 }
 
 export interface RegistrationViewState {
     registrationStep: number,
     newUser: {
+        id: number,
         role: string,
         username: string,
         avatarIndex: number,
@@ -52,6 +54,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
         users: [],
         registrationStep: ActiveStep.FirstStep,
         newUser: {
+            id: null,
             role: '',
             username: '',
             avatarIndex: null,
@@ -61,10 +64,26 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
     }
 
     handleSelectBtnClick = result => {
+
+        if (this.state.registrationStep === ActiveStep.FirstStep) {
+            const currentData = getCurrentStore();
+            let userId = currentData.users.id;
+            const newUserID = userId + 1;
+
+            this.setState(prevState => {
+                let newUser = { ...prevState.newUser }
+                newUser.id = newUserID
+                return {
+                    newUser
+                }
+
+            })
+        }
         this.setState(prevState => {
             let newUser = { ...prevState.newUser }
             const activeStepDescription = StepDescription[prevState.registrationStep]
             newUser[activeStepDescription] = result
+
             return {
                 newUser,
                 registrationStep: prevState.registrationStep + 1
@@ -74,12 +93,18 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
 
     handleConfirmBtnClick = () => {
         dispatchAddUser(this.state.newUser)
+        this.props.goToWelcomeView();
     }
     handleBackBtnClick = () => {
-        this.setState(prevState => ({
-            registrationStep: prevState.registrationStep - 1
-        })
-        )
+        if (this.state.registrationStep === ActiveStep.FirstStep) {
+            this.props.goToWelcomeView()
+        }
+        else {
+            this.setState(prevState => ({
+                registrationStep: prevState.registrationStep - 1
+            })
+            )
+        }
     }
 
     render() {
@@ -90,18 +115,21 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
                     <p className="registration__title">Add a family member</p>
                     <p className="registration__subtitle">Start by adding members of your family for a more personalised experience.</p>
                 </div>
-                {this.state.registrationStep < ActiveStep.SixthStep ?
-                    < ActiveStepComponent
-                        onSelect={this.handleSelectBtnClick}
-                        onBack={this.handleBackBtnClick} />
-                    :
-                    < ActiveStepComponent
-                        onSelect={this.handleConfirmBtnClick}
-                        onBack={this.handleBackBtnClick}
-                        colorId={this.state.newUser.colorIndex}
-                        avatarId={this.state.newUser.avatarIndex}
-                        username={this.state.newUser.username}
-                    />}
+                {
+                    this.state.registrationStep < ActiveStep.SixthStep ?
+                        < ActiveStepComponent
+                            onSelect={this.handleSelectBtnClick}
+                            onBack={this.handleBackBtnClick} />
+                        :
+                        < ActiveStepComponent
+                            onSelect={this.handleConfirmBtnClick}
+                            onBack={this.handleBackBtnClick}
+                            colorId={this.state.newUser.colorIndex}
+                            avatarId={this.state.newUser.avatarIndex}
+                            username={this.state.newUser.username}
+                            id={this.state.newUser.id}
+                        />
+                }
             </div>
         );
     }

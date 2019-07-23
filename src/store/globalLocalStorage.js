@@ -2,7 +2,11 @@ export const loadState = () => {
 
   const initialState = {
     notes: [],
-    users: [],
+    users: {
+      id: 0,
+      usersList: [],
+    },
+    loggedUser: null,
   }
 
   try {

@@ -5,6 +5,7 @@ export interface ConfirmationStepProps {
     colorId: number,
     avatarId: number,
     username: string,
+    id: number,
     onBack: any,
     onSelect: any,
 }
@@ -21,6 +22,8 @@ const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
                 colorId={props.colorId}
                 avatarId={props.avatarId}
                 username={props.username}
+                id={props.id}
+                onSelect={null}
                 bigger={true}
             />
 
