@@ -1,7 +1,8 @@
 import * as React from 'react';
 import './RoleSelectorStep.scss';
+import { store } from '../../../store/UserStore';
 import roleList from '../../../common/constants/RoleConstants'
-import RoleComponent from '../../../common/components/RoleComponent/RoleComponent'
+import RoleComponent from '../../../common/components/RoleComponent/RoleComponent';
 export interface RoleSelectorStepProps {
     onSelect: any,
     onBack: any,
@@ -17,6 +18,10 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
     }
     handleSelectRole = e => {
         this.setState({ selectedRole: parseInt(e.currentTarget.dataset.id) })
+    }
+    checkRegisteredUsersCount = () => {
+
+        const data = store.getState();
     }
     render() {
         return (
