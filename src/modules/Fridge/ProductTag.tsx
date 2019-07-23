@@ -1,9 +1,8 @@
 import React from 'react';
 import { POPUP_SWITCH_VALUE } from '../../common/constants/FridgeConstants';
 import Store from '../../store/storeConfigure';
-
 import { Product } from '../../common/interfaces/Product';
-import { threadId } from 'worker_threads';
+
 export interface ProductTagProps {
   product: Product;
   togglePopup(id);

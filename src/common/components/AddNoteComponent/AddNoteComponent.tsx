@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { format } from 'date-fns';
 import './AddNoteComponent.scss';
-import { dispatchAddNote } from '../../../store/storeConfigure';
+import dispatchAddNote from '../../../store/actions/actionNotes'; //'../../../store/storeConfigure';
 import { store } from '../../../store/storeConfigure';
 import { saveState, loadState } from '../../../store/globalLocalStorage';
 

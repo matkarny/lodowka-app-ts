@@ -7,6 +7,7 @@ export const loadState = () => {
         author: 'user'
       }
     ],
+
     products: [
       {
         name: 'MLEKO',
@@ -16,6 +17,13 @@ export const loadState = () => {
         id: 0,
         shownPopup: true
       }
+    ],
+
+    //session: [{ currentUserId: -1 }],
+    currentUserId: -1,
+    users: [
+      { name: 'Rodzic', id: 0, role: 0 },
+      { name: 'Dziecko', id: 1, role: 1 }
     ]
   };
 

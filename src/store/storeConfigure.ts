@@ -1,6 +1,7 @@
 import { createStore, Action } from 'redux';
 import { Product } from '../common/interfaces/Product';
 import { saveState, loadState } from './globalLocalStorage';
+
 const persistedStore = loadState();
 
 export const store = createStore(stateReducer, persistedStore);
@@ -34,9 +35,31 @@ function stateReducer(state = persistedStore, action) {
       });
     }
 
+    case 'LOGIN': {
+      return { ...state, currentUserId: action.payload };
+    }
+
+    case 'LOGOUT': {
+      return { ...state, currentUserId: -1 };
+    }
+
     default:
       return state;
   }
+}
+
+export function logout() {
+  return store.dispatch({
+    type: 'LOGOUT'
+  });
+}
+
+export function login(userId: number) {
+  console.log('%% LOGIN userId', userId);
+  return store.dispatch({
+    type: 'LOGIN',
+    payload: userId
+  });
 }
 
 export function addProduct(product: Product) {
@@ -104,5 +127,6 @@ export default {
   deleteProduct,
   deleteProducts,
   addProduct,
-  dispatchAddNote
+  dispatchAddNote,
+  login
 };

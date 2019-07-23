@@ -3,6 +3,7 @@ import './Fridge.scss';
 import FridgeService from './FridgeService';
 import Loader from 'react-loader-spinner';
 import Store from '../../store/storeConfigure';
+
 import ProductTag from './ProductTag';
 import { Product } from '../../common/interfaces/Product';
 
