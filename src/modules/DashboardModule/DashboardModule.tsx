@@ -6,6 +6,7 @@ import YoutubeWidget from '../YoutubeWidget/YoutubeWidget';
 import TimeWidget from '../TimeWidget/TimeWidget';
 import ProductListWidget from '../ProductListWidget/ProductListWidget';
 import NotesWidget from '../NotesWidget/NotesWidget';
+import { loadState } from '../../store/globalLocalStorage';
 import { store } from '../../store/storeConfigure';
 import { Link } from 'react-router-dom';
 import * as Routes from '../../common/constants/Routes';
@@ -15,6 +16,7 @@ export default class DashboardModule extends React.Component {
     loggedRole: false
   };
   componentDidMount() {
+    loadState();
     this.authorize();
   }
 

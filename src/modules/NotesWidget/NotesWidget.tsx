@@ -7,6 +7,7 @@ import { store } from '../../store/storeConfigure';
 import NoteLabel from '../../common/components/NoteLabel/NoteLabel';
 import * as Routes from '../../common/constants/Routes';
 import { Link } from 'react-router-dom';
+import MapNotesCompoent from '../../common/components/MapNotesComponent/MapNotesComponent';
 export interface INotesWidgetProps {}
 
 export default class NotesWidget extends React.Component<INotesWidgetProps> {
@@ -28,16 +29,7 @@ export default class NotesWidget extends React.Component<INotesWidgetProps> {
             <ListBtn>+</ListBtn>
           </Link>
         </ListLabel>
-        {store
-          .getState()
-          .notes.slice(0, 4)
-          .map(note => (
-            <NoteLabel
-              shortText={true}
-              date={note.date}
-              message={note.message}
-            />
-          ))}
+        <MapNotesCompoent shortText={true} mapSize={4} />
       </div>
     );
   }

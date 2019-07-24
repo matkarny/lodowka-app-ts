@@ -6,6 +6,8 @@ import ProductExpireChecker from '../../common/components/ProductExpireChecker/P
 import './ProductListWidget.scss';
 import * as Routes from '../../common/constants/Routes';
 import { Link } from 'react-router-dom';
+import MapProductsView from '../../common/components/MapProductsView/MapProductsView';
+import { store } from '../../store/storeConfigure'
 
 export interface ProductListWidgetProps {}
 
@@ -20,56 +22,11 @@ export default class ProductListWidget extends React.Component<
     window.scrollTo(0, 0);
   }
 
-  public exampleObject = {
-    products: [
-      {
-        name: 'Pomidor',
-        addedOn: {
-          year: 2019,
-          mounth: 6,
-          day: 16
-        }
-      },
-      {
-        name: 'Pierogi z mięsem',
-        addedOn: {
-          year: 2019,
-          mounth: 5,
-          day: 10
-        }
-      },
-      {
-        name: 'Sałatka z tuńczyka',
-        addedOn: {
-          year: 2019,
-          mounth: 6,
-          day: 20
-        }
-      },
-      {
-        name: 'Groszek konserowy',
-        addedOn: {
-          year: 2019,
-          mounth: 6,
-          day: 18
-        }
-      },
-      {
-        name: 'Szynka',
-        addedOn: {
-          year: 2019,
-          mounth: 6,
-          day: 30
-        }
-      }
-    ]
-  };
-
   render() {
     return (
       <div className="product-list-widget">
         <ListLabel
-          labelCount={this.exampleObject.products.length}
+          labelCount={store.getState().products.length}
           labelTxt={'Products'}
         >
           <Link
@@ -86,18 +43,7 @@ export default class ProductListWidget extends React.Component<
             <ListBtn>+</ListBtn>
           </Link>
         </ListLabel>
-        {Object.values(this.exampleObject.products)
-          .splice(0, 4)
-          .map(product => (
-            <ProductLabel productName={product.name}>
-              {' '}
-              <ProductExpireChecker
-                productDay={product.addedOn.day}
-                productMounth={product.addedOn.mounth}
-                productYear={product.addedOn.year}
-              />{' '}
-            </ProductLabel>
-          ))}
+       <MapProductsView arraySize={4} sortProducts={true} />
       </div>
     );
   }

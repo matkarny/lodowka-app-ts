@@ -1,30 +1,12 @@
 export const loadState = () => {
   const initialState = {
-    notes: [
-      {
-        date: '20/10/2019',
-        message: 'Fajna apka',
-        author: 'user'
-      }
-    ],
-
-    products: [
-      {
-        name: 'MLEKO',
-        expirationDate: { year: 2019, month: 6, day: 21 },
-        addedBy: 'USER',
-        tagPosition: { left: 550, top: 550 },
-        id: 0,
-        shownPopup: true
-      }
-    ],
-
-    //session: [{ currentUserId: -1 }],
-    currentUserId: -1,
-    users: [
-      { name: 'Rodzic', id: 0, role: 0, pin: '1234' },
-      { name: 'Dziecko', id: 1, role: 1, pin: '1111' }
-    ]
+    notes: [],
+    products: [],
+    users: {
+      id: 0,
+      usersList: []
+    },
+    currentUserId: -1
   };
 
   try {
