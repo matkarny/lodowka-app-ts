@@ -1,7 +1,12 @@
 export const loadState = () => {
   const initialState = {
     notes: [],
-    products: []
+    products: [],
+    users: {
+      id: 0,
+      usersList: [],
+    },
+    loggedUser: null,
   };
 
   try {

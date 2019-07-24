@@ -1,0 +1,17 @@
+$bg-pos:30%;
+
+$btn-color: #00C3FF;
+$btn-disabled-color:#E9E9E9;
+
+$font-color: #5F7891;
+$subtitle-size: 16px;
+
+@mixin step-title {
+    color: $font-color;
+    font-size: 46px;
+}
+
+@mixin step-subtitle {
+    color: $font-color;
+    font-size: $subtitle-size;
+}
