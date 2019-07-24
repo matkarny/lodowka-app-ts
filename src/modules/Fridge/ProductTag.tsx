@@ -1,53 +1,42 @@
 import React from 'react';
 import { POPUP_SWITCH_VALUE } from '../../common/constants/FridgeConstants';
 
+import { IProduct } from '../../common/interfaces/Product';
 export interface ProductTagProps {
-  tagPosTop: number;
-  tagPosLeft: number;
-  closePopup(id);
+  product: IProduct;
   togglePopup(id);
-  deleteTag(id);
-  shown: boolean;
-  id: number;
+  removeProduct(id);
+  updateProduct(data);
+  shownPopup: boolean;
 }
 
 export interface ProductTagState {
   showPopup: boolean;
   showNameInput: boolean;
   showDateInput: boolean;
-  productRegistered: boolean;
   popupModifier: string;
-  productName: string;
+  product: IProduct;
   inputedDate: string;
-  expirationDate: { year: number; month: number; day: number };
-  value: any;
 }
 
 class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   state = {
-    id: 0,
     showPopup: false,
     showNameInput: false,
     showDateInput: false,
-    productRegistered: false,
     popupModifier: '',
-    productName: 'Product name',
-    inputedDate: 'date',
-    expirationDate: {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth(),
-      day: new Date().getDate()
-    },
-    value: null
+    product: this.props.product,
+    inputedDate: 'date'
   };
 
   setPopupModifier() {
     const clientHeight = document.documentElement.clientHeight;
-    const diff = clientHeight - +this.props.tagPosTop;
+    const diff = clientHeight - +this.state.product.tagPosition;
     if (diff >= POPUP_SWITCH_VALUE)
       this.setState({ popupModifier: '--rotated' });
   }
 
+  /*== Product Name input and value ==*/
   nameInput = () => {
     return (
       <input
@@ -55,53 +44,66 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         autoFocus
         autoComplete="off"
         maxLength={20}
-        value={this.state.productName}
-        onChange={e => {
-          this.setState({ productName: e.target.value });
-        }}
-        onBlur={() => {
-          /* Delete ProductName's redundant whitespaces */
-          this.setState({
-            showNameInput: !this.state.showNameInput,
-            productName: this.state.productName.trim()
-          });
-
-          /* Validate if ProductName is null or contains only whitespaces - if any is true then replace with default name */
-          if (
-            this.state.productName === null ||
-            this.state.productName.match(/^[\s\n\r]*$/) !== null
-          )
-            this.setState({ productName: 'Product name' });
-        }}
+        value={this.state.product.name}
+        onChange={e => this.handleNameChange(e)}
+        onBlur={this.handleNameBlur}
       />
     );
   };
 
-  expirationDateInput = () => {
-    let year = new Date().getFullYear();
-    let month = new Date().getMonth() + 1;
-    let day = new Date().getDate();
+  handleNameChange = e => {
+    this.setState({
+      product: {
+        name: e.target.value,
+        tagPosition: this.state.product.tagPosition,
+        addedBy: this.state.product.name,
+        expirationDate: this.state.product.expirationDate,
+        id: this.state.product.id
+      }
+    });
+  };
+
+  handleNameBlur = () => {
+    /* Delete ProductName's redundant whitespaces. 
+    Then validate if product name is null or contains only whitespaces - if any is true then replace with default name */
+    let { name } = this.state.product;
+    name = name.trim();
+    if (name === null || name.match(/^[\s\n\r]*$/) !== null) name = 'PRODUCT';
+
+    this.setState({
+      showNameInput: !this.state.showNameInput,
+      product: {
+        name: name,
+        tagPosition: this.state.product.tagPosition,
+        addedBy: this.state.product.name,
+        expirationDate: this.state.product.expirationDate,
+        id: this.state.product.id
+      }
+    });
+
+    // Update in Store
+    this.props.updateProduct(this.state.product);
+  };
+
+  /*== Product Expiration Date input and value ==*/
+  dateInput = () => {
+    let minDate = `${new Date().getFullYear()}-0${new Date().getMonth() +
+      1}-${new Date().getDate()}`;
 
     return (
       <input
         type="date"
-        min={`${year}-0${month}-${day}`}
+        min={minDate}
         autoFocus
         autoComplete="off"
         value={this.state.inputedDate}
-        onChange={this.handleChangeDateInput}
-        onBlur={() => {
-          this.setState({
-            showDateInput: !this.state.showDateInput
-          });
-          if (this.state.productName === null)
-            this.setState({ inputedDate: 'date' });
-        }}
+        onChange={e => this.handleDateChange(e)}
+        onBlur={this.handleDateBlur}
       />
     );
   };
 
-  handleChangeDateInput = e => {
+  handleDateChange = e => {
     /* Transform from YYYY-MM-DD (given by html input value) to DD.MM.YYYY */
     let inputVal = e.target.value;
     let splittedVal = inputVal.split('-').reverse();
@@ -111,49 +113,68 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
     let month: number;
     let year = +splittedVal[2];
 
-    let currentMonth = new Date().getMonth();
-    let currentDay = new Date().getDate();
-
-    /* Set month format (cut off '0' when month is earlier than 10) */
+    /* Set month format (cut off '0' when month is earlier/lower than 10) */
     if (monthString[0] === '0') month = +monthString[1] - 1;
     else month = +`${monthString[0]}${monthString[1]}` - 1;
 
-    /* Check if given month is earlier than current month*/
-    if (month < currentMonth) {
-      month = currentMonth;
-    }
+    /* Check if given date is earlier than current date */
+    let currentMonth = new Date().getMonth();
+    let currentDay = new Date().getDate();
 
-    /* Check if given month and day are earlier than current date */
+    // month and day are earlier
     if (month < currentMonth && day < currentDay) {
       month = currentMonth;
       day = currentDay;
     }
 
-    /* Check if given day is earlier than current day this month */
+    // month is earlier
+    if (month < currentMonth) {
+      month = currentMonth;
+    }
+
+    // day is earlier than current day this month
     if (month === currentMonth && day < currentDay) {
       day = currentDay;
     }
 
-    /* Create Date object applicable for Redux store */
-    let expirationDate = {
-      year,
-      month,
-      day
+    /* Create Date object applicable for Redux store and ProductExpireChecker */
+
+    let date = {
+      year: year,
+      month: month,
+      day: day
     };
 
     this.setState({
-      expirationDate: expirationDate,
-      inputedDate: e.target.value
+      inputedDate: e.target.value,
+      product: {
+        name: this.state.product.name,
+        tagPosition: this.state.product.tagPosition,
+        addedBy: this.state.product.name,
+        expirationDate: date,
+        id: this.state.product.id
+      }
     });
+
+    this.props.updateProduct(this.state.product);
   };
 
-  popup = () => {
-    // return either Input for Date and Name OR Div displaying Date and Name
-    // (OnClick on both causes them to switch their visibility)
-    // next return action buttons accordingly to current shown element
+  handleDateBlur = () => {
+    this.setState({
+      showDateInput: !this.state.showDateInput
+    });
 
-    let { year, month, day } = this.state.expirationDate;
-    month++;
+    this.props.updateProduct(this.state.product);
+  };
+
+  /*== Popup ==*/
+  popup = () => {
+    /*  Return Popup that shows - depending on show-Name/Date-Input - inputs or displays. OnClick on either input and display causes them to switch their visibility / places. Below that Popup shows Remove button.
+     */
+
+    let { year, month, day } = this.state.product.expirationDate;
+
+    month++; // without this month values would be from 0 to 11
     let dateString = '';
     let monthString = '' + month;
     let dayString = '' + day;
@@ -178,7 +199,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
                       })
                     }
                   >
-                    {this.state.productName}
+                    {this.state.product.name}
                   </div>
                 </div>
               )}
@@ -186,7 +207,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
 
             <div className="date">
               {this.state.showDateInput ? (
-                <div className="date__input">{this.expirationDateInput()}</div>
+                <div className="date__input">{this.dateInput()}</div>
               ) : (
                 <div className="date__display">
                   <div
@@ -207,7 +228,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
           <div className="popup__actions">
             <button
               className="product-tag__delete"
-              onClick={() => this.props.deleteTag(this.props.id)}
+              onClick={() => this.props.removeProduct(this.state.product.id)}
             >
               Remove
             </button>
@@ -227,17 +248,17 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         className="product-tag"
         style={{
           position: 'absolute',
-          top: `${this.props.tagPosTop}px`,
-          left: `${this.props.tagPosLeft}px`,
+          top: `${this.state.product.tagPosition.top - 30}px`,
+          left: `${this.state.product.tagPosition.left - 30}px`,
           backgroundColor: 'gray'
         }}
       >
         <button
           className="product-tag__circle "
-          onClick={() => this.props.togglePopup(this.props.id)}
+          onClick={() => this.props.togglePopup(this.state.product.id)}
         />
 
-        {this.props.shown ? <div>{this.popup()}</div> : null}
+        {this.props.shownPopup ? <div>{this.popup()}</div> : null}
       </div>
     );
   }

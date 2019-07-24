@@ -17,11 +17,11 @@ export default class NotesFullView extends React.Component<INotesFullViewProps> 
   public render() {
     return (    
        <FullView 
-       startAtFirst={this.props.location.state.startingAtFirst} 
+       startAtFirst={true} 
        labelName={"Notes"} 
        firstButtonName={"Show all notes"} 
        secondButtonName={"Add new note"} 
-       firstComponent={<MapNotesCompoent />} 
+       firstComponent={<MapNotesCompoent shortText={false}/>} 
        secondComponent={<AddNoteComponent />} />
     );
   }

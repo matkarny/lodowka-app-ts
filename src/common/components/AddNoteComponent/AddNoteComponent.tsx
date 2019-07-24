@@ -1,60 +1,72 @@
 import * as React from 'react';
 import { format } from 'date-fns';
-import "./AddNoteComponent.scss"
-import { dispatchAddNote} from "../../../store/storeConfigure"
-import { store } from '../../../store/storeConfigure'
-import { saveState, loadState } from '../../../store/globalLocalStorage';
+import './AddNoteComponent.scss';
+import { loadState } from '../../../store/globalLocalStorage';
 
-export interface IAddNoteComponentProps {
+import { connect } from 'react-redux';
+import {ADD_NOTE} from '../../../store/actions/NotesActions'
+import StoreType from '../../types/StoreType';
+import INote from '../../interfaces/Notes'
+
+export interface IAddNoteComponentProps extends Pick<StoreType, 'notes'> {
+  addNote: (note: INote) => void
 }
 
-interface IState {
-    date: any,
-    message: string,
-    author: string
+
+
+const mapStateToProps = state => ({notes: state.notes})
+const mapDispatchToProps = dispatch => {
+  return {
+    addNote: (note: INote) => dispatch({ type: ADD_NOTE, payload: note }), 
+  }
+}
+
+class AddNoteComponent extends React.Component<
+  IAddNoteComponentProps,
+  INote
+> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: format(new Date(), 'DD/MM/YYYY'),
+      message: '',
+      author: 'Manio'
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-export default class AddNoteComponent extends React.Component<IAddNoteComponentProps, IState> {
+  componentDidMount() {
+    loadState();
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            date: format(new Date(),'DD/MM/YYYY'),
-            message: '',
-          author: "Manio"};
-    
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
+  handleChange(event) {
+    this.setState({ message: event.target.value });
+  }
 
-      componentDidMount () {
-        loadState()
-      }
-    
-      handleChange(event) {
-        this.setState({message: event.target.value});
-      }
-    
-      handleSubmit(event) {
+  handleSubmit(event) {
+    this.props.addNote(this.state)
+    event.preventDefault();
+  }
 
-      dispatchAddNote(this.state)
-      // store.subscribe(() => {
-      //   saveState(store.getState());
-      // });
-      event.preventDefault();
-
-
-      }
-    
-      render() {
-        return (
-          <form onSubmit={this.handleSubmit} className="note-form">
-            <label>
-              <h2 className="note-form note-form__title">Your note: </h2>
-              <textarea className="note-form__textarea" value={this.state.message} cols={30} rows={5} onChange={this.handleChange} required/>
-            </label>
-            <input className="note-form__submit" type="submit" value="Add note" />
-          </form>
-        );
-      }
-    }
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit} className="note-form">
+        <label>
+          <h2 className="note-form note-form__title">Your note: </h2>
+          <textarea
+            className="note-form__textarea"
+            value={this.state.message}
+            cols={30}
+            rows={5}
+            onChange={this.handleChange}
+            required
+          />
+        </label>
+        <input className="note-form__submit" type="submit" value="Add note" />
+      </form>
+    );
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddNoteComponent)
