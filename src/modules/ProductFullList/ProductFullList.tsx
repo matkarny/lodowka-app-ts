@@ -22,7 +22,7 @@ export default class ProductFullList extends React.Component<
   public render() {
     return (
       <FullView
-        startAtFirst={true}
+        startAtFirst={this.props.location.startAtFirst}
         labelName={'Your products'}
         firstButtonName={'Fridge'}
         secondButtonName={'List'}

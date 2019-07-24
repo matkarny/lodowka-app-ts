@@ -17,7 +17,7 @@ export default class NotesFullView extends React.Component<INotesFullViewProps> 
   public render() {
     return (    
        <FullView 
-       startAtFirst={true} 
+       startAtFirst={this.props.location.startAtFirst} 
        labelName={"Notes"} 
        firstButtonName={"Show all notes"} 
        secondButtonName={"Add new note"} 
