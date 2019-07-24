@@ -31,11 +31,9 @@ export default class DashboardModule extends React.Component {
           <Link to={Routes.LOGIN} className="full-list__link ">
             <div className="dashboard__button">🡠</div>
           </Link>
-          <Link to={Routes.LOGIN} className="full-list__link ">
-            <div className="dashboard__button dashboard__button--secondary">
-              ◉
-            </div>
-          </Link>
+          <button className="dashboard__button dashboard__button--secondary">
+            ◉
+          </button>
         </div>
         {this.state.loggedRole ? (
           <DrawingComponent />

@@ -7,7 +7,7 @@ import { store, login, logout, getLoggedUser } from '../store/storeConfigure';
 const AuthButton = withRouter(({ history }) =>
   Authenticator.isAuthenticated ? (
     <div style={{ backgroundColor: 'skyblue' }}>
-      AUTHORIZED Welcome!{console.log(getLoggedUser())}
+      {(document.title = 'User: ' + getLoggedUser().name)}
       <div className="auth-button">
         <button
           onClick={() => {

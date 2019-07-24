@@ -72,7 +72,7 @@ export function login(userId: number) {
 export function getLoggedUser() {
   const user = store
     .getState()
-    .users.find(user => user.pin === store.getState().currentUserId);
+    .users.find(user => user.id === store.getState().currentUserId);
   return user;
 }
 
