@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { format } from 'date-fns';
 import './AddNoteComponent.scss';
-import { saveState, loadState } from '../../../store/globalLocalStorage';
+import { loadState } from '../../../store/globalLocalStorage';
 
 import { connect } from 'react-redux';
 import {ADD_NOTE} from '../../../store/actions/NotesActions'
