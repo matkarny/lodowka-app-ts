@@ -1,11 +1,9 @@
 import React from 'react';
 import { POPUP_SWITCH_VALUE } from '../../common/constants/FridgeConstants';
-import Store from '../../store/storeConfigure';
 
-import { Product } from '../../common/interfaces/Product';
-import { threadId } from 'worker_threads';
+import { IProduct } from '../../common/interfaces/Product';
 export interface ProductTagProps {
-  product: Product;
+  product: IProduct;
   togglePopup(id);
   removeProduct(id);
   updateProduct(data);
@@ -17,7 +15,7 @@ export interface ProductTagState {
   showNameInput: boolean;
   showDateInput: boolean;
   popupModifier: string;
-  product: Product;
+  product: IProduct;
   inputedDate: string;
 }
 

@@ -5,25 +5,25 @@ import { loadState } from '../../../store/globalLocalStorage';
 
 import { connect } from 'react-redux';
 import {ADD_NOTE} from '../../../store/actions/NotesActions'
+import StoreType from '../../types/StoreType';
+import INote from '../../interfaces/Notes'
 
-export interface IAddNoteComponentProps {}
-
-interface IState {
-  date: any;
-  message: string;
-  author: string;
+export interface IAddNoteComponentProps extends Pick<StoreType, 'notes'> {
+  addNote: (note: INote) => void
 }
+
+
 
 const mapStateToProps = state => ({notes: state.notes})
 const mapDispatchToProps = dispatch => {
   return {
-    addNote: (note) => dispatch({ type: ADD_NOTE, payload: note }), 
+    addNote: (note: INote) => dispatch({ type: ADD_NOTE, payload: note }), 
   }
 }
 
 class AddNoteComponent extends React.Component<
   IAddNoteComponentProps,
-  IState
+  INote
 > {
   constructor(props) {
     super(props);
@@ -46,7 +46,7 @@ class AddNoteComponent extends React.Component<
   }
 
   handleSubmit(event) {
-    addNote(this.state);
+    this.props.addNote(this.state)
     event.preventDefault();
   }
 

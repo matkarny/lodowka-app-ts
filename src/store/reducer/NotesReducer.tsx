@@ -1,10 +1,13 @@
 import { ADD_NOTE } from "../actions/NotesActions"
+import { StoreType } from '../../common/types/StoreType'
 
-function notesReducer(state = {notes:[]}, action) {
+
+export default function notesReducer(state = [], action) {
   switch (action.type) {
     case ADD_NOTE:
-      return { ...state, notes: [...state.notes, action.payload] };
-  }
+      return [...state, action.payload];
+      
+      default:
+        return state;
+    }  
 }   
-
-export default notesReducer

@@ -8,9 +8,10 @@ import * as Routes from "../../common/constants/Routes"
 import { Link } from 'react-router-dom'
 import MapNotesCompoent from '../../common/components/MapNotesComponent/MapNotesComponent';
 import { connect } from 'react-redux';
+import StoreType from '../../common/types/StoreType';
+import { loadState } from '../../store/globalLocalStorage';
 
-export interface INotesWidgetProps {
-  notes: any
+export interface INotesWidgetProps extends Pick<StoreType, 'notes'>{
 }
 
 const mapStateToProps = state => ({notes: state.notes})
@@ -18,7 +19,13 @@ const mapStateToProps = state => ({notes: state.notes})
 class NotesWidget extends React.Component<INotesWidgetProps> {
 
 
- 
+ componentDidMount(){
+   loadState()
+ }
+
+ componentWillMount(){
+    loadState()
+ }
 
   public render() {
     return (

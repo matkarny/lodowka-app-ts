@@ -3,10 +3,9 @@ import './ProductFullList.scss';
 import FullView from '../../common/components/FullView/FullView';
 import FridgeView from '../Fridge/FridgeView';
 import AllProductsComponent from '../../common/components/BasicComponent/AllProductsComponent/AllProductsComponent';
-import { connect } from 'react-redux';
 
 export interface IProductFullListProps {
-  location: any;
+  location: any,
 }
 
 export default class ProductFullList extends React.Component<
@@ -23,7 +22,7 @@ export default class ProductFullList extends React.Component<
   public render() {
     return (
       <FullView
-        startAtFirst={this.props.location.state.startingAtFirst}
+        startAtFirst={true}
         labelName={'Your products'}
         firstButtonName={'Fridge'}
         secondButtonName={'List'}

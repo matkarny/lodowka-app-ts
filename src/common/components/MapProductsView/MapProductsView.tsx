@@ -5,6 +5,7 @@ import ProductLabel from '../ProductLabel/ProductLabel'
 import { connect } from 'react-redux';
 import { loadState } from '../../../store/globalLocalStorage';
 import { cloneDeep } from "lodash"
+import StoreType from '../../types/StoreType';
 
 
 export interface IMapProductsViewProps {
@@ -13,7 +14,7 @@ export interface IMapProductsViewProps {
     products: Object
 }
 
-export interface IMapProductsViewState {
+export interface IMapProductsViewState extends Pick<StoreType, 'products'> {
     productList:  Object
 }
 
@@ -22,7 +23,7 @@ const mapStateToProps = state => ({products: state.products})
 
 class MapProductsView extends React.Component<IMapProductsViewProps> {
 
-    public productObject = cloneDeep(this.props.products)
+    public productObject: any  = cloneDeep(this.props.products)
 
     state = {
         productList: {}

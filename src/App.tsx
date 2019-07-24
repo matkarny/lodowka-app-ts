@@ -8,15 +8,19 @@ import ProductFullList from './modules/ProductFullList/ProductFullList';
 import LoginModule from './modules/LoginModule/LoginModule'
 import NotesFullView from './modules/NotesFullView/NotesFullView';
 
-import CombinedReducers from "./store/reducer/CombinedReducers"
+
 import { loadState, saveState } from "./store/globalLocalStorage"
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import combineReducers from './store/reducer/CombinedReducers';
+
 
 const persistedStore = loadState();
-const store = createStore(CombinedReducers, persistedStore)
+const store = createStore(combineReducers, persistedStore)
+window['getState'] = store.getState;
 
 const App: React.FC = () => {
+ 
 
   store.subscribe(() => {
     console.log('store has changed, new store:', store.getState());
