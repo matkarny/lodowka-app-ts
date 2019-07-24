@@ -1,16 +1,12 @@
 export const loadState = () => {
   const initialState = {
     notes: [],
-<<<<<<< HEAD
     products: [],
     users: {
       id: 0,
       usersList: [],
     },
     loggedUser: null,
-=======
-    products: []
->>>>>>> 45f23c9be45931ccf91b9dc2d08f4e4b19ed1842
   };
 
   try {
@@ -29,8 +25,4 @@ export const saveState = state => {
   } catch (err) {
     console.log(err);
   }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 45f23c9be45931ccf91b9dc2d08f4e4b19ed1842
