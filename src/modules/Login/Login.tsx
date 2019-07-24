@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './Login.scss';
 import WelcomeView from './WelcomeView/WelcomeView';
 import LoginPanel from './LoginPanel/LoginPanel';
 import Register from '../Register/Register';
@@ -18,13 +19,15 @@ export interface LoginState {
     isParentLogged: boolean,
     loginStep: number,
     clickedUserId: number,
+    registrationStep: number,
 }
 
 class Login extends React.Component<LoginProps, LoginState> {
     state = {
         isParentLogged: true,
         clickedUserId: null,
-        loginStep: ActiveStep.FirstStep, // USTAWIĆ
+        loginStep: ActiveStep.FirstStep,
+        registrationStep: 0,
     }
 
     getUsersData = () => {
@@ -79,10 +82,27 @@ class Login extends React.Component<LoginProps, LoginState> {
         }
         else { this.setState({ isParentLogged: false }) }
     }
+    increaseRegistrationStep = () => {
+        this.setState(prevState => (
+            { registrationStep: prevState.registrationStep + 1 }
+        ))
+    }
+    decreaseRegistrationStep = () => {
+        this.setState(prevState => (
+            { registrationStep: prevState.registrationStep - 1 }
+        ))
+    }
+    resetRegistartionStep = () => {
+        this.setState(
+            { registrationStep: 0 }
+        )
 
+    }
     render() {
         return (
-            <>
+            <div className={`login-main__container ${this.state.loginStep === ActiveStep.ThirdStep ? 'login-main__container--smaller login-main__container--step-' + this.state.registrationStep : ''
+                }`}>
+
                 {this.state.loginStep === ActiveStep.FirstStep && <WelcomeView
                     isParentLogged={this.state.isParentLogged}
                     getUsersData={this.getUsersData}
@@ -96,8 +116,11 @@ class Login extends React.Component<LoginProps, LoginState> {
                     goToWelcomeView={this.goToWelcomeView}
                 />}
                 {this.state.loginStep === ActiveStep.ThirdStep && <Register
+                    selectClick={this.increaseRegistrationStep}
+                    backClick={this.decreaseRegistrationStep}
+                    confirmClick={this.resetRegistartionStep}
                     goToWelcomeView={this.goToWelcomeView} />}
-            </>
+            </div>
         );
     }
 }
