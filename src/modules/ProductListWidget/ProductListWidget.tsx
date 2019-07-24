@@ -1,17 +1,17 @@
 import * as React from 'react';
 import ListLabel from '../../common/components/ListLabel/ListLabel';
 import ListBtn from '../../common/components/ListBtn/ListBtn';
-import ProductLabel from '../../common/components/ProductLabel/ProductLabel';
-import ProductExpireChecker from '../../common/components/ProductExpireChecker/ProductExpireChecker';
 import './ProductListWidget.scss';
 import * as Routes from '../../common/constants/Routes';
 import { Link } from 'react-router-dom';
 import MapProductsView from '../../common/components/MapProductsView/MapProductsView';
-import { store } from '../../store/storeConfigure'
+import { connect } from 'react-redux';
+import StoreType from '../../common/types/StoreType';
 
-export interface ProductListWidgetProps {}
+export interface ProductListWidgetProps extends Pick<StoreType, 'products'> {}
 
-export default class ProductListWidget extends React.Component<
+const mapStateToProps = state => ({products: state.products})
+class ProductListWidget extends React.Component<
   ProductListWidgetProps
 > {
   componentDidMount() {
@@ -26,7 +26,7 @@ export default class ProductListWidget extends React.Component<
     return (
       <div className="product-list-widget">
         <ListLabel
-          labelCount={store.getState().products.length}
+          labelCount={this.props.products.length}
           labelTxt={'Products'}
         >
           <Link
@@ -48,3 +48,5 @@ export default class ProductListWidget extends React.Component<
     );
   }
 }
+
+export default connect(mapStateToProps)(ProductListWidget)

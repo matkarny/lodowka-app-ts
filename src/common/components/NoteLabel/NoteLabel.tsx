@@ -1,5 +1,9 @@
 import * as React from 'react';
 import "./NoteLabel.scss"
+import { connect } from 'react-redux';
+
+
+
 export interface INoteLabelProps {
   date: any,
   message: any,
@@ -7,7 +11,11 @@ export interface INoteLabelProps {
   shortText: boolean 
 }
 
-export default class NoteLabel extends React.Component<INoteLabelProps> {
+
+const mapStateToProps = state => ({notes: state.notes})
+
+
+class NoteLabel extends React.Component<INoteLabelProps> {
 
   state = {author: "",
             text: this.props.message}
@@ -42,3 +50,5 @@ if(this.props.message.length>60 && this.props.shortText){
     );
   }
 }
+
+export default connect(mapStateToProps)(NoteLabel)

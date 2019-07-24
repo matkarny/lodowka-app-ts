@@ -1,22 +1,29 @@
 import * as React from 'react';
 import ProductExpireChecker from '../ProductExpireChecker/ProductExpireChecker';
 import ProductLabel from '../ProductLabel/ProductLabel'
+
+import { connect } from 'react-redux';
 import { loadState } from '../../../store/globalLocalStorage';
-import { store } from '../../../store/storeConfigure';
 import { cloneDeep } from "lodash"
+import StoreType from '../../types/StoreType';
 
 
 export interface IMapProductsViewProps {
     arraySize?: number | undefined,
     sortProducts: boolean
+    products: Object
 }
 
-export interface IMapProductsViewState {
+export interface IMapProductsViewState extends Pick<StoreType, 'products'> {
     productList:  Object
 }
-export default class MapProductsView extends React.Component<IMapProductsViewProps> {
 
-    public productObject = cloneDeep(store.getState().products)
+const mapStateToProps = state => ({products: state.products})
+
+
+class MapProductsView extends React.Component<IMapProductsViewProps> {
+
+    public productObject: any  = cloneDeep(this.props.products)
 
     state = {
         productList: {}
@@ -62,3 +69,4 @@ export default class MapProductsView extends React.Component<IMapProductsViewPro
         );
     }
 }
+export default connect(mapStateToProps)(MapProductsView)
