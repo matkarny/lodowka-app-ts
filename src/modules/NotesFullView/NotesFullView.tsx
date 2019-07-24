@@ -12,12 +12,13 @@ export default class NotesFullView extends React.Component<INotesFullViewProps> 
   //mapOfNotes = store.getState().notes.map(note => <NoteLabel date={note.date} message={note.message} />)
  componentDidMount(){
   window.scrollTo(0,0);
+
  }
  
   public render() {
     return (    
        <FullView 
-       startAtFirst={this.props.location.startAtFirst} 
+       startAtFirst={this.props.location.state.startingAtFirst} 
        labelName={"Notes"} 
        firstButtonName={"Show all notes"} 
        secondButtonName={"Add new note"} 

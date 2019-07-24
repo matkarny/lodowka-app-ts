@@ -13,6 +13,7 @@ export default class ProductFullList extends React.Component<
 > {
   componentDidMount() {
     window.scrollTo(0, 0);
+    console.log(this.props.location.state)
   }
 
   componentDidUpdate() {
@@ -22,7 +23,7 @@ export default class ProductFullList extends React.Component<
   public render() {
     return (
       <FullView
-        startAtFirst={this.props.location.startAtFirst}
+        startAtFirst={this.props.location.state.startingAtFirst}
         labelName={'Your products'}
         firstButtonName={'Fridge'}
         secondButtonName={'List'}
