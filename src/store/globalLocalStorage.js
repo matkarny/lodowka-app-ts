@@ -6,7 +6,7 @@ export const loadState = () => {
       id: 0,
       usersList: []
     },
-    currentUserId: -1
+    loggedUser: null
   };
 
   try {

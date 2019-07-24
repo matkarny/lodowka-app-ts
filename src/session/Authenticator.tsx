@@ -1,4 +1,4 @@
-import { login, logout } from '../store/storeConfigure';
+import { login, logout, getLoggedUser } from '../store/storeConfigure';
 
 class Authenticator {
   isAuthenticated: boolean = false; // -1 - logged out, >= 0 - logged in
@@ -7,6 +7,8 @@ class Authenticator {
   authenticate(userId, redirect) {
     this.isAuthenticated = true;
     login(userId);
+
+    document.title = 'User: ' + getLoggedUser().name;
     redirect();
   }
 

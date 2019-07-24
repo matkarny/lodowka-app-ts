@@ -68,8 +68,8 @@
 
 .date {
   height: 60px;
-
   letter-spacing: 0px;
+
   &__display {
     width: auto;
     display: flex;
@@ -91,6 +91,14 @@
     outline: none;
     font-size: 20px;
     font-family: 'Open Sans';
+
+    &::-webkit-clear-button {
+      display: none; /* Hide the button */
+      -webkit-appearance: none; /* turn off default browser styling */
+    }
+
+    &::-webkit-calendar-picker-indicator {
+    }
 
     &::placeholder {
       padding: 0;
@@ -119,15 +127,3 @@
   font-family: 'Open Sans';
   cursor: pointer;
 }
-
-::-webkit-clear-button {
-  display: none; /* Hide the button */
-  -webkit-appearance: none; /* turn off default browser styling */
-}
-
-// input::-webkit-inner-spin-button {
-//   display: none;
-// }
-// input::-webkit-calendar-picker-indicator {
-//   display: none;
-// }

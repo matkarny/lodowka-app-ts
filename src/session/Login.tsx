@@ -9,7 +9,7 @@ class Login extends React.Component {
     pinValue: ''
   };
 
-  login = () => {
+  loginUser = () => {
     const users = store.getState().users;
     const user = users.find(user => user.pin === this.state.pinValue);
     if (user) {
@@ -22,7 +22,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const { from } = { from: { pathname: '/dashboard' } };
+    const { from } = { from: { pathname: '/products' } };
     const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer === true) {
@@ -39,7 +39,7 @@ class Login extends React.Component {
           value={this.state.pinValue}
           onChange={e => this.setState({ pinValue: e.target.value })}
         />
-        <button onClick={this.login}>Log in</button>
+        <button onClick={this.loginUser}>Log in</button>
       </div>
     );
   }

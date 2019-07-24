@@ -9,131 +9,138 @@ import ConfirmationStep from './ConfirmationStep/ConfirmationStep';
 import { addUser, store } from '../../store/UserStore';
 
 export enum ActiveStep {
-    FirstStep,
-    SecondStep,
-    ThirdStep,
-    FourthStep,
-    FifthStep,
-    SixthStep,
-};
+  FirstStep,
+  SecondStep,
+  ThirdStep,
+  FourthStep,
+  FifthStep,
+  SixthStep
+}
 
 const StepComponent = {
-    [ActiveStep.FirstStep]: RoleSelectorStep,
-    [ActiveStep.SecondStep]: NameSelectorStep,
-    [ActiveStep.ThirdStep]: AvatarSelectorStep,
-    [ActiveStep.FourthStep]: ColorSelectorStep,
-    [ActiveStep.FifthStep]: PinSelectorStep,
-    [ActiveStep.SixthStep]: ConfirmationStep,
+  [ActiveStep.FirstStep]: RoleSelectorStep,
+  [ActiveStep.SecondStep]: NameSelectorStep,
+  [ActiveStep.ThirdStep]: AvatarSelectorStep,
+  [ActiveStep.FourthStep]: ColorSelectorStep,
+  [ActiveStep.FifthStep]: PinSelectorStep,
+  [ActiveStep.SixthStep]: ConfirmationStep
 };
 const StepDescription = {
-    [ActiveStep.FirstStep]: 'role',
-    [ActiveStep.SecondStep]: 'username',
-    [ActiveStep.ThirdStep]: 'avatarIndex',
-    [ActiveStep.FourthStep]: 'colorIndex',
-    [ActiveStep.FifthStep]: 'pin',
+  [ActiveStep.FirstStep]: 'role',
+  [ActiveStep.SecondStep]: 'username',
+  [ActiveStep.ThirdStep]: 'avatarIndex',
+  [ActiveStep.FourthStep]: 'colorIndex',
+  [ActiveStep.FifthStep]: 'pin'
 };
 
 export interface RegistrationViewProps {
-    goToWelcomeView: any,
+  goToWelcomeView: any;
 }
 
 export interface RegistrationViewState {
-    registrationStep: number,
-    newUser: {
-        id: number,
-        role: number,
-        username: string,
-        avatarIndex: number,
-        colorIndex: number,
-        pin: string,
-    }
+  registrationStep: number;
+  newUser: {
+    id: number;
+    role: number;
+    username: string;
+    avatarIndex: number;
+    colorIndex: number;
+    pin: string;
+  };
 }
 
-class RegistrationView extends React.Component<RegistrationViewProps, RegistrationViewState> {
-    state = {
-        users: [],
-        registrationStep: ActiveStep.FirstStep,
-        newUser: {
-            id: null,
-            role: null,
-            username: '',
-            avatarIndex: null,
-            colorIndex: null,
-            pin: '',
-        }
+class RegistrationView extends React.Component<
+  RegistrationViewProps,
+  RegistrationViewState
+> {
+  state = {
+    users: [],
+    registrationStep: ActiveStep.FirstStep,
+    newUser: {
+      id: null,
+      role: null,
+      username: '',
+      avatarIndex: null,
+      colorIndex: null,
+      pin: ''
     }
+  };
 
-    handleSelectBtnClick = result => {
+  handleSelectBtnClick = result => {
+    if (this.state.registrationStep === ActiveStep.FirstStep) {
+      const currentData = store.getState();
+      console.log(currentData);
+      let userId = currentData.users.id;
+      const newUserID = userId + 1;
 
-        if (this.state.registrationStep === ActiveStep.FirstStep) {
-            const currentData = store.getState();
-            console.log(currentData);
-            let userId = currentData.users.id;
-            const newUserID = userId + 1;
-
-            this.setState(prevState => {
-                let newUser = { ...prevState.newUser }
-                newUser.id = newUserID
-                return {
-                    newUser
-                }
-
-            })
-        }
-        this.setState(prevState => {
-            let newUser = { ...prevState.newUser }
-            const activeStepDescription = StepDescription[prevState.registrationStep]
-            newUser[activeStepDescription] = result
-
-            return {
-                newUser,
-                registrationStep: prevState.registrationStep + 1
-            }
-        })
+      this.setState(prevState => {
+        let newUser = { ...prevState.newUser };
+        newUser.id = newUserID;
+        return {
+          newUser
+        };
+      });
     }
+    this.setState(prevState => {
+      let newUser = { ...prevState.newUser };
+      const activeStepDescription = StepDescription[prevState.registrationStep];
+      newUser[activeStepDescription] = result;
 
-    handleConfirmBtnClick = () => {
-        addUser(this.state.newUser)
-        this.props.goToWelcomeView();
-    }
-    handleBackBtnClick = () => {
-        if (this.state.registrationStep === ActiveStep.FirstStep) {
-            this.props.goToWelcomeView()
-        }
-        else {
-            this.setState(prevState => ({
-                registrationStep: prevState.registrationStep - 1
-            })
-            )
-        }
-    }
+      return {
+        newUser,
+        registrationStep: prevState.registrationStep + 1
+      };
+    });
+  };
 
-    render() {
-        const ActiveStepComponent: React.ReactType = StepComponent[this.state.registrationStep];
-        return (
-            <div className={`registration__container registration__container--step-${this.state.registrationStep}`}>
-                <div className="registration__text-container">
-                    <p className="registration__title">Add a family member</p>
-                    <p className="registration__subtitle">Start by adding members of your family for a more personalised experience.</p>
-                </div>
-                {
-                    this.state.registrationStep < ActiveStep.SixthStep ?
-                        < ActiveStepComponent
-                            onSelect={this.handleSelectBtnClick}
-                            onBack={this.handleBackBtnClick} />
-                        :
-                        < ActiveStepComponent
-                            onSelect={this.handleConfirmBtnClick}
-                            onBack={this.handleBackBtnClick}
-                            colorId={this.state.newUser.colorIndex}
-                            avatarId={this.state.newUser.avatarIndex}
-                            username={this.state.newUser.username}
-                            id={this.state.newUser.id}
-                        />
-                }
-            </div>
-        );
+  handleConfirmBtnClick = () => {
+    addUser(this.state.newUser);
+    setTimeout(this.props.goToWelcomeView(), 100);
+  };
+  handleBackBtnClick = () => {
+    if (this.state.registrationStep === ActiveStep.FirstStep) {
+      this.props.goToWelcomeView();
+    } else {
+      this.setState(prevState => ({
+        registrationStep: prevState.registrationStep - 1
+      }));
     }
+  };
+
+  render() {
+    const ActiveStepComponent: React.ReactType =
+      StepComponent[this.state.registrationStep];
+    return (
+      <div
+        className={`registration__container registration__container--step-${
+          this.state.registrationStep
+        }`}
+      >
+        <div className="registration__text-container">
+          <p className="registration__title">Add a family member</p>
+          <p className="registration__subtitle">
+            Start by adding members of your family for a more personalised
+            experience.
+          </p>
+        </div>
+        {this.state.registrationStep < ActiveStep.SixthStep ? (
+          <ActiveStepComponent
+            onSelect={this.handleSelectBtnClick}
+            onBack={this.handleBackBtnClick}
+          />
+        ) : (
+          <ActiveStepComponent
+            onSelect={this.handleConfirmBtnClick}
+            onBack={this.handleBackBtnClick}
+            colorId={this.state.newUser.colorIndex}
+            avatarId={this.state.newUser.avatarIndex}
+            username={this.state.newUser.username}
+            id={this.state.newUser.id}
+          />
+        )}
+      </div>
+    );
+  }
 }
 
 export default RegistrationView;

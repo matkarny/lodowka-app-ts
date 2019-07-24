@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './DashboardModule.scss';
 import DrawingComponent from '../../common/components/DrawingComponent/DrawingComponent';
 import WeatherWidgetView from '../WeatherWidget/WeatherWidgetView';
@@ -7,22 +7,24 @@ import TimeWidget from '../TimeWidget/TimeWidget';
 import ProductListWidget from '../ProductListWidget/ProductListWidget';
 import NotesWidget from '../NotesWidget/NotesWidget';
 import { loadState } from '../../store/globalLocalStorage';
+import LogoutButton from '../../session/LogoutButton';
 import { store } from '../../store/storeConfigure';
 import { Link } from 'react-router-dom';
 import * as Routes from '../../common/constants/Routes';
 
-export default class DashboardModule extends React.Component {
+export default class DashboardModule extends Component {
   state = {
     loggedRole: false
   };
   componentDidMount() {
-    loadState();
     this.authorize();
+    loadState();
   }
 
   authorize() {
-    const { users, currentUserId } = store.getState();
-    const authUser = users.find(user => user.id === currentUserId);
+    const { loggedUser } = store.getState();
+    const { usersList } = store.getState().users;
+    const authUser = usersList.find(user => user.id === loggedUser);
     if (authUser.role === 1) this.setState({ loggedRole: true });
   }
 
@@ -33,14 +35,13 @@ export default class DashboardModule extends React.Component {
           <Link to={Routes.LOGIN} className="full-list__link ">
             <div className="dashboard__button">🡠</div>
           </Link>
-          <button className="dashboard__button dashboard__button--secondary">
-            ◉
-          </button>
+
+          <LogoutButton />
         </div>
         {this.state.loggedRole ? (
           <DrawingComponent />
         ) : (
-          <div>NO DRAWING FOR YOU</div>
+          <div>NO DRAWING FOR PARENTS</div>
         )}
         <WeatherWidgetView />
         <YoutubeWidget />

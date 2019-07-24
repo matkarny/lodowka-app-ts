@@ -12,7 +12,6 @@ function stateReducer(state = persistedStore, action) {
       return { ...state, notes: [...state.notes, action.note] };
 
     case 'ADD_PRODUCT':
-      // TO DO: Store must not accept 2 same products (same by position and id)
       return { ...state, products: [...state.products, action.payload] };
 
     case 'DELETE_PRODUCT':
@@ -35,32 +34,32 @@ function stateReducer(state = persistedStore, action) {
       });
     }
     case 'ADD_USER':
-      state.users.id = action.payload.id
-      state.users.usersList.push(action.payload);
-      return state;
-
-    case 'LOG_USER':
-      state.loggedUser = action.payload
-      return state;
+      return {
+        ...state,
+        users: {
+          id: action.payload.id,
+          usersList: [...state.users.usersList, action.payload]
+        }
+      };
 
     case 'LOGIN': {
-      return { ...state, currentUserId: action.payload };
+      return { ...state, loggedUser: action.payload };
     }
 
     case 'LOGOUT': {
-      return { ...state, currentUserId: -1 };
+      return { ...state, loggedUser: -1 };
     }
-
-    // case 'GET_LOGGED_USER': {
-    //  {
-    //     const user = store.getState().users.find(user => user.pin === store.getState().currentUserId);
-    //     return user;
-    //  }
-    // }
 
     default:
       return state;
   }
+}
+
+export function addUser(data) {
+  return store.dispatch({
+    type: 'ADD_USER',
+    payload: data
+  });
 }
 
 export function logout() {
@@ -80,7 +79,7 @@ export function login(userId: number) {
 export function getLoggedUser() {
   const user = store
     .getState()
-    .users.find(user => user.id === store.getState().currentUserId);
+    .users.usersList.find(user => user.id === store.getState().loggedUser);
   return user;
 }
 
@@ -131,12 +130,7 @@ export function dispatchDeleteImage(data) {
     text: data
   });
 }
-export function addUser(data) {
-  return store.dispatch({
-    type: 'ADD_USER',
-    payload: data
-  });
-}
+
 export function logUser(data) {
   return store.dispatch({
     type: 'LOG_USER',
@@ -174,7 +168,7 @@ export default {
 
 // export const store = createStore(stateReducer, persistedStore);
 
-// // 
+// //
 // // notes.store.ts
 // function notesReducer(state = persistedStore, action) {
 //   switch (action.type) {
@@ -199,7 +193,6 @@ export default {
 // //plik z komponentem
 
 // // class MyComponent{}
-
 
 // //const mapStateToProps = (state, ownProps) => ({
 // //  products: state.products,

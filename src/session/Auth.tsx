@@ -1,27 +1,18 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom';
-import Login from './Login';
-import AuthButton from './AuthButton';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import LogoutButton from './LogoutButton';
 import PrivateRoute from './PrivateRoute';
-import { Public } from './Public';
-import { Protected } from './Protected';
 import * as Routes from '../../src/common/constants/Routes';
 import DashboardModule from '../modules/DashboardModule/DashboardModule';
 import ProductFullList from '../modules/ProductFullList/ProductFullList';
 import LoginModule from '../modules/LoginModule/LoginModule';
 import NotesFullView from '../modules/NotesFullView/NotesFullView';
+import Login from '../modules/Login/Login';
 
-export default function AuthExample() {
+export default function Auth() {
   return (
     <Router onUpdate={() => window.scrollTo(0, 0)}>
       <div>
-        <AuthButton />
         <ul style={{ backgroundColor: 'lightsalmon' }}>
           <li>
             <Link to={Routes.LOGIN}>Public Page - Login</Link>
