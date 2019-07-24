@@ -1,0 +1,69 @@
+$input-color:#5F7891;
+$btn-color: #00C3FF;
+$btn-disabled-color:#E9E9E9;
+
+.login-pin {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 1080px;
+        height: 1920px;
+    }
+
+    &__input {
+        box-sizing: border-box;
+        width: 325px;
+        height: 70px;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid $input-color;
+        color: $input-color;
+        font-size: 24px;
+
+    }
+
+    &__btn-container {
+        width: 55%;
+        margin: 5% auto 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__button {
+        width: 160px;
+        height: 70px;
+        background-color: $btn-color;
+        border: 1px solid $btn-color;
+        border-radius: 10px;
+        margin-right: 10px;
+        font-size: 24px;
+        color: #fff;
+        cursor: pointer;
+
+        &--cancel {
+            background-color: transparent;
+            color: $btn-color;
+        }
+
+        &--select {
+            background-color: $btn-color;
+        }
+
+        &--disabled {
+            background-color: $btn-disabled-color;
+            border-color: $btn-disabled-color;
+            cursor: default;
+        }
+    }
+
+    &__error-label {
+        opacity: 0;
+        transition: opacity .3s;
+        color: red;
+
+        &--active {
+            opacity: 1;
+        }
+    }
+}
