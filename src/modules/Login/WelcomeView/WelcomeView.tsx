@@ -38,6 +38,10 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
     render() {
         return (
             <>
+                <div className="login__text-container">
+                    <p className="login__welcome-view-title login__welcome-view-title--bigger">Welcome to Lodówkapp</p>
+                    <p className="login__welcome-view-subtitle login__welcome-view-subtitle--bigger">Start by adding members of your family for a more personalised experience.</p>
+                </div>
                 <p className="login__welcome-view-title">Family members</p>
                 <p className="login__welcome-view-subtitle">Tap an avatar to log in as a family member.</p>
                 <div className="login__welcome-view-container">{this.state.users}{this.props.isParentLogged ? <NewUserComponent

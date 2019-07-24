@@ -1,7 +1,25 @@
+@import '../LoginConstants.scss';
+
 .login {
+    &__text-container {
+        text-align: center;
+    }
+
     &__welcome-view-container {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+    }
+
+    &__welcome-view-title {
+        &--bigger {
+            @include main-title;
+        }
+    }
+
+    &__welcome-view-subtitle {
+        &--bigger {
+            @include main-subtitle;
+        }
     }
 }
