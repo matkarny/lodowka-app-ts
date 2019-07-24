@@ -33,6 +33,14 @@ function stateReducer(state = persistedStore, action) {
         }
       });
     }
+    case 'ADD_USER':
+      state.users.id = action.payload.id
+      state.users.usersList.push(action.payload);
+      return state;
+
+    case 'LOG_USER':
+      state.loggedUser = action.payload
+      return state;
 
     default:
       return state;
@@ -84,6 +92,18 @@ export function dispatchDeleteImage(data) {
   return store.dispatch({
     type: 'DELETE_IMAGE',
     text: data
+  });
+}
+export function addUser(data) {
+  return store.dispatch({
+    type: 'ADD_USER',
+    payload: data
+  });
+}
+export function logUser(data) {
+  return store.dispatch({
+    type: 'LOG_USER',
+    payload: data
   });
 }
 
