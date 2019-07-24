@@ -35,6 +35,9 @@ const StepDescription = {
 
 export interface RegistrationViewProps {
     goToWelcomeView: any,
+    selectClick: any,
+    confirmClick: any,
+    backClick: any,
 }
 
 export interface RegistrationViewState {
@@ -90,11 +93,13 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
                 registrationStep: prevState.registrationStep + 1
             }
         })
+        this.props.selectClick()
     }
 
     handleConfirmBtnClick = () => {
         addUser(this.state.newUser)
         this.props.goToWelcomeView();
+        this.props.confirmClick();
     }
     handleBackBtnClick = () => {
         if (this.state.registrationStep === ActiveStep.FirstStep) {
@@ -105,6 +110,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
                 registrationStep: prevState.registrationStep - 1
             })
             )
+            this.props.backClick();
         }
     }
 
