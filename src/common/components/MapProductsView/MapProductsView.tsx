@@ -2,7 +2,6 @@ import * as React from 'react';
 import ProductExpireChecker from '../ProductExpireChecker/ProductExpireChecker';
 import ProductLabel from '../ProductLabel/ProductLabel'
 import { loadState } from '../../../store/globalLocalStorage';
-import { store } from '../../../store/storeConfigure';
 import { cloneDeep } from "lodash"
 
 

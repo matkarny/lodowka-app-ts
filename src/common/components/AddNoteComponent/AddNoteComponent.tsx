@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { format } from 'date-fns';
 import './AddNoteComponent.scss';
-import { dispatchAddNote } from '../../../store/storeConfigure';
-import { store } from '../../../store/storeConfigure';
 import { saveState, loadState } from '../../../store/globalLocalStorage';
+
+import { connect } from 'react-redux';
+import {ADD_NOTE} from '../../../store/actions/NotesActions'
 
 export interface IAddNoteComponentProps {}
 
@@ -13,7 +14,14 @@ interface IState {
   author: string;
 }
 
-export default class AddNoteComponent extends React.Component<
+const mapStateToProps = state => ({notes: state.notes})
+const mapDispatchToProps = dispatch => {
+  return {
+    addNote: (note) => dispatch({ type: ADD_NOTE, payload: note }), 
+  }
+}
+
+class AddNoteComponent extends React.Component<
   IAddNoteComponentProps,
   IState
 > {
@@ -38,10 +46,7 @@ export default class AddNoteComponent extends React.Component<
   }
 
   handleSubmit(event) {
-    dispatchAddNote(this.state);
-    // store.subscribe(() => {
-    //   saveState(store.getState());
-    // });
+    addNote(this.state);
     event.preventDefault();
   }
 
@@ -64,3 +69,4 @@ export default class AddNoteComponent extends React.Component<
     );
   }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(AddNoteComponent)
