@@ -129,6 +129,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     if (authenticator.isAuthenticated && redirectToReferrer === true) {
       return <Redirect to={from} />;
     }
+
     return (
       <div
         className={`login-main__container ${
