@@ -47,10 +47,11 @@ componentDidMount(){
 
   searchForAuthor(){
 let idNumber = this.props.auth
+
 let number = idNumber.pop()
-let currentUser = this.props.users.find(x => x.id === number).name
+let currentUser = this.props.users.find(x => x.id === number).username
 this.setState({ author: currentUser });
-  }
+}
 
   handleSubmit(event) {
     this.props.addNote(this.state);

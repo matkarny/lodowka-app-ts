@@ -7,8 +7,7 @@ import ProductFullList from '../modules/ProductFullList/ProductFullList';
 import LoginModule from '../modules/LoginModule/LoginModule';
 import NotesFullView from '../modules/NotesFullView/NotesFullView';
 // import Login from '../modules/Login/Login';
-import LogoutButton from './LogoutButton';
-import Logger from './Logger';
+import Login from '../modules/Login/Login';
 
 export default function Session() {
   return (
@@ -23,7 +22,7 @@ export default function Session() {
           </li>
         </ul>
 
-        <Route path={Routes.LOGIN} component={Logger} />
+        <Route path={Routes.LOGIN} component={Login} />
         <Route path={Routes.PRODUCTS} component={ProductFullList} />
         <Route path={Routes.NOTES} component={NotesFullView} />
         <PrivateRoute path={Routes.DASHBOARD} component={DashboardModule} />
