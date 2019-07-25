@@ -1,5 +1,5 @@
 export interface IUser {
-  id: number,
+  id: string,
   role: number,
   avatarIndex: number,
   colorIndex: number,

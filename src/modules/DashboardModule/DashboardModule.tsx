@@ -14,12 +14,12 @@ import { connect } from 'react-redux';
 import { IUser } from '../../common/interfaces/Users';
 
 export interface DashboardModuleProps {
-  auth: number[];
+  auth: string[];
   users: IUser[];
 }
 
 export interface DashboardModuleState {
-  auth: number[];
+  auth: string[];
   users: IUser[];
   loggedChild: boolean;
 }

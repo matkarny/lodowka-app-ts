@@ -4,14 +4,14 @@ import UserComponent from '../../../common/components/UserComponent/UserComponen
 import NewUserComponent from '../../../common/components/NewUserComponent/NewUserComponent';
 export interface WelcomeViewProps {
   isParentLogged: boolean,
-  getUsersData: any,
-  userClick: any,
-  newMemberClick: any,
-  // checkIsParentLogged: any,
+  getUsersData,
+  userClick,
+  newMemberClick,
+  checkIsParentLogged,
 }
 
 export interface WelcomeViewState {
-  users: any,
+  users: [],
 }
 
 class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
@@ -32,8 +32,9 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
 
   }
   componentDidMount() {
+    console.log('RENDER!!!!!!');
+    this.props.checkIsParentLogged();
     this.renderUsers();
-    // this.props.checkIsParentLogged();
   }
   render() {
     return (

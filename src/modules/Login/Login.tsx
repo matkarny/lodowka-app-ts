@@ -7,6 +7,7 @@ import { IUser } from '../../common/interfaces/Users';
 import { ADD_USER } from '../../store/actions/UsersActions';
 import { connect } from 'react-redux';
 import StoreType from '../../common/types/StoreType';
+import { threadId } from 'worker_threads';
 
 export enum ActiveStep {
     FirstStep,
@@ -14,8 +15,9 @@ export enum ActiveStep {
     ThirdStep,
 };
 
-export interface LoginProps extends Pick<StoreType, 'users'> {
-
+export interface LoginProps {
+    auth: string[];
+    users: IUser[];
 }
 
 export interface LoginState {
@@ -23,10 +25,15 @@ export interface LoginState {
     loginStep: number,
     clickedUserId: string,
     registrationStep: number,
+    auth: string[];
+    users: IUser[];
 }
 
 
-const mapStateToProps = state => ({ users: state.users })
+const mapStateToProps = state => ({
+    users: state.users,
+    auth: state.auth
+})
 
 class Login extends React.Component<LoginProps, LoginState> {
     state = {
@@ -34,20 +41,22 @@ class Login extends React.Component<LoginProps, LoginState> {
         clickedUserId: null,
         loginStep: ActiveStep.FirstStep,
         registrationStep: 0,
+        auth: this.props.auth,
+        users: this.props.users
     }
 
     getUsersData = () => {
         const usersData = this.props.users
         return usersData;
     }
-    getUsersAndLoggedUserId = () => {
-        const usersData = this.props.users;
-        // const loggedUserId = currentData.loggedUser;
-        return {
-            usersData,
-            // loggedUserId
-        }
-    }
+    // getUsersAndLoggedUserId = () => {
+    //     const usersData = this.props.users;
+    //     // const loggedUserId = currentData.loggedUser;
+    //     return {
+    //         usersData,
+    //         // loggedUserId
+    //     }
+    // }
 
     handleUserLoginClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         this.setState({
@@ -65,27 +74,29 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.setState({ loginStep: ActiveStep.FirstStep })
     }
 
-    // checkIsParentLogged = () => {
+    checkIsParentLogged = () => {
 
-    //     const dataUsers = this.getUsersAndLoggedUserId();
+        // const dataUsers = this.getUsersAndLoggedUserId();
 
-    //     const usersList = dataUsers.usersData;
-    //     const loggedUserId = dataUsers.loggedUserId
-    //     if (loggedUserId) {
+        const usersList = this.state.users
+        const loggedUserId = this.props.auth[0]
+        console.log(loggedUserId);
+        if (loggedUserId !== '-1') {
 
-    //         const activeUser = usersList.filter(user => user.id === loggedUserId)
-    //         const activeUserRole = activeUser[0].role
-    //         if (activeUserRole) {
-    //             this.setState({ isParentLogged: true })
-    //         }
-    //         else { this.setState({ isParentLogged: false }) }
+            const activeUser = usersList.filter(user => user.id === loggedUserId)
+            const activeUserRole = activeUser[0].role
 
-    //     }
-    //     else if (!usersList.length) {
-    //         this.setState({ isParentLogged: true })
-    //     }
-    //     else { this.setState({ isParentLogged: false }) }
-    // }
+            if (activeUserRole) {
+                this.setState({ isParentLogged: true })
+            }
+            else { this.setState({ isParentLogged: false }) }
+
+        }
+        else if (!usersList.length) {
+            this.setState({ isParentLogged: true })
+        }
+        else { this.setState({ isParentLogged: false }) }
+    }
     increaseRegistrationStep = () => {
         this.setState(prevState => (
             { registrationStep: prevState.registrationStep + 1 }
@@ -112,7 +123,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                     getUsersData={this.getUsersData}
                     userClick={this.handleUserLoginClick}
                     newMemberClick={this.addNewUser}
-                // checkIsParentLogged={this.checkIsParentLogged}
+                    checkIsParentLogged={this.checkIsParentLogged}
                 />}
                 {this.state.loginStep === ActiveStep.SecondStep && <LoginPanel
                     clickedUserId={this.state.clickedUserId}

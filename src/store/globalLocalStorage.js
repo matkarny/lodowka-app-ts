@@ -3,7 +3,7 @@ export const loadState = () => {
     notes: [],
     products: [],
     users: [],
-    auth: [-1]
+    auth: ['-1']
   };
 
   try {
