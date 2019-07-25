@@ -10,6 +10,7 @@ interface WeatherState {
 }
 
 class WeatherWidgetView extends React.Component<WeatherProps, WeatherState> {
+  interval = null;
   state: WeatherState = {
     data: null
   };
@@ -25,8 +26,9 @@ class WeatherWidgetView extends React.Component<WeatherProps, WeatherState> {
 
   async componentDidMount() {
     this.getData();
+
     try {
-      setInterval(() => this.getData(), 60000);
+      this.interval = setInterval(() => this.getData(), 60000);
     } catch (e) {
       console.log(e);
     }
@@ -34,6 +36,10 @@ class WeatherWidgetView extends React.Component<WeatherProps, WeatherState> {
 
   componentDidUpdate() {
     console.log('# current state #', this.state.data);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
