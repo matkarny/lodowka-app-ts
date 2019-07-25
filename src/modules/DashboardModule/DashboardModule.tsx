@@ -7,7 +7,7 @@ import TimeWidget from '../TimeWidget/TimeWidget';
 import ProductListWidget from '../ProductListWidget/ProductListWidget';
 import NotesWidget from '../NotesWidget/NotesWidget';
 import { loadState } from '../../store/globalLocalStorage';
-import { Link } from 'react-router-dom';
+import { Link, BrowserRouter as Router } from 'react-router-dom';
 import * as Routes from '../../common/constants/Routes';
 import LogoutButton from '../../session/LogoutButton';
 import { connect } from 'react-redux';
@@ -45,25 +45,18 @@ class DashboardModule extends React.Component<
   componentDidUpdate() {}
 
   authorize() {
-    const loggedUser = this.state.auth;
     const users = this.state.users;
     const authorizedUser = users.find(user => user.id === this.state.auth[0]);
     if (authorizedUser.role === 1) this.setState({ loggedChild: true });
-
-    // const { loggedUser } = store.getState();
-    // const { usersList } = store.getState().users;
-    // const authUser = usersList.find(user => user.id === loggedUser);
-    // if (authUser.role === 1) this.setState({ loggedRole: true });
   }
 
   render() {
     return (
       <div className="dashboard-module">
         <div className="dashboard__navi">
-          <Link to={Routes.LOGIN} className="full-list__link ">
+          {/* <Link to={Routes.LOGIN} className="full-list__link ">
             <div className="dashboard__button">🡠</div>
-          </Link>
-
+          </Link> */}
           <LogoutButton />
         </div>
 

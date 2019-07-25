@@ -23,8 +23,8 @@ export default function Session() {
         </ul>
 
         <Route path={Routes.LOGIN} component={Login} />
-        <Route path={Routes.PRODUCTS} component={ProductFullList} />
-        <Route path={Routes.NOTES} component={NotesFullView} />
+        <PrivateRoute path={Routes.PRODUCTS} component={ProductFullList} />
+        <PrivateRoute path={Routes.NOTES} component={NotesFullView} />
         <PrivateRoute path={Routes.DASHBOARD} component={DashboardModule} />
       </div>
     </Router>

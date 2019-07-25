@@ -8,33 +8,29 @@ const mapDispatchToProps = dispatch => {
   return {
     logoutUser: () => {
       console.log('LOGOUT');
-      dispatch({ type: LOGOUT_USER, payload: '-1' });
+      dispatch({ type: LOGOUT_USER, payload: -1 });
     }
   };
 };
 
-const LogoutButton = withRouter(({ history, logoutUser }) => {
-  return Authenticator.isAuthenticated ? (
+const ToLoginButton = withRouter(({ history }) => {
+  return (
     <>
       <div className="auth-button">
         <button
           className="dashboard__button dashboard__button--secondary"
           onClick={() => {
-            Authenticator.signout(() => history.push('/login'));
-            logoutUser();
-            document.title = 'React App';
+            history.push('/');
           }}
         >
           ◉
         </button>
       </div>
     </>
-  ) : (
-    <p>You are not logged in.</p>
   );
 });
 
 export default connect(
   null,
   mapDispatchToProps
-)(LogoutButton);
+)(ToLoginButton);

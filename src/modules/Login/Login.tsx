@@ -8,6 +8,8 @@ import { ADD_USER } from '../../store/actions/UsersActions';
 import { connect } from 'react-redux';
 import StoreType from '../../common/types/StoreType';
 import { threadId } from 'worker_threads';
+import authenticator from '../../session/Authenticator';
+import { Redirect } from 'react-router-dom';
 
 export enum ActiveStep {
   FirstStep,
@@ -18,6 +20,7 @@ export enum ActiveStep {
 export interface LoginProps {
   auth: string[];
   users: IUser[];
+  location: any;
 }
 
 export interface LoginState {
@@ -27,6 +30,7 @@ export interface LoginState {
   registrationStep: number;
   auth: string[];
   users: IUser[];
+  redirectToReferrer: boolean;
 }
 
 const mapStateToProps = state => ({
@@ -41,21 +45,31 @@ class Login extends React.Component<LoginProps, LoginState> {
     loginStep: ActiveStep.FirstStep,
     registrationStep: 0,
     auth: this.props.auth,
-    users: this.props.users
+    users: this.props.users,
+    redirectToReferrer: false
+  };
+
+  componentDidMount() {
+    // this.props.location.state.startingAtFirst = true;
+    this.redirecter();
+  }
+
+  redirecter() {
+    console.log('$$$$$', this.props);
+  }
+
+  auth = () => {
+    this.setState(() => ({
+      redirectToReferrer: true
+    }));
   };
 
   getUsersData = () => {
     const usersData = this.props.users;
     return usersData;
   };
-  // getUsersAndLoggedUserId = () => {
-  //     const usersData = this.props.users;
-  //     // const loggedUserId = currentData.loggedUser;
-  //     return {
-  //         usersData,
-  //         // loggedUserId
-  //     }
-  // }
+
+  componentDidUpdate() {}
 
   handleUserLoginClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     this.setState({
@@ -108,6 +122,13 @@ class Login extends React.Component<LoginProps, LoginState> {
   };
 
   render() {
+    //   debugger;
+    const { from } = { from: { pathname: '/dashboard' } };
+    const { redirectToReferrer } = this.state;
+
+    if (authenticator.isAuthenticated && redirectToReferrer === true) {
+      return <Redirect to={from} />;
+    }
     return (
       <div
         className={`login-main__container ${
@@ -131,6 +152,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             clickedUserId={this.state.clickedUserId}
             getUsersData={this.getUsersData}
             goToWelcomeView={this.goToWelcomeView}
+            authFunc={this.auth}
           />
         )}
         {this.state.loginStep === ActiveStep.ThirdStep && (

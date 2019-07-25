@@ -6,6 +6,7 @@ import StoreType from '../../../common/types/StoreType';
 import { LOGIN_USER, LOGOUT_USER } from '../../../store/actions/AuthActions';
 import { IUser } from '../../../common/interfaces/Users';
 import authenticator from '../../../session/Authenticator';
+import { any } from 'prop-types';
 
 export interface LoginPanelProps {
   clickedUserId: number;
@@ -13,13 +14,14 @@ export interface LoginPanelProps {
   goToWelcomeView: any;
   auth: number[];
   loginUser;
+  authFunc;
 }
 
 export interface LoginPanelState {
   inputValue: string;
   isErrorVisible: boolean;
   clickedUserData: object;
-  redirectToReferrer: boolean;
+  //   redirectToReferrer: boolean;
 }
 
 const mapDispatchToProps = dispatch => {
@@ -38,8 +40,8 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
   state = {
     inputValue: '',
     isErrorVisible: false,
-    clickedUserData: null,
-    redirectToReferrer: false
+    clickedUserData: null
+    // redirectToReferrer: false,
   };
   inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let targetValue = e.target.value;
@@ -62,9 +64,8 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
         console.log('ACCESS GRANTED');
         this.props.loginUser(this.state.clickedUserData.id);
         authenticator.authenticate(() => {
-          this.setState(() => ({
-            redirectToReferrer: true
-          }));
+          this.props.authFunc();
+          document.title = 'LOGGED IN';
         });
       } else {
         this.setState({
@@ -84,12 +85,12 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
   }
 
   render() {
-    const { from } = { from: { pathname: '/dashboard' } };
-    const { redirectToReferrer } = this.state;
+    // const { from } = { from: { pathname: '/dashboard' } };
+    // const { redirectToReferrer } = this.state;
 
-    if (authenticator.isAuthenticated && redirectToReferrer === true) {
-      return <Redirect to={from} />;
-    }
+    // if (authenticator.isAuthenticated && redirectToReferrer === true) {
+    //   return <Redirect to={from} />;
+    // }
 
     return (
       <>
