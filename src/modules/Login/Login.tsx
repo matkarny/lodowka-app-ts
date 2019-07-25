@@ -3,7 +3,10 @@ import './Login.scss';
 import WelcomeView from './WelcomeView/WelcomeView';
 import LoginPanel from './LoginPanel/LoginPanel';
 import Register from '../Register/Register';
-import { store } from '../../store/UserStore';
+import { IUser } from '../../common/interfaces/Users';
+import { ADD_USER } from '../../store/actions/UsersActions';
+import { connect } from 'react-redux';
+import StoreType from '../../common/types/StoreType';
 
 export enum ActiveStep {
     FirstStep,
@@ -11,7 +14,7 @@ export enum ActiveStep {
     ThirdStep,
 };
 
-export interface LoginProps {
+export interface LoginProps extends Pick<StoreType, 'users'> {
 
 }
 
@@ -22,6 +25,9 @@ export interface LoginState {
     registrationStep: number,
 }
 
+
+const mapStateToProps = state => ({ users: state.users })
+
 class Login extends React.Component<LoginProps, LoginState> {
     state = {
         isParentLogged: true,
@@ -31,17 +37,15 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
     getUsersData = () => {
-        const currentData = store.getState();
-        const usersData = currentData.users;
+        const usersData = this.props.users
         return usersData;
     }
     getUsersAndLoggedUserId = () => {
-        const currentData = store.getState();
-        const usersData = currentData.users;
-        const loggedUserId = currentData.loggedUser;
+        const usersData = this.props.users;
+        // const loggedUserId = currentData.loggedUser;
         return {
             usersData,
-            loggedUserId
+            // loggedUserId
         }
     }
 
@@ -65,7 +69,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
         const dataUsers = this.getUsersAndLoggedUserId();
 
-        const usersList = dataUsers.usersData.usersList;
+        const usersList = dataUsers.usersData;
         const loggedUserId = dataUsers.loggedUserId
         if (loggedUserId) {
 
@@ -125,4 +129,4 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 }
 
-export default Login;
+export default connect(mapStateToProps)(Login);

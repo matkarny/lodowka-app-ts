@@ -19,7 +19,7 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
 
     renderUsers = () => {
         const usersData = this.props.getUsersData();
-        const currentUsers = usersData.usersList.map((user, index) => <UserComponent
+        const currentUsers = usersData.map((user, index) => <UserComponent
             avatarId={user.avatarIndex}
             colorId={user.colorIndex}
             username={user.username}

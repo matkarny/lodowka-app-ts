@@ -1,11 +1,10 @@
 import * as React from 'react';
 import './LoginPanel.scss';
-import { logUser } from '../../../store/UserStore';
+import { connect } from 'react-redux';
 export interface LoginPanelProps {
     clickedUserId: number,
     getUsersData: any,
     goToWelcomeView: any,
-
 }
 
 export interface LoginPanelState {
@@ -50,7 +49,7 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
     }
     componentDidMount() {
         const usersData = this.props.getUsersData();
-        const clickedUserList = usersData.usersList.filter(user => {
+        const clickedUserList = usersData.filter(user => {
             return user.id === this.props.clickedUserId
         })
 
