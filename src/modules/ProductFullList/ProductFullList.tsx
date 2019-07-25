@@ -10,10 +10,9 @@ export interface IProductFullListProps {
 
 export default class ProductFullList extends React.Component<
   IProductFullListProps
-> {
+  > {
   componentDidMount() {
     window.scrollTo(0, 0);
-    console.log(this.props.location.state)
   }
 
   componentDidUpdate() {
@@ -23,7 +22,7 @@ export default class ProductFullList extends React.Component<
   public render() {
     return (
       <FullView
-        startAtFirst={this.props.location.state.startingAtFirst}
+        startAtFirst={true}
         labelName={'Your products'}
         firstButtonName={'Fridge'}
         secondButtonName={'List'}
