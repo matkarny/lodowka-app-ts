@@ -14,8 +14,8 @@ export default class NotesFullView extends React.Component<INotesFullViewProps> 
     window.scrollTo(0, 0);
   }
 
-  public render() {
-    return (
+  public render() {      
+return (   
       <FullView
         startAtFirst={true}
         labelName={"Notes"}

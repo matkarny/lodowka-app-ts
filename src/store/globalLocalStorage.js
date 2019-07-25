@@ -21,5 +21,11 @@ export const saveState = state => {
     localStorage.setItem('state', serializedState);
   } catch (err) {
     console.log(err);
-  }
+  } <<
+  << << < HEAD
+}; ===
+=== =
 };
+
+>>>
+>>> > ba8ba3c567d6f5e9b0a072f6ec754cdb29f66c90

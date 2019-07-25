@@ -11,6 +11,8 @@ const persistedStore = loadState();
 const store = createStore(combineReducers, persistedStore);
 window['getState'] = store.getState;
 
+
+
 const App: React.FC = () => {
   store.subscribe(() => {
     console.log('store has changed, new store:', store.getState());
@@ -20,14 +22,6 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <Session />
-      {/* <Router onUpdate={() => window.scrollTo(0, 0)}>
-        <div>
-          <Route exact path={Routes.LOGIN} component={LoginModule} />
-          <Route path={Routes.DASHBOARD} component={DashboardModule} />
-          <Route path={Routes.PRODUCTS} component={ProductFullList} />
-          <Route path={Routes.NOTES} component={NotesFullView} />
-        </div>
-      </Router> */}
     </Provider>
   );
 };
