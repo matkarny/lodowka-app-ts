@@ -1,5 +1,6 @@
 import React from 'react'
 import './ProductExpireChecker.scss'
+import { PRODUCT_EXPIRED, PRODUCT_SOON, PRODUCT_FRESH } from '../../constants/FridgeConstants';
 
 export function countDaysLeft(countingFromDate, countingToDate): number {
 
@@ -42,4 +43,33 @@ export function expirationChecker(productExpireDay, productExpireMonth, productE
     }
 }
 
-export default { countDaysLeft, expirationChecker }
+export function expirationColorChecker(productExpireDay, productExpireMonth, productExpireYear): any {
+
+    let currentDate = new Date();
+    let todayDay = currentDate.getDate();
+    let todayMonth = currentDate.getMonth();
+    let todayYear = currentDate.getFullYear();
+
+    let todayDate = new Date(todayYear, todayMonth, todayDay);
+    let productExpireDate = new Date(productExpireYear, productExpireMonth, productExpireDay)
+
+    let days: number = countDaysLeft(todayDate, productExpireDate);
+
+    switch (true) {
+
+        case days < 0:
+            console.log(days)
+            return PRODUCT_EXPIRED
+
+        case days < 4:
+            console.log(days)
+            return PRODUCT_SOON
+
+        default:
+            return PRODUCT_FRESH
+
+
+    }
+}
+
+export default { countDaysLeft, expirationChecker, expirationColorChecker }

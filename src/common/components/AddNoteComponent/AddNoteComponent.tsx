@@ -4,6 +4,7 @@ import './AddNoteComponent.scss';
 import { loadState } from '../../../store/globalLocalStorage';
 
 import { connect } from 'react-redux';
+
 import { ADD_NOTE } from '../../../store/actions/NotesActions';
 import StoreType from '../../types/StoreType';
 import { INote } from '../../interfaces/Notes';
