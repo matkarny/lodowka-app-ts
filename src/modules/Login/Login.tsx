@@ -1,8 +1,13 @@
 import * as React from 'react';
+import './Login.scss';
 import WelcomeView from './WelcomeView/WelcomeView';
 import LoginPanel from './LoginPanel/LoginPanel';
 import Register from '../Register/Register';
-import { store } from '../../store/UserStore';
+import { IUser } from '../../common/interfaces/Users';
+import { ADD_USER } from '../../store/actions/UsersActions';
+import { connect } from 'react-redux';
+import StoreType from '../../common/types/StoreType';
+import { threadId } from 'worker_threads';
 
 export enum ActiveStep {
     FirstStep,
@@ -11,40 +16,51 @@ export enum ActiveStep {
 };
 
 export interface LoginProps {
-
+    auth: string[];
+    users: IUser[];
 }
 
 export interface LoginState {
     isParentLogged: boolean,
     loginStep: number,
-    clickedUserId: number,
+    clickedUserId: string,
+    registrationStep: number,
+    auth: string[];
+    users: IUser[];
 }
+
+
+const mapStateToProps = state => ({
+    users: state.users,
+    auth: state.auth
+})
 
 class Login extends React.Component<LoginProps, LoginState> {
     state = {
         isParentLogged: true,
         clickedUserId: null,
-        loginStep: ActiveStep.FirstStep, // USTAWIĆ
+        loginStep: ActiveStep.FirstStep,
+        registrationStep: 0,
+        auth: this.props.auth,
+        users: this.props.users
     }
 
     getUsersData = () => {
-        const currentData = store.getState();
-        const usersData = currentData.users;
+        const usersData = this.props.users
         return usersData;
     }
-    getUsersAndLoggedUserId = () => {
-        const currentData = store.getState();
-        const usersData = currentData.users;
-        const loggedUserId = currentData.loggedUser;
-        return {
-            usersData,
-            loggedUserId
-        }
-    }
+    // getUsersAndLoggedUserId = () => {
+    //     const usersData = this.props.users;
+    //     // const loggedUserId = currentData.loggedUser;
+    //     return {
+    //         usersData,
+    //         // loggedUserId
+    //     }
+    // }
 
     handleUserLoginClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         this.setState({
-            clickedUserId: parseInt(e.currentTarget.dataset.id),
+            clickedUserId: e.currentTarget.dataset.id,
             loginStep: ActiveStep.SecondStep
         })
     }
@@ -60,14 +76,15 @@ class Login extends React.Component<LoginProps, LoginState> {
 
     checkIsParentLogged = () => {
 
-        const dataUsers = this.getUsersAndLoggedUserId();
+        // const dataUsers = this.getUsersAndLoggedUserId();
 
-        const usersList = dataUsers.usersData.usersList;
-        const loggedUserId = dataUsers.loggedUserId
-        if (loggedUserId) {
+        const usersList = this.props.users
+        const loggedUserId = this.props.auth[0]
+        if (loggedUserId !== '-1') {
 
             const activeUser = usersList.filter(user => user.id === loggedUserId)
             const activeUserRole = activeUser[0].role
+
             if (activeUserRole) {
                 this.setState({ isParentLogged: true })
             }
@@ -79,10 +96,27 @@ class Login extends React.Component<LoginProps, LoginState> {
         }
         else { this.setState({ isParentLogged: false }) }
     }
+    increaseRegistrationStep = () => {
+        this.setState(prevState => (
+            { registrationStep: prevState.registrationStep + 1 }
+        ))
+    }
+    decreaseRegistrationStep = () => {
+        this.setState(prevState => (
+            { registrationStep: prevState.registrationStep - 1 }
+        ))
+    }
+    resetRegistartionStep = () => {
+        this.setState(
+            { registrationStep: 0 }
+        )
 
+    }
     render() {
         return (
-            <>
+            <div className={`login-main__container ${this.state.loginStep === ActiveStep.ThirdStep ? 'login-main__container--smaller login-main__container--step-' + this.state.registrationStep : ''
+                }`}>
+
                 {this.state.loginStep === ActiveStep.FirstStep && <WelcomeView
                     isParentLogged={this.state.isParentLogged}
                     getUsersData={this.getUsersData}
@@ -96,10 +130,13 @@ class Login extends React.Component<LoginProps, LoginState> {
                     goToWelcomeView={this.goToWelcomeView}
                 />}
                 {this.state.loginStep === ActiveStep.ThirdStep && <Register
+                    selectClick={this.increaseRegistrationStep}
+                    backClick={this.decreaseRegistrationStep}
+                    confirmClick={this.resetRegistartionStep}
                     goToWelcomeView={this.goToWelcomeView} />}
-            </>
+            </div>
         );
     }
 }
 
-export default Login;
+export default connect(mapStateToProps)(Login);

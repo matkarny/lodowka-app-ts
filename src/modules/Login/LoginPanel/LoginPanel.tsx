@@ -1,11 +1,16 @@
 import * as React from 'react';
 import './LoginPanel.scss';
-import { logUser } from '../../../store/UserStore';
+import { connect } from 'react-redux';
+import StoreType from '../../../common/types/StoreType';
+import { LOGIN_USER, LOGOUT_USER } from '../../../store/actions/AuthActions';
+import { IUser } from '../../../common/interfaces/Users';
+
 export interface LoginPanelProps {
     clickedUserId: number,
     getUsersData: any,
     goToWelcomeView: any,
-
+    auth: number[];
+    loginUser
 }
 
 export interface LoginPanelState {
@@ -13,6 +18,18 @@ export interface LoginPanelState {
     isErrorVisible: boolean,
     clickedUserData: object,
 }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUser: (userId: number) => {
+            console.log('login userId', userId);
+            dispatch({ type: LOGIN_USER, payload: userId });
+        },
+        logoutUser: () => dispatch({ type: LOGOUT_USER, payload: -1 })
+    };
+};
+
+const mapStateToProps = state => ({ users: state.users, auth: state.auth });
 
 class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
     state = {
@@ -34,12 +51,14 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
             targetValue = this.state.inputValue
         }
         if (targetValue.length === 4) {
+
             if (targetValue === this.state.clickedUserData.pin) {
                 this.setState({
                     isErrorVisible: false,
                 })
-                logUser(this.props.clickedUserId)
                 console.log('ACCESS GRANTED');
+                this.props.loginUser(this.state.clickedUserData.id)
+
             }
             else {
                 this.setState({
@@ -50,7 +69,7 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
     }
     componentDidMount() {
         const usersData = this.props.getUsersData();
-        const clickedUserList = usersData.usersList.filter(user => {
+        const clickedUserList = usersData.filter(user => {
             return user.id === this.props.clickedUserId
         })
 
@@ -86,4 +105,7 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
     }
 }
 
-export default LoginPanel;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LoginPanel);

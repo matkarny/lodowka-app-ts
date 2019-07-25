@@ -1,4 +1,3 @@
-
 import { combineReducers } from 'redux';
 import productReducer from './ProductsReducer';
 import notesReducer from './NotesReducer';

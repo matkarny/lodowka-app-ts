@@ -14,12 +14,12 @@ import { connect } from 'react-redux';
 import { IUser } from '../../common/interfaces/Users';
 
 export interface DashboardModuleProps {
-  auth: number[];
+  auth: string[];
   users: IUser[];
 }
 
 export interface DashboardModuleState {
-  auth: number[];
+  auth: string[];
   users: IUser[];
   loggedChild: boolean;
 }
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({ users: state.users, auth: state.auth });
 class DashboardModule extends React.Component<
   DashboardModuleProps,
   DashboardModuleState
-> {
+  > {
   state = {
     auth: this.props.auth,
     users: this.props.users,
@@ -42,7 +42,7 @@ class DashboardModule extends React.Component<
     console.log('>>', this.state);
   }
 
-  componentDidUpdate() {}
+  componentDidUpdate() { }
 
   authorize() {
     const loggedUser = this.state.auth;
@@ -70,8 +70,8 @@ class DashboardModule extends React.Component<
         {this.state.loggedChild ? (
           <DrawingComponent />
         ) : (
-          <div>NO DRAWING FOR PARENTS</div>
-        )}
+            <div>NO DRAWING FOR PARENTS</div>
+          )}
 
         {/* <DrawingComponent /> */}
         <WeatherWidgetView />

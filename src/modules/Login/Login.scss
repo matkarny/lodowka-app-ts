@@ -1,0 +1,37 @@
+$bg-pos: 30%;
+
+.login-main {
+    &__container {
+        width: 1080px;
+        height: 1920px;
+        background-image: url('../../common/images/background.png');
+        background-size: 500%;
+        background-position: $bg-pos;
+        margin: 0 auto;
+        transition: background-position 0.3s ease-out, background-size 0.3s ease-out;
+
+        &--smaller {
+            background-size: 300%;
+        }
+
+        &--step-1 {
+            background-position-x: $bg-pos+10;
+        }
+
+        &--step-2 {
+            background-position-x: $bg-pos+20;
+        }
+
+        &--step-3 {
+            background-position-x: $bg-pos+30;
+        }
+
+        &--step-4 {
+            background-position-x: $bg-pos+40;
+        }
+
+        &--step-5 {
+            background-position-x: $bg-pos+50;
+        }
+    }
+}

@@ -1,6 +1,8 @@
 export interface IUser {
-  name: string;
-  pin: string;
-  role: number;
-  id: number;
+  id: string,
+  role: number,
+  avatarIndex: number,
+  colorIndex: number,
+  username: string,
+  pin: string,
 }

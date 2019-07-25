@@ -30,5 +30,4 @@ class MapNotesCompoent extends React.Component<IMapNotesCompoentProps> {
   }
 }
 
-
 export default connect(mapStateToProps)(MapNotesCompoent);

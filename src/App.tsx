@@ -18,7 +18,7 @@ const App: React.FC = () => {
     console.log('store has changed, new store:', store.getState());
     saveState(store.getState());
   });
-  
+
   return (
     <Provider store={store}>
       <Session />

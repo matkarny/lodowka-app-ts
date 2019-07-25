@@ -2,11 +2,8 @@ export const loadState = () => {
   const initialState = {
     notes: [],
     products: [],
-    users: [
-      { name: 'Rodzic', pin: '1234', id: 0, role: 0 },
-      { name: 'Dziecko', pin: '4321', id: 1, role: 1 }
-    ],
-    auth: [-1]
+    users: [],
+    auth: ['-1']
   };
 
   try {
@@ -24,6 +21,11 @@ export const saveState = state => {
     localStorage.setItem('state', serializedState);
   } catch (err) {
     console.log(err);
-  }
+  } <<
+  << << < HEAD
+}; ===
+=== =
 };
 
+>>>
+>>> > ba8ba3c567d6f5e9b0a072f6ec754cdb29f66c90

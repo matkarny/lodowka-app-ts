@@ -1,9 +1,11 @@
 import * as React from 'react';
 import './RoleSelectorStep.scss';
-import { store } from '../../../store/UserStore';
+import { connect } from 'react-redux';
+import StoreType from '../../../common/types/StoreType';
 import roleList from '../../../common/constants/RoleConstants'
 import RoleComponent from '../../../common/components/RoleComponent/RoleComponent';
-export interface RoleSelectorStepProps {
+
+export interface RoleSelectorStepProps extends Pick<StoreType, 'users'> {
     onSelect: any,
     onBack: any,
 }
@@ -12,6 +14,8 @@ export interface RoleSelectorStepState {
     selectedRole: number,
     isChildBlocked: boolean,
 }
+
+const mapStateToProps = state => ({ users: state.users })
 
 class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelectorStepState> {
     state = {
@@ -22,8 +26,8 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
         this.setState({ selectedRole: parseInt(e.currentTarget.dataset.id) })
     }
     checkRegisteredUsersCount = () => {
-        const data = store.getState();
-        const usersListLength = data.users.usersList.length;
+        // const data = store.getState();
+        const usersListLength = this.props.users.length;
         if (!usersListLength) {
             this.setState({ isChildBlocked: true })
         }
@@ -106,5 +110,4 @@ class RoleSelectorStep extends React.Component<RoleSelectorStepProps, RoleSelect
         )
     }
 }
-
-export default RoleSelectorStep;
+export default connect(mapStateToProps)(RoleSelectorStep);

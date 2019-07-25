@@ -6,7 +6,11 @@ import AvatarSelectorStep from './AvatarSelectorStep/AvatarSelectorStep';
 import ColorSelectorStep from './ColorSelectorStep/ColorSelectorStep';
 import PinSelectorStep from './PinSelectorStep/PinSelectorStep';
 import ConfirmationStep from './ConfirmationStep/ConfirmationStep';
-import { addUser, store } from '../../store/UserStore';
+import { IUser } from '../../common/interfaces/Users';
+import { ADD_USER } from '../../store/actions/UsersActions';
+import { connect } from 'react-redux';
+// import { addUser } from '../../store/storeConfigure';
+
 
 export enum ActiveStep {
     FirstStep,
@@ -35,6 +39,10 @@ const StepDescription = {
 
 export interface RegistrationViewProps {
     goToWelcomeView: any,
+    selectClick: any,
+    confirmClick: any,
+    backClick: any,
+    addUser
 }
 
 export interface RegistrationViewState {
@@ -46,6 +54,11 @@ export interface RegistrationViewState {
         avatarIndex: number,
         colorIndex: number,
         pin: string,
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        addUser: (user: IUser) => dispatch({ type: ADD_USER, payload: user }),
     }
 }
 
@@ -63,14 +76,17 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
         }
     }
 
+    generateID = () => {
+        const uuidv1 = require('uuid/v1');
+        const newUserID = uuidv1();
+        return newUserID;
+    }
+
     handleSelectBtnClick = result => {
 
         if (this.state.registrationStep === ActiveStep.FirstStep) {
-            const currentData = store.getState();
-            console.log(currentData);
-            let userId = currentData.users.id;
-            const newUserID = userId + 1;
 
+            const newUserID = this.generateID()
             this.setState(prevState => {
                 let newUser = { ...prevState.newUser }
                 newUser.id = newUserID
@@ -90,11 +106,13 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
                 registrationStep: prevState.registrationStep + 1
             }
         })
+        this.props.selectClick()
     }
 
     handleConfirmBtnClick = () => {
-        addUser(this.state.newUser)
+        this.props.addUser(this.state.newUser)
         this.props.goToWelcomeView();
+        this.props.confirmClick();
     }
     handleBackBtnClick = () => {
         if (this.state.registrationStep === ActiveStep.FirstStep) {
@@ -105,6 +123,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
                 registrationStep: prevState.registrationStep - 1
             })
             )
+            this.props.backClick();
         }
     }
 
@@ -136,4 +155,4 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
     }
 }
 
-export default RegistrationView;
+export default connect(null, mapDispatchToProps)(RegistrationView);
