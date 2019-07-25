@@ -4,13 +4,13 @@ import FridgeService from './FridgeService';
 import Loader from 'react-loader-spinner';
 import ProductTag from './ProductTag';
 import { IProduct } from '../../common/interfaces/Product';
-import { ADD_PRODUCT, DELETE_PRODUCT, DELETE_PRODUCTS, UPDATE_PRODUCT } from "../../store/actions/ProductActions"
+import { ADD_PRODUCT, DELETE_PRODUCT, DELETE_PRODUCTS, UPDATE_PRODUCT} from "../../store/actions/ProductActions"
 import { connect } from 'react-redux';
 import StoreType from '../../common/types/StoreType';
 import { expirationColorChecker } from '../../common/components/ProductExpireChecker/ProductExpireService';
 
-interface Pr oductTagData {
-name: '';
+interface ProductTagData {
+  name: '';
   tagPosTop: number;
   tagPosLeft: number;
   vitalityColor: string;
@@ -19,35 +19,22 @@ name: '';
 }
 
 export interface FridgeViewProps extends Pick<StoreType, 'products'> {
-addProduct,
-  deleteProduct,
-  deleteProducts,
-  updateProduct,
-  
-    
+    addProduct, 
+    deleteProduct,
+    deleteProducts,
+    updateProduct,
+}
+
 export interface FridgeViewState {
   src: any;
-      xtId: number;
-        oductTags: ProductTagData[];
-          e: any;
+  nextId: number;
+  productTags: ProductTagData[];
+  value: any;
   products: IProduct[];
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-<<<<<<< HEAD
-    addProduct: (product: IProduct) =>
-      dispatch({ type: ADD_PRODUCT, payload: product }),
-    deleteProduct: (productId: number) =>
-      dispatch({ type: DELETE_PRODUCT, payload: productId }),
-    deleteProducts: () => dispatch({ type: DELETE_PRODUCTS }),
-    updateProduct: (product: IProduct) =>
-      dispatch({ type: UPDATE_PRODUCT, payload: product })
-  };
-};
-
-const mapStateToProps = state => ({ products: state.products });
-=======
     addProduct: (product: IProduct) => dispatch({ type: ADD_PRODUCT, payload: product }),
     deleteProduct: (productId: number) => dispatch({ type: DELETE_PRODUCT, payload: productId }),
     deleteProducts: () => dispatch({ type: DELETE_PRODUCTS}),
@@ -58,7 +45,6 @@ const mapStateToProps = state => ({ products: state.products });
 
 
 const mapStateToProps = state => ({products: state.products})
->>>>>>> ba8ba3c567d6f5e9b0a072f6ec754cdb29f66c90
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   state = {
@@ -97,29 +83,18 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       month: new Date().getMonth(),
       day: new Date().getDate()
     };
-<<<<<<< HEAD
-
-=======
 const vitalityColorChecker = expirationColorChecker(expirationDate.day, expirationDate.month, expirationDate.year)
->>>>>>> ba8ba3c567d6f5e9b0a072f6ec754cdb29f66c90
     let product: IProduct = {
       name: 'PRODUCT',
       tagPosition,
       addedBy: 'USER X',
       expirationDate,
       id: +('' + expirationDate.day + tagPosition.left + tagPosition.top),
-<<<<<<< HEAD
-      shownPopup: true
-    };
-
-    let { products } = this.state;
-=======
       shownPopup: true,
       vitalityColor:  vitalityColorChecker,
     };
 
     let { products } = this.props;
->>>>>>> ba8ba3c567d6f5e9b0a072f6ec754cdb29f66c90
     products.forEach(prod => {
       prod.shownPopup = false;
       console.log(prod.expirationDate)
@@ -198,35 +173,22 @@ console.log(prod.vitalityColor)
               alt="Fridge"
             />
           ) : (
-              <div className="fridge__loader">
-                <Loader
-                  type="Triangle"
-                  color="#00C3FF"
-                  height="100"
-                  width="100"
-                />
-                LOADING FRIDGE IMAGE
+            <div className="fridge__loader">
+              <Loader
+                type="Triangle"
+                color="#00C3FF"
+                height="100"
+                width="100"
+              />
+              LOADING FRIDGE IMAGE
             </div>
-            )}
+          )}
 
-<<<<<<< HEAD
-          <ul className="fridge__list">
-            {this.state.src && this.listProductTags()}
-          </ul>
-=======
           <ul className="fridge__list">{this.state.src && this.listProductTags()}</ul>
->>>>>>> ba8ba3c567d6f5e9b0a072f6ec754cdb29f66c90
         </div>
       </div>
     );
   }
 }
 
-<<<<<<< HEAD
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FridgeView);
-=======
 export default connect(mapStateToProps, mapDispatchToProps)(FridgeView);
->>>>>>> ba8ba3c567d6f5e9b0a072f6ec754cdb29f66c90
