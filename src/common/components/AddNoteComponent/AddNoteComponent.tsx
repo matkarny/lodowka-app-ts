@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { format } from 'date-fns';
 import './AddNoteComponent.scss';
-import { loadState } from '../../../store/globalLocalStorage';
 
 import { connect } from 'react-redux';
 
@@ -33,17 +32,20 @@ class AddNoteComponent extends React.Component<IAddNoteComponentProps, INote> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    loadState();
+  componentWillUpdate(){
+    console.log(this.state)
   }
 
   handleChange(event) {
     this.setState({ message: event.target.value });
+    console.log(this.state)
   }
 
   handleSubmit(event) {
     this.props.addNote(this.state);
     event.preventDefault();
+    this.setState({ message: "" });
+    console.log(this.state)
   }
 
   render() {
