@@ -2,6 +2,7 @@ import React from 'react';
 import { POPUP_SWITCH_VALUE } from '../../common/constants/FridgeConstants';
 
 import { IProduct } from '../../common/interfaces/Product';
+import ProductExpireChecker from '../../common/components/ProductExpireChecker/ProductExpireChecker';
 export interface ProductTagProps {
   product: IProduct;
   togglePopup(id);
@@ -57,6 +58,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         name: e.target.value,
         tagPosition: this.state.product.tagPosition,
         addedBy: this.state.product.name,
+        vitalityColor: this.state.product.vitalityColor,
         expirationDate: this.state.product.expirationDate,
         id: this.state.product.id
       }
@@ -76,6 +78,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         name: name,
         tagPosition: this.state.product.tagPosition,
         addedBy: this.state.product.name,
+        vitalityColor: this.state.product.vitalityColor,
         expirationDate: this.state.product.expirationDate,
         id: this.state.product.id
       }
@@ -151,6 +154,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
         name: this.state.product.name,
         tagPosition: this.state.product.tagPosition,
         addedBy: this.state.product.name,
+        vitalityColor: this.state.product.vitalityColor,
         expirationDate: date,
         id: this.state.product.id
       }
@@ -171,17 +175,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
   popup = () => {
     /*  Return Popup that shows - depending on show-Name/Date-Input - inputs or displays. OnClick on either input and display causes them to switch their visibility / places. Below that Popup shows Remove button.
      */
-
-    let { year, month, day } = this.state.product.expirationDate;
-
-    month++; // without this month values would be from 0 to 11
-    let dateString = '';
-    let monthString = '' + month;
-    let dayString = '' + day;
-    if (month < 10) monthString = '0' + month;
-    if (day < 10) dayString = '0' + day;
-    dateString += `${dayString}.${monthString}.${year}`;
-
+    
     return (
       <div className={`popup${this.state.popupModifier}`}>
         <div className="popup__inner">
@@ -218,7 +212,10 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
                       })
                     }
                   >
-                    {dateString}
+                    <ProductExpireChecker productDay={this.state.product.expirationDate.day}
+                                productMounth={this.state.product.expirationDate.month}
+                                productYear={this.state.product.expirationDate.year}
+                            />
                   </div>
                 </div>
               )}
@@ -250,7 +247,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
           position: 'absolute',
           top: `${this.state.product.tagPosition.top - 30}px`,
           left: `${this.state.product.tagPosition.left - 30}px`,
-          backgroundColor: 'gray'
+          backgroundColor: `${this.state.product.vitalityColor}`
         }}
       >
         <button
