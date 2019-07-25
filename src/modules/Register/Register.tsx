@@ -9,7 +9,7 @@ import ConfirmationStep from './ConfirmationStep/ConfirmationStep';
 import { IUser } from '../../common/interfaces/Users';
 import { ADD_USER } from '../../store/actions/UsersActions';
 import { connect } from 'react-redux';
-import { addUser } from '../../store/storeConfigure';
+// import { addUser } from '../../store/storeConfigure';
 
 
 export enum ActiveStep {
@@ -110,7 +110,7 @@ class RegistrationView extends React.Component<RegistrationViewProps, Registrati
     }
 
     handleConfirmBtnClick = () => {
-        addUser(this.state.newUser)
+        this.props.addUser(this.state.newUser)
         this.props.goToWelcomeView();
         this.props.confirmClick();
     }

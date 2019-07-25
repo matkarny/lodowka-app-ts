@@ -7,7 +7,7 @@ export interface WelcomeViewProps {
     getUsersData: any,
     userClick: any,
     newMemberClick: any,
-    checkIsParentLogged: any,
+    // checkIsParentLogged: any,
 }
 
 export interface WelcomeViewState {
@@ -33,7 +33,7 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
     }
     componentDidMount() {
         this.renderUsers();
-        this.props.checkIsParentLogged();
+        // this.props.checkIsParentLogged();
     }
     render() {
         return (
