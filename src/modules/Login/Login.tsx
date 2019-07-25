@@ -78,9 +78,8 @@ class Login extends React.Component<LoginProps, LoginState> {
 
         // const dataUsers = this.getUsersAndLoggedUserId();
 
-        const usersList = this.state.users
+        const usersList = this.props.users
         const loggedUserId = this.props.auth[0]
-        console.log(loggedUserId);
         if (loggedUserId !== '-1') {
 
             const activeUser = usersList.filter(user => user.id === loggedUserId)

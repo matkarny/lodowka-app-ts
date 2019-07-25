@@ -32,7 +32,6 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
 
   }
   componentDidMount() {
-    console.log('RENDER!!!!!!');
     this.props.checkIsParentLogged();
     this.renderUsers();
   }
