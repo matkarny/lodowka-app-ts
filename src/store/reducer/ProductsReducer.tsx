@@ -24,3 +24,4 @@ export function productReducer (state =  [], action) {
   }
   
   export default productReducer
+>>>>>>> master

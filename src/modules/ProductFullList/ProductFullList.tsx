@@ -13,7 +13,6 @@ export default class ProductFullList extends React.Component<
 > {
   componentDidMount() {
     window.scrollTo(0, 0);
-    console.log(this.props.location.state)
   }
 
   componentDidUpdate() {

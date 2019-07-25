@@ -57,9 +57,13 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   componentDidMount() {
     new FridgeService(this.getFridgeImage).getImageBase64();
-    this.props.products.map(product => product.vitalityColor = expirationColorChecker(product.expirationDate.day, product.expirationDate.month, product.expirationDate.year));
+    this.setState({ products: this.props.products });
   }
 
+  componentDidUpdate() {
+    console.log(this.state.products);
+    this.props.products.map(product => product.vitalityColor = expirationColorChecker(product.expirationDate.day, product.expirationDate.month, product.expirationDate.year));
+  }
 
   removeAll = () => {
     this.props.deleteProducts();
@@ -100,7 +104,6 @@ console.log(prod.vitalityColor)
     
     
     this.props.addProduct(product);
-
     this.setState({
       nextId: this.state.nextId + 1,
       products: this.props.products

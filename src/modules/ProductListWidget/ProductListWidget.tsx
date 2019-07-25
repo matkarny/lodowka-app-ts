@@ -1,7 +1,6 @@
 import * as React from 'react';
 import ListLabel from '../../common/components/ListLabel/ListLabel';
 import ListBtn from '../../common/components/ListBtn/ListBtn';
-
 import './ProductListWidget.scss';
 import * as Routes from '../../common/constants/Routes';
 import { Link } from 'react-router-dom';
@@ -22,7 +21,6 @@ class ProductListWidget extends React.Component<
   componentDidUpdate() {
     window.scrollTo(0, 0);
   }
-
 
   render() {
     return (
