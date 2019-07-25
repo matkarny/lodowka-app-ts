@@ -37,7 +37,6 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
                 this.setState({
                     isErrorVisible: false,
                 })
-                // logUser(this.props.clickedUserId)
                 console.log('ACCESS GRANTED');
             }
             else {

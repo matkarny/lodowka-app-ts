@@ -21,7 +21,7 @@ export interface LoginProps extends Pick<StoreType, 'users'> {
 export interface LoginState {
     isParentLogged: boolean,
     loginStep: number,
-    clickedUserId: number,
+    clickedUserId: string,
     registrationStep: number,
 }
 
@@ -51,7 +51,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
     handleUserLoginClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         this.setState({
-            clickedUserId: parseInt(e.currentTarget.dataset.id),
+            clickedUserId: e.currentTarget.dataset.id,
             loginStep: ActiveStep.SecondStep
         })
     }
