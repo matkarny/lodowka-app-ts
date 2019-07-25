@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './FullView.scss';
 import * as Routes from '../../constants/Routes';
-import { loadState } from '../../../store/globalLocalStorage';
 import { Link } from 'react-router-dom';
 
 export interface FullViewProps {

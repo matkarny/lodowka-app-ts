@@ -7,6 +7,7 @@ import { IProduct } from '../../common/interfaces/Product';
 import { ADD_PRODUCT, DELETE_PRODUCT, DELETE_PRODUCTS, UPDATE_PRODUCT} from "../../store/actions/ProductActions"
 import { connect } from 'react-redux';
 import StoreType from '../../common/types/StoreType';
+import { expirationColorChecker } from '../../common/components/ProductExpireChecker/ProductExpireService';
 
 interface ProductTagData {
   name: '';
@@ -56,12 +57,9 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   componentDidMount() {
     new FridgeService(this.getFridgeImage).getImageBase64();
-    this.setState({ products: this.props.products });
+    this.props.products.map(product => product.vitalityColor = expirationColorChecker(product.expirationDate.day, product.expirationDate.month, product.expirationDate.year));
   }
 
-  componentDidUpdate() {
-    console.log(this.state.products);
-  }
 
   removeAll = () => {
     this.props.deleteProducts();
@@ -81,22 +79,28 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       month: new Date().getMonth(),
       day: new Date().getDate()
     };
-
+const vitalityColorChecker = expirationColorChecker(expirationDate.day, expirationDate.month, expirationDate.year)
     let product: IProduct = {
       name: 'PRODUCT',
       tagPosition,
       addedBy: 'USER X',
       expirationDate,
       id: +('' + expirationDate.day + tagPosition.left + tagPosition.top),
-      shownPopup: true
+      shownPopup: true,
+      vitalityColor:  vitalityColorChecker,
     };
 
-    let { products } = this.state;
+    let { products } = this.props;
     products.forEach(prod => {
       prod.shownPopup = false;
+      console.log(prod.expirationDate)
+      prod.vitalityColor = expirationColorChecker(prod.expirationDate.day, prod.expirationDate.month, prod.expirationDate.year)
+console.log(prod.vitalityColor)    
     });
-
+    
+    
     this.props.addProduct(product);
+
     this.setState({
       nextId: this.state.nextId + 1,
       products: this.props.products
@@ -104,7 +108,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   };
 
   listProductTags = () => {
-    return this.state.products.map(product => {
+    return this.props.products.map(product => {
       return (
         <li key={`key-${product.tagPosition.left + product.tagPosition.top}`}>
           <ProductTag
@@ -131,10 +135,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   };
 
   togglePopup = (id: number) => {
-    let { products } = this.state;
+    let { products } = this.props;
     products.forEach(product => {
       if (product.id === id) product.shownPopup = !product.shownPopup;
       else product.shownPopup = false;
+      product.vitalityColor = expirationColorChecker(product.expirationDate.day, product.expirationDate.month, product.expirationDate.year)
     });
 
     this.setState({ products });
