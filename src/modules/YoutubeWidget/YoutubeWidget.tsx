@@ -1,7 +1,7 @@
 import * as React from 'react';
 import YoutubeAPI from './YoutubeAPI';
 import './YoutubeWidget.scss';
-import { ReactComponent as PlayBtn } from '../../play-button.svg';
+import { ReactComponent as PlayBtn } from '../../common/images/play-button.svg';
 export interface YoutubeWidgetProps { }
 
 export interface YoutubeWidgetState {

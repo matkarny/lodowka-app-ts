@@ -2,9 +2,11 @@ import React from 'react';
 import './Fridge.scss';
 import FridgeService from './FridgeService';
 import Loader from 'react-loader-spinner';
-import Store from '../../store/storeConfigure';
 import ProductTag from './ProductTag';
-import { Product } from '../../common/interfaces/Product';
+import { IProduct } from '../../common/interfaces/Product';
+import { ADD_PRODUCT, DELETE_PRODUCT, DELETE_PRODUCTS, UPDATE_PRODUCT} from "../../store/actions/ProductActions"
+import { connect } from 'react-redux';
+import StoreType from '../../common/types/StoreType';
 
 interface ProductTagData {
   name: '';
@@ -15,15 +17,33 @@ interface ProductTagData {
   expireDate: Date;
 }
 
-export interface FridgeViewProps {}
+export interface FridgeViewProps extends Pick<StoreType, 'products'> {
+    addProduct, 
+    deleteProduct,
+    deleteProducts,
+    updateProduct,
+}
 
 export interface FridgeViewState {
   src: any;
   nextId: number;
   productTags: ProductTagData[];
   value: any;
-  products: Product[];
+  products: IProduct[];
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: (product: IProduct) => dispatch({ type: ADD_PRODUCT, payload: product }),
+    deleteProduct: (productId: number) => dispatch({ type: DELETE_PRODUCT, payload: productId }),
+    deleteProducts: () => dispatch({ type: DELETE_PRODUCTS}),
+    updateProduct: (product: IProduct) => dispatch({ type: UPDATE_PRODUCT, payload: product }),
+
+  }
+}
+
+
+const mapStateToProps = state => ({products: state.products})
 
 class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   state = {
@@ -36,7 +56,7 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   componentDidMount() {
     new FridgeService(this.getFridgeImage).getImageBase64();
-    this.setState({ products: Store.getCurrentStore().products });
+    this.setState({ products: this.props.products });
   }
 
   componentDidUpdate() {
@@ -44,8 +64,8 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
   }
 
   removeAll = () => {
-    Store.deleteProducts();
-    this.setState({ products: Store.getCurrentStore().products });
+    this.props.deleteProducts();
+    this.setState({ products: this.props.products });
   };
 
   addProduct = e => {
@@ -58,11 +78,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
     const expirationDate = {
       year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
+      month: new Date().getMonth(),
       day: new Date().getDate()
     };
 
-    let product: Product = {
+    let product: IProduct = {
       name: 'PRODUCT',
       tagPosition,
       addedBy: 'USER X',
@@ -76,10 +96,10 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
       prod.shownPopup = false;
     });
 
-    Store.addProduct(product);
+    this.props.addProduct(product);
     this.setState({
       nextId: this.state.nextId + 1,
-      products: Store.getCurrentStore().products
+      products: this.props.products
     });
   };
 
@@ -106,8 +126,8 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
 
   /* Functions passed to ProductTag */
   removeProduct = (id: number) => {
-    Store.deleteProduct(id);
-    this.setState({ products: Store.getCurrentStore().products });
+    this.props.deleteProduct(id);
+    this.setState({ products: this.props.products });
   };
 
   togglePopup = (id: number) => {
@@ -120,11 +140,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
     this.setState({ products });
   };
 
-  updateProduct = (data: Product) => {
+  updateProduct = (data: IProduct) => {
     console.log('Data', data);
-    Store.deleteProduct(data.id);
-    Store.addProduct(data);
-    console.log(Store.getCurrentStore().products);
+    this.props.deleteProduct(data.id);
+    this.props.addProduct(data);
+    console.log(this.props.products);
   };
 
   render() {
@@ -156,11 +176,11 @@ class FridgeView extends React.Component<FridgeViewProps, FridgeViewState> {
             </div>
           )}
 
-          <ul className="fridge__list">{this.listProductTags()}</ul>
+          <ul className="fridge__list">{this.state.src && this.listProductTags()}</ul>
         </div>
       </div>
     );
   }
 }
 
-export default FridgeView;
+export default connect(mapStateToProps, mapDispatchToProps)(FridgeView);

@@ -1,21 +1,29 @@
 import * as React from 'react';
 import { format } from 'date-fns';
 import './AddNoteComponent.scss';
-import { dispatchAddNote } from '../../../store/storeConfigure';
-import { store } from '../../../store/storeConfigure';
-import { saveState, loadState } from '../../../store/globalLocalStorage';
+import { loadState } from '../../../store/globalLocalStorage';
 
-export interface IAddNoteComponentProps {}
+import { connect } from 'react-redux';
+import {ADD_NOTE} from '../../../store/actions/NotesActions'
+import StoreType from '../../types/StoreType';
+import INote from '../../interfaces/Notes'
 
-interface IState {
-  date: any;
-  message: string;
-  author: string;
+export interface IAddNoteComponentProps extends Pick<StoreType, 'notes'> {
+  addNote: (note: INote) => void
 }
 
-export default class AddNoteComponent extends React.Component<
+
+
+const mapStateToProps = state => ({notes: state.notes})
+const mapDispatchToProps = dispatch => {
+  return {
+    addNote: (note: INote) => dispatch({ type: ADD_NOTE, payload: note }), 
+  }
+}
+
+class AddNoteComponent extends React.Component<
   IAddNoteComponentProps,
-  IState
+  INote
 > {
   constructor(props) {
     super(props);
@@ -38,10 +46,7 @@ export default class AddNoteComponent extends React.Component<
   }
 
   handleSubmit(event) {
-    dispatchAddNote(this.state);
-    // store.subscribe(() => {
-    //   saveState(store.getState());
-    // });
+    this.props.addNote(this.state)
     event.preventDefault();
   }
 
@@ -64,3 +69,4 @@ export default class AddNoteComponent extends React.Component<
     );
   }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(AddNoteComponent)

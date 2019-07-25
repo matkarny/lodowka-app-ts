@@ -47,19 +47,15 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
                 })
             }
         }
-
     }
     componentDidMount() {
         const usersData = this.props.getUsersData();
         const clickedUserList = usersData.usersList.filter(user => {
-            console.log(user.id);
-            console.log(this.props.clickedUserId);
             return user.id === this.props.clickedUserId
         })
 
         const clickedUser = clickedUserList[0]
         this.setState({ clickedUserData: clickedUser })
-        console.log(clickedUser);
     }
 
     render() {
