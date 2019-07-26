@@ -48,7 +48,9 @@ class DashboardModule extends React.Component<
   authorize() {
     const users = this.state.users;
     const authorizedUser = users.find(user => user.id === this.state.auth[0]);
-    if (authorizedUser.role === 1) this.setState({ loggedChild: true });
+    console.log('AUTHORIZE', authorizedUser);
+    if (authorizedUser.role === 1 && authorizedUser.role)
+      this.setState({ loggedChild: true });
   }
 
   render() {

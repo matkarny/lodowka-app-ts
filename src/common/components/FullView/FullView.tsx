@@ -2,6 +2,7 @@ import * as React from 'react';
 import './FullView.scss';
 import * as Routes from '../../constants/Routes';
 import { Link } from 'react-router-dom';
+import history from '../../../history';
 
 export interface FullViewProps {
   startAtFirst: boolean;
@@ -52,9 +53,16 @@ export default class FullView extends React.Component<FullViewProps> {
     return (
       <div className="full-list">
         <header className="full-list__header">
-          <Link to={Routes.DASHBOARD} className="full-list__link ">
+          {/* <Link to={Routes.DASHBOARD} className="full-list__link ">
             <div className="full-list__header full-list__arrow ">🡠</div>
-          </Link>
+          </Link> */}
+          <div
+            className="dashboard__button"
+            onClick={() => history.push('/dashboard')}
+          >
+            🡠
+          </div>
+
           <div className="full-list__middle-container">
             <div className="full-list__middle-container-text">
               {this.props.labelName}
