@@ -4,7 +4,7 @@ import * as Routes from '../../constants/Routes';
 import { Link } from 'react-router-dom';
 
 export interface FullViewProps {
-  startAtFirst: boolean;
+  startAtFirst?: boolean;
   labelName: string;
   firstButtonName: string;
   secondButtonName: string;

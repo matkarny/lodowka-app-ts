@@ -1,7 +1,10 @@
 import * as React from 'react';
 import './DrawingComponent.scss';
+import { connect } from 'react-redux';
+// import { IDrawing } from '../../interfaces/Drawing';
+import { ADD_DRAWING, DELETE_DRAWING } from '../../../store/actions/DrawingActions';
 
-interface props {
+export interface state {
   mode: string;
   pen: string;
   lineWidth: number;
@@ -9,8 +12,27 @@ interface props {
   penCoords: any;
   canvasImg: string;
 }
+
+export interface props {
+  mode: string;
+  pen: string;
+  lineWidth: number;
+  penColor: string;
+  penCoords: any;
+  canvasImg: string;
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addDrawing: (drawing) => dispatch({ type: ADD_DRAWING, payload: drawing }),
+    deleteDrawing: (drawingId: number) => dispatch({ type: DELETE_DRAWING, payload: drawingId })
+  }
+}
+
+const mapStateToProps = state => ({drawings: state.drawings})
+
 //simple draw component made in react
-class DrawingComponent extends React.Component<{}, props> {
+export class DrawingComponent extends React.Component<props, state> {
   private canvasRef: any;
   public canvasImg: string;
   public positionX: any;
@@ -91,16 +113,16 @@ class DrawingComponent extends React.Component<{}, props> {
     });
   }
 
-  erase(e) {
-    //mouse is up on the canvas
-    this.setState({
-      mode: 'erase'
-    });
-  }
 
   saveFile(id) {
     let fileToSave: any = document.getElementById(id);
     return fileToSave;
+  }
+  changeColor = (color: string) => {
+    //mouse is up on the canvas
+    this.setState({
+      penColor: color
+    });
   }
 
   render() {
@@ -117,9 +139,28 @@ class DrawingComponent extends React.Component<{}, props> {
           onMouseDown={e => this.penDown(e)}
           onMouseUp={this.penUp}
         />
+      <div className="canvas-color-container">
+      <button className="canvas-circle canvas-circle--grey"onClick={()=> this.changeColor('#5F7891')}>Grey</button>
+      <button className="canvas-circle canvas-circle--black" onClick={()=> this.changeColor('black')}>Black</button>
+      <button className="canvas-circle canvas-circle--red" onClick={()=> this.changeColor('red')}>Red</button>
+      <button className="canvas-circle canvas-circle--blue " onClick={()=> this.changeColor('blue')}>Blue</button>
+      <button className="canvas-erase"onClick={()=> this.changeColor('#ffffff')}>Erase</button>
       </div>
+      <div className="canvas-button-container">
+      <button className="canvas-save" onClick={this.saveFile("mycanvas")}>Save</button>
+      <button className="canvas-save canvas-save--grey" onClick={this.erase}>Clear</button>
+      <button className="canvas-save" onClick={() => console.log(this.state)}>Save</button>
+      </div>
+      
+      </div>
+      
+      
+  
     );
   }
 }
 
-export default DrawingComponent;
+export default connect(mapStateToProps, mapDispatchToProps)(DrawingComponent);
+
+
+//simple draw component made in reac

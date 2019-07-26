@@ -6,6 +6,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import combineReducers from './store/reducer/CombinedReducers';
 import Session from './session/Session';
+import DrawingComponent from './common/components/DrawingComponent/DrawingComponent';
 
 const persistedStore = loadState();
 const store = createStore(combineReducers, persistedStore);
@@ -21,7 +22,7 @@ const App: React.FC = () => {
 
   return (
     <Provider store={store}>
-      <Session />
+    <DrawingComponent />
     </Provider>
   );
 };

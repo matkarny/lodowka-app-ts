@@ -6,7 +6,9 @@ export type StoreType = {
   notes: INote[];
   products: IProduct[];
   users: IUser[];
+  drawings: [];
   auth: [];
+
 };
 
 export default StoreType;

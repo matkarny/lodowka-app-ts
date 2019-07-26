@@ -4,6 +4,7 @@ export const loadState = () => {
     notes: [],
     products: [],
     users: [],
+    drawings: [],
     auth: ["-1"]
   };
 

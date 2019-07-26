@@ -3,10 +3,12 @@ import productReducer from './ProductsReducer';
 import notesReducer from './NotesReducer';
 import usersReducer from './UsersReducer';
 import authReducer from './AuthReducer';
+import drawingReducer from './DrawingReducer';
 
 export default combineReducers({
   products: productReducer,
   notes: notesReducer,
   users: usersReducer,
-  auth: authReducer
+  auth: authReducer,
+  drawings: drawingReducer,
 });
