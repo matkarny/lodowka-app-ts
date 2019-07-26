@@ -1,19 +1,23 @@
 import * as React from 'react';
 import './DrawingComponent.scss';
 import { connect } from 'react-redux';
+import { cloneDeep } from 'lodash'
 // import { IDrawing } from '../../interfaces/Drawing';
 import { ADD_DRAWING, DELETE_DRAWING } from '../../../store/actions/DrawingActions';
+import StoreType from '../../types/StoreType';
 
-export interface state {
+export interface state  {
   mode: string;
   pen: string;
   lineWidth: number;
   penColor: string;
   penCoords: any;
   canvasImg: string;
+  authorID: string;
+  authorName: string;
+  canvasData;
 }
-
-export interface props {
+export interface props extends Pick<StoreType, 'auth' | 'users'> {
   mode: string;
   pen: string;
   lineWidth: number;
@@ -31,7 +35,8 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const mapStateToProps = state => ({drawings: state.drawings})
+const mapStateToProps = state => ({auth: state.auth,
+users: state.users})
 
 //simple draw component made in react
 class DrawingComponent extends React.Component<props, state> {
@@ -45,20 +50,36 @@ class DrawingComponent extends React.Component<props, state> {
     this.canvasRef = React.createRef();
   }
 
+
   componentDidMount() {
     this.settings();
   }
   componentDidUpdate() {
     this.canvasImg = this.saveFile('mycanvas').toDataURL('image/jpeg', 0.5);
-    console.log(this.canvasImg)
   }
+
+  
+  // searchForAuthor(){
+  //   let idNumber = this.props.auth
+  //   let coppyNumber = cloneDeep(idNumber);
+  //   let number = coppyNumber[0];
+  //   console.log(number)
+  //   let currentUsers = cloneDeep(this.props.users)
+  //   let currentUser = currentUsers.find(x => x.id === number).username
+  //   console.log(currentUser)
+  //   this.setState({ authorID: number,
+  //   authorName: currentUser });
+  //   }
 
   settings() {
     this.setState({
       mode: 'draw',
       pen: 'up',
       lineWidth: 10,
-      penColor: '#5F7891'
+      penColor: '#5F7891',
+      authorID: "id",
+      authorName: "name",
+      canvasData: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAGkAaQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAgH/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/9k="
     });
 
     console.log(this.canvasRef);
@@ -73,7 +94,12 @@ class DrawingComponent extends React.Component<props, state> {
   //         mode: 'draw'
   //     })
   // }
-
+  
+public  drawingPack = {
+    // personId: this.state.authorID,
+    // name: this.state.authorName,
+    // drawingData: this.state.canvasImg
+  }
   drawing(e) {
     //if the pen is down in the canvas, draw/erase
     const ctx = this.canvasRef.current.getContext('2d') as CanvasRenderingContext2D;
@@ -96,6 +122,7 @@ class DrawingComponent extends React.Component<props, state> {
       ctx.beginPath();
       this.positionX = e.nativeEvent.offsetX;
       this.positionY = e.nativeEvent.offsetY;
+
     }
   }
 
@@ -107,6 +134,9 @@ class DrawingComponent extends React.Component<props, state> {
     });
     this.positionX = e.nativeEvent.offsetX;
       this.positionY = e.nativeEvent.offsetY;
+      this.setState({
+        canvasData: this.canvasImg
+      })
   }
 
   penUp = (e) => {
@@ -130,6 +160,7 @@ class DrawingComponent extends React.Component<props, state> {
 
   render() {
     console.log('render!');
+
     return (
       <div className="canvas-styling">
         <canvas
@@ -150,7 +181,7 @@ class DrawingComponent extends React.Component<props, state> {
       <button className="canvas-erase"onClick={()=> this.changeColor('#ffffff')}>Erase</button>
       </div>
       <div className="canvas-button-container">
-      <button className="canvas-save" onClick={() => this.props.addDrawing(this.state.canvasImg)}>Save</button>
+      <button className="canvas-save" onClick={() => this.props.addDrawing(this.state)}>Save</button>
       <button className="canvas-save" onClick={() => console.log(this.state)}>Save</button>
       </div>     
       </div>
