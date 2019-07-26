@@ -1,12 +1,17 @@
-$input-color:#5F7891;
-$btn-color: #00C3FF;
-$btn-disabled-color:#E9E9E9;
+@import '../../Login/LoginConstants.scss';
 
 .login-username {
     &__container {
-        width: 1080px;
-        height: 1920px;
+        @include step-cont-config;
         text-align: center;
+    }
+
+    &__title {
+        @include step-title;
+    }
+
+    &__subtitle {
+        @include step-subtitle;
     }
 
     &__input {

@@ -1,14 +1,17 @@
-$input-color:#5F7891;
-$btn-color: #00C3FF;
-$btn-disabled-color:#E9E9E9;
+@import '../../Login/LoginConstants.scss';
 
 .login-pin {
     &__container {
-        display: flex;
-        flex-direction: column;
+        @include step-cont-config;
         align-items: center;
-        width: 1080px;
-        height: 1920px;
+    }
+
+    &__title {
+        @include step-title;
+    }
+
+    &__subtitle {
+        @include step-subtitle;
     }
 
     &__input {
@@ -20,6 +23,7 @@ $btn-disabled-color:#E9E9E9;
         border: 1px solid $input-color;
         color: $input-color;
         font-size: 24px;
+        margin-bottom: 60px;
 
     }
 
@@ -60,7 +64,9 @@ $btn-disabled-color:#E9E9E9;
     &__error-label {
         opacity: 0;
         transition: opacity .3s;
-        color: red;
+        color: #f00;
+        text-align: center;
+        font-size: 16px;
 
         &--active {
             opacity: 1;

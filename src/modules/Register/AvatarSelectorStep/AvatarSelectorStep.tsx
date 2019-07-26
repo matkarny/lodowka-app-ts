@@ -23,36 +23,37 @@ class AvatarSelector extends React.Component<AvatarSelectorProps, AvatarSelector
     render() {
         return (
             <div className="login-avatar__container">
+                <div className="login-avatar__wrapper">
+                    <p className='login-avatar__title'>What is your favorite avatar?</p>
+                    <p className='login-avatar__subtitle'>You will be able to log in by tapping your avatar.</p>
 
-                <p className='login-avatar__title'>What is your favorite avatar?</p>
-                <p className='login-avatar__subtitle'>You will be able to log in by tapping your avatar.</p>
+                    <div className="login-avatar__items-wrapper">
 
-                <div className="login-avatar__items-wrapper">
-
-                    {animalList.map((animal, index) => {
-                        if (animal.id === this.state.selectedAvatar || this.state.selectedAvatar === null) {
-                            return <AnimalComponent
-                                animal={animal.name}
-                                isActive={true}
-                                key={index}
-                                id={animal.id}
-                                src={animal.src}
-                                click={this.handleSelectAvatar}
-                            />
+                        {animalList.map((animal, index) => {
+                            if (animal.id === this.state.selectedAvatar || this.state.selectedAvatar === null) {
+                                return <AnimalComponent
+                                    animal={animal.name}
+                                    isActive={true}
+                                    key={index}
+                                    id={animal.id}
+                                    src={animal.src}
+                                    click={this.handleSelectAvatar}
+                                />
+                            }
+                            else {
+                                return <AnimalComponent
+                                    animal={animal.name}
+                                    isActive={false}
+                                    key={index}
+                                    id={animal.id}
+                                    src={animal.src}
+                                    click={this.handleSelectAvatar}
+                                />
+                            }
+                        })
                         }
-                        else {
-                            return <AnimalComponent
-                                animal={animal.name}
-                                isActive={false}
-                                key={index}
-                                id={animal.id}
-                                src={animal.src}
-                                click={this.handleSelectAvatar}
-                            />
-                        }
-                    })
-                    }
 
+                    </div>
                 </div>
                 <div className="login-avatar__btn-container">
                     <button

@@ -1,8 +1,15 @@
 @import '../LoginConstants.scss';
 
 .login {
+    &-main {
+        &__container {
+            box-sizing: border-box;
+            padding: 10vh 0;
+        }
+    }
+
     &__text-container {
-        text-align: center;
+        @include txt-container
     }
 
     &__welcome-view-container {
@@ -12,12 +19,17 @@
     }
 
     &__welcome-view-title {
+        @include step-title;
+
         &--bigger {
             @include main-title;
         }
     }
 
     &__welcome-view-subtitle {
+        @include step-subtitle;
+
+
         &--bigger {
             @include main-subtitle;
         }

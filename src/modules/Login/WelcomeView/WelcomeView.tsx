@@ -49,17 +49,13 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
             experience.
           </p>
         </div>
-        <p className="login__welcome-view-title">Family members</p>
-        <p className="login__welcome-view-subtitle">
-          Tap an avatar to log in as a family member.
-        </p>
-        <div className="login__welcome-view-container">
-          {this.state.users}
-          {this.props.isParentLogged ? (
-            <NewUserComponent onSelect={this.props.newMemberClick} />
-          ) : (
-            <div />
-          )}
+        <div className="login__welcome-view-wrapper">
+
+          <p className="login__welcome-view-title">Family members</p>
+          <p className="login__welcome-view-subtitle">Tap an avatar to log in as a family member.</p>
+          <div className="login__welcome-view-container">{this.state.users}{this.props.isParentLogged ? <NewUserComponent
+            onSelect={this.props.newMemberClick}
+          /> : null}</div>
         </div>
       </>
     );

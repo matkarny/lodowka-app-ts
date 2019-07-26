@@ -4,15 +4,15 @@ import parentSRC from '../images/iconfinder_malecostume_628289.png'
 
 const roles = [
     {
+        id: 1,
+        name: "parent",
+        src: parentSRC
+    },
+    {
         id: 0,
         name: "child",
         src: childSRC
     },
-    {
-        id: 1,
-        name: "parent",
-        src: parentSRC
-    }
 ]
 
 export default roles
