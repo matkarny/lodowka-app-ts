@@ -60,27 +60,16 @@ class DashboardModule extends React.Component<
               className="dashboard__button"
               onClick={() => history.push('/')}
             >
-              🡠
+              +
             </div>
           ) : (
-            // <Link to={Routes.LOGIN} className="full-list__link ">
-            //   <div className="dashboard__button">🡠 add user</div>
-            // </Link>
-            <div>NO ADDING USERS FOR KIDS</div>
+            <div />
           )}
 
           <LogoutButton />
-
-          {/* <div className="dashboard__button" onClick={() => history.push('/')}>
-            ADD USER
-          </div> */}
         </div>
 
-        {this.state.loggedChild ? (
-          <DrawingComponent />
-        ) : (
-          <div>NO DRAWING FOR PARENTS</div>
-        )}
+        {!this.state.loggedChild ? <DrawingComponent /> : <div />}
 
         {/* <DrawingComponent /> */}
         <WeatherWidgetView />

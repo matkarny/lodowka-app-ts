@@ -65,7 +65,6 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
         this.props.loginUser(this.state.clickedUserData.id);
         authenticator.authenticate(() => {
           this.props.authFunc();
-          document.title = 'LOGGED IN';
         });
       } else {
         this.setState({
@@ -74,6 +73,7 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
       }
     }
   };
+
   componentDidMount() {
     const usersData = this.props.getUsersData();
     const clickedUserList = usersData.filter(user => {

@@ -96,7 +96,6 @@ class Login extends React.Component<LoginProps, LoginState> {
       const activeUserRole = activeUser[0].role;
 
       if (activeUserRole) {
-        document.title = activeUser[0].username;
         this.setState({ isParentLogged: true });
       } else {
         this.setState({ isParentLogged: false });
