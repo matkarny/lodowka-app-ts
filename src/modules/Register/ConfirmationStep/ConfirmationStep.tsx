@@ -14,19 +14,19 @@ const ConfirmationStep: React.SFC<ConfirmationStepProps> = props => {
 
     return (
         <div className="login-confirmation__container">
+            <div className="login-confirmation__wrapper">
+                <p className='login-confirmation__title'>Does that sound alright?</p>
+                <p className='login-confirmation__subtitle'>Check if everything is in order and confirm to create an account or go back to make changes.</p>
 
-            <p className='login-confirmation__title'>Does that sound alright?</p>
-            <p className='login-confirmation__subtitle'>Check if everything is in order and confirm to create an account or go back to make changes.</p>
-
-            <UserComponent
-                colorId={props.colorId}
-                avatarId={props.avatarId}
-                username={props.username}
-                id={props.id}
-                onSelect={null}
-                bigger={true}
-            />
-
+                <UserComponent
+                    colorId={props.colorId}
+                    avatarId={props.avatarId}
+                    username={props.username}
+                    id={props.id}
+                    onSelect={null}
+                    bigger={true}
+                />
+            </div>
             <div className="login-confirmation__btn-container">
                 <button
                     className="login-confirmation__button login-confirmation__button--cancel"

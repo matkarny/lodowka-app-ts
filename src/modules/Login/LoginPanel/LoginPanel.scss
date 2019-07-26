@@ -1,8 +1,19 @@
+@import '../../Login/LoginConstants.scss';
+
 .login-pin {
+
+    &__wrapper {
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
     &__error-label {
         opacity: 0;
         transition: opacity .3s;
-        color: red;
+        color: #f00;
+        text-align: center;
 
         &--active {
             opacity: 1;

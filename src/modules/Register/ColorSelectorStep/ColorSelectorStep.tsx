@@ -23,34 +23,35 @@ class ColorSelector extends React.Component<ColorSelectorProps, ColorSelectorSta
     render() {
         return (
             <div className="login-color__container">
+                <div className="login-wrapper">
+                    <p className='login-color__title'>What is your favorite Color?</p>
+                    <p className='login-color__subtitle'>You will be able to log in by tapping your avatar.</p>
 
-                <p className='login-color__title'>What is your favorite Color?</p>
-                <p className='login-color__subtitle'>You will be able to log in by tapping your avatar.</p>
+                    <div className="login-color__items-wrapper">
 
-                <div className="login-color__items-wrapper">
-
-                    {COLORS.map((color, index) => {
-                        if (color.id === this.state.selectedColor || this.state.selectedColor === null) {
-                            return <ColorComponent
-                                colorName={color.name}
-                                isActive={true}
-                                key={index}
-                                id={color.id}
-                                click={this.handleSelectColor}
-                            />
+                        {COLORS.map((color, index) => {
+                            if (color.id === this.state.selectedColor || this.state.selectedColor === null) {
+                                return <ColorComponent
+                                    colorName={color.name}
+                                    isActive={true}
+                                    key={index}
+                                    id={color.id}
+                                    click={this.handleSelectColor}
+                                />
+                            }
+                            else {
+                                return <ColorComponent
+                                    colorName={color.name}
+                                    isActive={false}
+                                    key={index}
+                                    id={color.id}
+                                    click={this.handleSelectColor}
+                                />
+                            }
+                        })
                         }
-                        else {
-                            return <ColorComponent
-                                colorName={color.name}
-                                isActive={false}
-                                key={index}
-                                id={color.id}
-                                click={this.handleSelectColor}
-                            />
-                        }
-                    })
-                    }
 
+                    </div>
                 </div>
                 <div className="login-color__btn-container">
                     <button className="login-color__button login-color__button--cancel" onClick={this.props.onBack}>Back</button>

@@ -1,10 +1,16 @@
-$btn-color: #00C3FF;
-$btn-disabled-color:#E9E9E9;
+@import '../../Login/LoginConstants.scss';
 
 .login-avatar {
     &__container {
-        width: 1080px;
-        height: 1920px;
+        @include step-cont-config;
+    }
+
+    &__title {
+        @include step-title;
+    }
+
+    &__subtitle {
+        @include step-subtitle;
     }
 
     &__items-wrapper {

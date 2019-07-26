@@ -81,19 +81,23 @@ class LoginPanel extends React.Component<LoginPanelProps, LoginPanelState> {
         return (
             <>
                 <div className="login-pin__container">
-                    <p className="login-pin__title">PIN</p>
+                    <div className="login-pin__wrapper">
 
-                    <input
-                        type='password'
-                        className="login-pin__input"
-                        value={this.state.inputValue}
-                        onChange={e => { this.inputChangeHandler(e) }}
-                        pattern="[0-9]{4}"
-                        maxLength={4}
-                        minLength={4}
-                    />
-                    <p className={`login-pin__error-label ${this.state.isErrorVisible ? 'login-pin__error-label--active' : ''}`}>PIN is invalid</p>
+                        <p className="login-pin__title">Insert your PIN</p>
+                        <div className="login-pin__items-wrapper">
 
+                            <input
+                                type='password'
+                                className="login-pin__input"
+                                value={this.state.inputValue}
+                                onChange={e => { this.inputChangeHandler(e) }}
+                                pattern="[0-9]{4}"
+                                maxLength={4}
+                                minLength={4}
+                            />
+                            <p className={`login-pin__error-label ${this.state.isErrorVisible ? 'login-pin__error-label--active' : ''}`}>PIN is invalid</p>
+                        </div>
+                    </div>
                     <div className="login-confirmation__btn-container">
                         <button
                             className="login-confirmation__button login-confirmation__button--cancel"

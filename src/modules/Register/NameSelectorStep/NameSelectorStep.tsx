@@ -23,14 +23,16 @@ class NameSelectorStep extends React.Component<NameSelectorStepProps, NameSelect
     render() {
         return (
             <div className="login-username__container">
+                <div className="login-username__wrapper">
 
-                <p className="login-username__title">What is your name?</p>
-                <p className="login-username__subtitle">How should the fridge address you?</p>
-                <input
-                    type="text"
-                    className="login-username__input"
-                    value={this.state.inputValue}
-                    onChange={this.inputChangeHandler} />
+                    <p className="login-username__title">What is your name?</p>
+                    <p className="login-username__subtitle">How should the fridge address you?</p>
+                    <input
+                        type="text"
+                        className="login-username__input"
+                        value={this.state.inputValue}
+                        onChange={this.inputChangeHandler} />
+                </div>
 
                 <div className="login-username__btn-container">
                     <button className="login-username__button login-username__button--cancel" onClick={this.props.onBack}>

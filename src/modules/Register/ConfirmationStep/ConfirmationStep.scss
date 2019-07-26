@@ -1,8 +1,9 @@
 @import '../../../common/constants/ColorConstants.scss';
-$btn-color: #00C3FF;
+@import '../../Login/LoginConstants.scss';
 
 .login-confirmation {
     &__container {
+        @include step-cont-config;
         text-align: center;
     }
 
@@ -19,6 +20,13 @@ $btn-color: #00C3FF;
         @include color-classes;
     }
 
+    &__title {
+        @include step-title;
+    }
+
+    &__subtitle {
+        @include step-subtitle;
+    }
 
     &__avatar-container {
         position: relative;
