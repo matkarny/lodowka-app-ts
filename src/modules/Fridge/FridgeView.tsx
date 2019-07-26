@@ -159,9 +159,9 @@ console.log(prod.vitalityColor)
     return (
       <div>
         <div className="popup__actions">
-          <button className="product-tag__delete" onClick={this.removeAll}>
+          {/* <button className="product-tag__delete" onClick={this.removeAll}>
             Remove all
-          </button>
+          </button> */}
         </div>
         <div className="fridge">
           {this.state.src ? (
