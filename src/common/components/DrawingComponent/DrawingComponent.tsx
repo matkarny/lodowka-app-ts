@@ -18,12 +18,6 @@ export interface state  {
   canvasData;
 }
 export interface props extends Pick<StoreType, 'auth' | 'users'> {
-  mode: string;
-  pen: string;
-  lineWidth: number;
-  penColor: string;
-  penCoords: any;
-  canvasImg: string;
   addDrawing,
   deleteDrawing
 }
@@ -85,7 +79,7 @@ class DrawingComponent extends React.Component<props, state> {
     console.log(this.canvasRef);
     const ctx = this.canvasRef.current.getContext('2d');
     ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, 400, 400);
+    ctx.fillRect(0, 0, 440, 440);
     ctx.lineWidth = 10;
   }
 
@@ -166,8 +160,8 @@ public  drawingPack = {
         <canvas
           id="mycanvas"
           ref={this.canvasRef}
-          width="420px"
-          height="420px"
+          width="440px"
+          height="440px"
           className="canvas-background"
           onMouseMove={e => this.drawing(e)}
           onMouseDown={e => this.penDown(e)}
@@ -182,7 +176,7 @@ public  drawingPack = {
       </div>
       <div className="canvas-button-container">
       <button className="canvas-save" onClick={() => this.props.addDrawing(this.state)}>Save</button>
-      <button className="canvas-save" onClick={() => console.log(this.state)}>Save</button>
+      <button className="canvas-save canvas-save--grey" onClick={() => this.settings()}>Clear</button>
       </div>     
       </div>
       

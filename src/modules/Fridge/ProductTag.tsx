@@ -32,7 +32,7 @@ class ProductTag extends React.Component<ProductTagProps, ProductTagState> {
 
   setPopupModifier() {
     const clientHeight = document.documentElement.clientHeight;
-    const diff = clientHeight - +this.state.product.tagPosition;
+    const diff = clientHeight - +this.state.product.tagPosition.top;
     if (diff >= POPUP_SWITCH_VALUE)
       this.setState({ popupModifier: '--rotated' });
   }
