@@ -25,7 +25,7 @@ class NoteLabel extends React.Component<INoteLabelProps> {
     return this.setState({
       author: "Autor: "+ this.props.author
     })}
-if(this.props.message.length>60 && this.props.shortText){
+if(this.props.message.length<60 && this.props.shortText){
   return this.setState({
     text: this.props.message.substring(0,60) + "..."
   })}

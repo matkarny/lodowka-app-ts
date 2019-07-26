@@ -34,7 +34,7 @@ class NotesWidget extends React.Component<INotesWidgetProps> {
                     <Link to={{pathname: Routes.NOTES, state: {startingAtFirst: true}}}  ><ListBtn>VIEW ALL</ListBtn></Link>
                     <Link to={{pathname: Routes.NOTES, state: {startingAtFirst: false}}} ><ListBtn>+</ListBtn></Link>
                 </ListLabel>
-                <MapNotesCompoent shortText={true} mapSize={4} />
+                <MapNotesCompoent shortText={false} mapSize={4} />
             </div>
     );
   }
