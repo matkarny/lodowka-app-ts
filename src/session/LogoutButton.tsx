@@ -20,7 +20,7 @@ const LogoutButton = withRouter(({ history, logoutUser }) => {
         <button
           className="dashboard__button dashboard__button--secondary"
           onClick={() => {
-            Authenticator.signout(() => history.push('/login'));
+            Authenticator.signout(() => history.push('/'));
             logoutUser();
             document.title = 'React App';
           }}

@@ -12,6 +12,7 @@ import * as Routes from '../../common/constants/Routes';
 import LogoutButton from '../../session/LogoutButton';
 import { connect } from 'react-redux';
 import { IUser } from '../../common/interfaces/Users';
+import history from '../../history';
 
 export interface DashboardModuleProps {
   auth: string[];
@@ -54,10 +55,25 @@ class DashboardModule extends React.Component<
     return (
       <div className="dashboard-module">
         <div className="dashboard__navi">
-          {/* <Link to={Routes.LOGIN} className="full-list__link ">
-            <div className="dashboard__button">🡠</div>
-          </Link> */}
+          {this.state.loggedChild ? (
+            <div
+              className="dashboard__button"
+              onClick={() => history.push('/')}
+            >
+              🡠
+            </div>
+          ) : (
+            // <Link to={Routes.LOGIN} className="full-list__link ">
+            //   <div className="dashboard__button">🡠 add user</div>
+            // </Link>
+            <div>NO ADDING USERS FOR KIDS</div>
+          )}
+
           <LogoutButton />
+
+          {/* <div className="dashboard__button" onClick={() => history.push('/')}>
+            ADD USER
+          </div> */}
         </div>
 
         {this.state.loggedChild ? (

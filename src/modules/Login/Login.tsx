@@ -107,16 +107,19 @@ class Login extends React.Component<LoginProps, LoginState> {
       this.setState({ isParentLogged: false });
     }
   };
+
   increaseRegistrationStep = () => {
     this.setState(prevState => ({
       registrationStep: prevState.registrationStep + 1
     }));
   };
+
   decreaseRegistrationStep = () => {
     this.setState(prevState => ({
       registrationStep: prevState.registrationStep - 1
     }));
   };
+
   resetRegistartionStep = () => {
     this.setState({ registrationStep: 0 });
   };
