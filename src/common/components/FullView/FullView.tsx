@@ -53,6 +53,9 @@ export default class FullView extends React.Component<FullViewProps> {
     this.handleChangeButton(this.state.isReverse);
 
   }
+  componentDidUpdate(){
+    console.log(this.props)
+  }
 
   public render() {
     return (

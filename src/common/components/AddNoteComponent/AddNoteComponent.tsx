@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { format } from 'date-fns';
 import './AddNoteComponent.scss';
-import { dropWhile } from 'lodash'
+import { cloneDeep } from 'lodash'
 
 import { connect } from 'react-redux';
 import { ADD_NOTE } from '../../../store/actions/NotesActions';
@@ -32,11 +32,15 @@ class AddNoteComponent extends React.Component<IAddNoteComponentProps, INote> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 componentDidMount(){
+  console.log(this.state)
+  console.log(this.props)
   this.searchForAuthor()
+  
 
 }
   componentWillUpdate(){
     console.log(this.state)
+    console.log(this.props)
     
   }
 
@@ -47,9 +51,12 @@ componentDidMount(){
 
   searchForAuthor(){
 let idNumber = this.props.auth
-
-let number = idNumber.pop()
-let currentUser = this.props.users.find(x => x.id === number).username
+let coppyNumber = cloneDeep(idNumber);
+let number = coppyNumber[0];
+console.log(number)
+let currentUsers = cloneDeep(this.props.users)
+let currentUser = currentUsers.find(x => x.id === number).username
+console.log(currentUser)
 this.setState({ author: currentUser });
 }
 
