@@ -24,8 +24,8 @@ export default function Session() {
         </ul> */}
 
         <Route exact path={Routes.LOGIN} component={Login} />
-        <PrivateRoute path={Routes.PRODUCTS} component={ProductFullList} />
-        <PrivateRoute path={Routes.NOTES} component={NotesFullView} />
+        <Route path={Routes.PRODUCTS} component={ProductFullList} />
+        <Route path={Routes.NOTES} component={NotesFullView} />
         <PrivateRoute path={Routes.DASHBOARD} component={DashboardModule} />
       </div>
     </Router>
