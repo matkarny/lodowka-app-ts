@@ -1,14 +1,70 @@
 .canvas-styling {
-    grid-area: place1;
-};
+  grid-area: place1;
+  display: flex;
+  width: 420px;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
 
 .canvas-background {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+  margin: 0;
+  width: 100;
+  padding: 0;
+  border-radius: 10px;
+}
+
+.canvas-color-container {
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.canvas-button-container{
     display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 10px;
-    margin: 0;
-    width: 100;
-    padding: 0;
-    border-radius: 10px;
-};
+    justify-content: space-evenly;
+}
+
+.canvas-circle {
+  border-radius: 50%;
+  &--grey {
+    background-color: #5f7891;
+    color: white;
+  }
+
+  &--black {
+    background-color: black;
+    color: white;
+  }
+
+  &--blue {
+    background-color: blue;
+    color: white;
+  }
+
+  &--red {
+    background-color: red;
+    color: white;
+  }
+}
+.canvas-erase {
+  border-radius: 20%;
+}
+
+.canvas-save {
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  font-family: "Open Sans";
+  font-weight: 700;
+  color: #ffffff;
+  background-color: red;
+
+  &--grey {
+    background-color: #5f7891;
+  }
+}

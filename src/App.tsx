@@ -21,7 +21,7 @@ const App: React.FC = () => {
 
   return (
     <Provider store={store}>
-      <Session />
+    <Session />
     </Provider>
   );
 };

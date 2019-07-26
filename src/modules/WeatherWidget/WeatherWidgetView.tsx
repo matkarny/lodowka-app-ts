@@ -44,14 +44,18 @@ class WeatherWidgetView extends React.Component<WeatherProps, WeatherState> {
 
   render() {
     return (
-      this.state.data && (
-        <WeatherCard
-          icon={this.state.data.icon}
-          description={this.state.data.description}
-          temperature={this.state.data.temperature}
-          wind={this.state.data.wind}
-        />
-      )
+      <>
+        {this.state.data ? (
+          <WeatherCard
+            icon={this.state.data.icon}
+            description={this.state.data.description}
+            temperature={this.state.data.temperature}
+            wind={this.state.data.wind}
+          />
+        ) : (
+          <WeatherCard icon="na" description="??" temperature="?? " wind={0} />
+        )}
+      </>
     );
   }
 }
