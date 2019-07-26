@@ -8,7 +8,7 @@ const mapDispatchToProps = dispatch => {
   return {
     logoutUser: () => {
       console.log('LOGOUT');
-      dispatch({ type: LOGOUT_USER, payload: -1 });
+      dispatch({ type: LOGOUT_USER, payload: '-1' });
     }
   };
 };
@@ -22,6 +22,7 @@ const LogoutButton = withRouter(({ history, logoutUser }) => {
           onClick={() => {
             Authenticator.signout(() => history.push('/'));
             logoutUser();
+            document.title = 'React App';
           }}
         >
           ◉

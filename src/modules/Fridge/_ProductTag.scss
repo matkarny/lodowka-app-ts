@@ -68,14 +68,15 @@
 
 .date {
   height: 60px;
-
   letter-spacing: 0px;
+
   &__display {
     width: auto;
     display: flex;
     justify-content: space-between;
     position: relative;
-    left: 35px;
+    left: 25px;
+    top: -10px;
   }
 
   input[type='date'] {

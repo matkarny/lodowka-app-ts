@@ -1,6 +1,6 @@
 class Authenticator {
-  isAuthenticated: boolean = false; // -1 - logged out, >= 0 - logged in
-  isAuthorized: boolean = false; // 0 - parent, 1 - child
+  isAuthenticated: boolean = false;
+  isAuthorized: boolean = false;
 
   authenticate(redirect) {
     this.isAuthenticated = true;

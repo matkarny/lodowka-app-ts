@@ -3,34 +3,36 @@ import './WelcomeView.scss';
 import UserComponent from '../../../common/components/UserComponent/UserComponent';
 import NewUserComponent from '../../../common/components/NewUserComponent/NewUserComponent';
 export interface WelcomeViewProps {
-  isParentLogged: boolean,
-  getUsersData,
-  userClick,
-  newMemberClick,
-  checkIsParentLogged,
+  isParentLogged: boolean;
+  getUsersData;
+  userClick;
+  newMemberClick;
+  checkIsParentLogged;
 }
 
 export interface WelcomeViewState {
-  users: [],
+  users: [];
 }
 
 class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
-  state = { users: null }
+  state = { users: null };
 
   renderUsers = () => {
     const usersData = this.props.getUsersData();
-    const currentUsers = usersData.map((user, index) => <UserComponent
-      avatarId={user.avatarIndex}
-      colorId={user.colorIndex}
-      username={user.username}
-      id={user.id}
-      bigger={false}
-      key={index}
-      onSelect={this.props.userClick} />)
+    const currentUsers = usersData.map((user, index) => (
+      <UserComponent
+        avatarId={user.avatarIndex}
+        colorId={user.colorIndex}
+        username={user.username}
+        id={user.id}
+        bigger={false}
+        key={index}
+        onSelect={this.props.userClick}
+      />
+    ));
 
-    this.setState({ users: currentUsers })
-
-  }
+    this.setState({ users: currentUsers });
+  };
   componentDidMount() {
     this.props.checkIsParentLogged();
     this.renderUsers();
@@ -39,8 +41,13 @@ class WelcomeView extends React.Component<WelcomeViewProps, WelcomeViewState> {
     return (
       <>
         <div className="login__text-container">
-          <p className="login__welcome-view-title login__welcome-view-title--bigger">Welcome to Lodówkapp</p>
-          <p className="login__welcome-view-subtitle login__welcome-view-subtitle--bigger">Start by adding members of your family for a more personalised experience.</p>
+          <p className="login__welcome-view-title login__welcome-view-title--bigger">
+            Welcome to Lodówkapp
+          </p>
+          <p className="login__welcome-view-subtitle login__welcome-view-subtitle--bigger">
+            Start by adding members of your family for a more personalised
+            experience.
+          </p>
         </div>
         <div className="login__welcome-view-wrapper">
 
