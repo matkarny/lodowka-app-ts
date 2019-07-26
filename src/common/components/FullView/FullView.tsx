@@ -14,12 +14,12 @@ export interface FullViewProps {
 
 export default class FullView extends React.Component<FullViewProps> {
   state = {
-    isReverse: false,
+    isReverse: this.props.startAtFirst,
     firstButtonClass:
       'full-list__buttons-list-container full-list__buttons-list-container-nonactive',
     secondButtonClass:
       'full-list__buttons-list-container full-list__buttons-list-container-active',
-    injectedComponent: this.props.firstComponent
+    injectedComponent: this.props.firstComponent,
   };
 
   handleChangeButton = change => {
@@ -45,7 +45,16 @@ export default class FullView extends React.Component<FullViewProps> {
   };
 
   componentDidMount() {
-    this.handleChangeButton(this.props.startAtFirst);
+    if(typeof this.props.startAtFirst !== "boolean"){
+      this.setState({
+        isReverse: true,
+      })
+    }
+    this.handleChangeButton(this.state.isReverse);
+
+  }
+  componentDidUpdate(){
+    console.log(this.props)
   }
 
   public render() {
